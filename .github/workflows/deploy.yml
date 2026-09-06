@@ -1,4 +1,4 @@
-# Deploy AI Wealth Base to Cloudflare Workers on push to main.
+# Deploy AI Action Studio to Cloudflare Workers on push to main.
 # Required GitHub secrets: CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID
 
 name: Deploy to Cloudflare Workers
@@ -7,7 +7,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "ai-wealth-base-website/**"
+      - "ai-action-studio/**"
       - ".github/workflows/deploy.yml"
   workflow_dispatch:
 
@@ -21,7 +21,7 @@ jobs:
     timeout-minutes: 25
     defaults:
       run:
-        working-directory: ai-wealth-base-website
+        working-directory: ai-action-studio
     steps:
       - uses: actions/checkout@v4
 
@@ -29,7 +29,7 @@ jobs:
         with:
           node-version: "22"
           cache: npm
-          cache-dependency-path: ai-wealth-base-website/package-lock.json
+          cache-dependency-path: ai-action-studio/package-lock.json
 
       - name: Install dependencies
         run: npm ci
