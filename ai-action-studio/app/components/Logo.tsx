@@ -9,11 +9,11 @@ export default function Logo({ className = "" }: { className?: string }) {
       aria-label="AI Action Studio home"
     >
       <Image
-        src="/images/awb-logo.png"
+        src="/images/aias-logo-white.png"
         alt="AI Action Studio"
-        width={2489}
-        height={200}
-        className="h-7 w-auto object-contain sm:h-8"
+        width={2500}
+        height={400}
+        className="h-8 w-auto object-contain sm:h-9"
         style={{ width: "auto" }}
         priority
       />
