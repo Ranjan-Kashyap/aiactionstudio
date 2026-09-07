@@ -45,7 +45,7 @@ export default function LeadForm({ source = "free-checklist" }: { source?: strin
   return (
     <form onSubmit={onSubmit} className="w-full space-y-4">
       <div>
-        <label htmlFor="name" className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-[rgba(255,255,255,0.55)]">
+        <label htmlFor="name" className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate">
           Name
         </label>
         <input
@@ -54,12 +54,12 @@ export default function LeadForm({ source = "free-checklist" }: { source?: strin
           type="text"
           required
           autoComplete="name"
-          className="w-full rounded-md border border-[rgba(255,255,255,0.12)] bg-slate px-3.5 py-2.5 text-[15px] text-white outline-none transition focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
+          className="w-full rounded-md border border-sand bg-ivory px-3.5 py-2.5 text-[15px] text-navy outline-none transition placeholder:text-slate/50 focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
           placeholder="Your name"
         />
       </div>
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-[rgba(255,255,255,0.55)]">
+        <label htmlFor="email" className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate">
           Email
         </label>
         <input
@@ -68,7 +68,7 @@ export default function LeadForm({ source = "free-checklist" }: { source?: strin
           type="email"
           required
           autoComplete="email"
-          className="w-full rounded-md border border-[rgba(255,255,255,0.12)] bg-slate px-3.5 py-2.5 text-[15px] text-white outline-none transition focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
+          className="w-full rounded-md border border-sand bg-ivory px-3.5 py-2.5 text-[15px] text-navy outline-none transition placeholder:text-slate/50 focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
           placeholder="you@example.com"
         />
       </div>
@@ -81,13 +81,13 @@ export default function LeadForm({ source = "free-checklist" }: { source?: strin
       </button>
       {message && (
         <p
-          className={`text-[14px] ${status === "success" ? "text-mint" : "text-[var(--error)]"}`}
+          className={`text-[14px] ${status === "success" ? "text-navy" : "text-[var(--error)]"}`}
           role="status"
         >
           {message}
         </p>
       )}
-      <p className="text-[12px] leading-relaxed text-[rgba(255,255,255,0.4)]">
+      <p className="text-[12px] leading-relaxed text-slate/70">
         No spam. Unsubscribe anytime. We respect your inbox the way we respect your time.
       </p>
     </form>

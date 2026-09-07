@@ -32,11 +32,11 @@ const footerLinks = [
 
 export default function Footer() {
   return (
-    <footer className="mt-auto border-t border-[rgba(255,255,255,0.08)] bg-[#070b14]">
+    <footer className="mt-auto border-t border-[rgba(255,255,255,0.08)] bg-navy">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
-            <Logo />
+            <Logo variant="white" />
             <p className="mt-4 text-[14px] leading-relaxed text-[rgba(255,255,255,0.55)]">
               We test AI tools and methods on camera — honestly, with real workflows — so you can
               build genuine online income without the hype.

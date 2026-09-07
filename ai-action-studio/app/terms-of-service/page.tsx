@@ -11,13 +11,13 @@ export default function TermsPage() {
   return (
     <section className="py-16 md:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <Link href="/" className="text-[14px] text-mint hover:underline">
+        <Link href="/" className="text-[14px] font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy">
           ← Home
         </Link>
-        <h1 className="mt-4 text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-white">
+        <h1 className="mt-4 text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-navy">
           Terms of Service
         </h1>
-        <p className="mt-2 text-[13px] text-[rgba(255,255,255,0.45)]">Last updated: September 7, 2026</p>
+        <p className="mt-2 text-[13px] text-slate/70">Last updated: September 7, 2026</p>
         <div className="prose-awb mt-8">
           <p>
             By using AIActionStudio.com, you agree to these terms. If you do not agree, please do not

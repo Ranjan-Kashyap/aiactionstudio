@@ -15,42 +15,42 @@ export default function FreeChecklistPage() {
       <div className="absolute inset-0 hero-grid opacity-40" aria-hidden />
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-start lg:px-8">
         <div>
-          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-mint">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
             Free download
           </p>
-          <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
+          <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-navy">
             The AI Tool Stack Checklist
           </h1>
-          <p className="mt-5 text-[17px] leading-relaxed text-[rgba(255,255,255,0.7)]">
+          <p className="mt-5 text-[17px] leading-relaxed text-slate">
             Stop collecting random AI apps. Get a clear checklist of what to test for freelancing,
             side income, and business operations — filtered through real workflows.
           </p>
-          <ul className="mt-8 space-y-4 text-[15px] text-[rgba(255,255,255,0.72)]">
+          <ul className="mt-8 space-y-4 text-[15px] text-slate">
             <li className="flex gap-3">
-              <span className="mt-0.5 text-mint">01</span>
+              <span className="mt-0.5 text-navy">01</span>
               <span>Stacks mapped to earning paths — not endless tool lists</span>
             </li>
             <li className="flex gap-3">
-              <span className="mt-0.5 text-mint">02</span>
+              <span className="mt-0.5 text-navy">02</span>
               <span>What to verify before you subscribe</span>
             </li>
             <li className="flex gap-3">
-              <span className="mt-0.5 text-mint">03</span>
+              <span className="mt-0.5 text-navy">03</span>
               <span>Weekly tool verdicts when we publish new tests</span>
             </li>
           </ul>
-          <p className="mt-8 text-[14px] text-[rgba(255,255,255,0.45)]">
+          <p className="mt-8 text-[14px] text-slate/70">
             Prefer reading first?{" "}
-            <Link href="/reviews" className="text-mint hover:underline">
+            <Link href="/reviews" className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy">
               Browse upcoming reviews
             </Link>
             .
           </p>
         </div>
 
-        <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-slate p-6 shadow-[0_2px_8px_rgba(0,0,0,0.3)] md:p-8">
-          <h2 className="text-[20px] font-semibold text-white">Get it in your inbox</h2>
-          <p className="mt-2 mb-6 text-[14px] text-[rgba(255,255,255,0.55)]">
+        <div className="rounded-xl border border-sand bg-white p-6 shadow-[0_8px_24px_rgba(10,15,29,0.05)] md:p-8">
+          <h2 className="text-[20px] font-semibold text-navy">Get it in your inbox</h2>
+          <p className="mt-2 mb-6 text-[14px] text-slate">
             Name + email. That&apos;s it.
           </p>
           <LeadForm source="free-checklist" />

@@ -68,7 +68,7 @@ export default function LeadCaptureForm({
         <div>
           <label
             htmlFor="roi-name"
-            className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-[rgba(255,255,255,0.55)]"
+            className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate"
           >
             Name
           </label>
@@ -78,14 +78,14 @@ export default function LeadCaptureForm({
             type="text"
             required
             autoComplete="name"
-            className="w-full rounded-md border border-[rgba(255,255,255,0.12)] bg-navy px-3.5 py-2.5 text-[15px] text-white outline-none transition focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
+            className="w-full rounded-md border border-sand bg-ivory px-3.5 py-2.5 text-[15px] text-navy outline-none transition placeholder:text-slate/50 focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
             placeholder="Your name"
           />
         </div>
         <div>
           <label
             htmlFor="roi-email"
-            className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-[rgba(255,255,255,0.55)]"
+            className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate"
           >
             Email
           </label>
@@ -95,7 +95,7 @@ export default function LeadCaptureForm({
             type="email"
             required
             autoComplete="email"
-            className="w-full rounded-md border border-[rgba(255,255,255,0.12)] bg-navy px-3.5 py-2.5 text-[15px] text-white outline-none transition focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
+            className="w-full rounded-md border border-sand bg-ivory px-3.5 py-2.5 text-[15px] text-navy outline-none transition placeholder:text-slate/50 focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
             placeholder="you@example.com"
           />
         </div>
@@ -103,13 +103,13 @@ export default function LeadCaptureForm({
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full rounded-lg border border-mint bg-transparent px-6 py-3 text-[15px] font-semibold text-white transition hover:bg-[rgba(0,245,160,0.08)] disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+        className="w-full rounded-lg bg-mint px-6 py-3 text-[15px] font-semibold text-navy transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
       >
         {status === "loading" ? "Sending…" : "Email me this ROI report"}
       </button>
       {message && (
         <p
-          className={`text-[14px] ${status === "success" ? "text-mint" : "text-[var(--error)]"}`}
+          className={`text-[14px] ${status === "success" ? "text-navy" : "text-[var(--error)]"}`}
           role="status"
         >
           {message}

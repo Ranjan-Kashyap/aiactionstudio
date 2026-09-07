@@ -36,19 +36,19 @@ export default async function BlogPostPage({ params }: Props) {
   return (
     <article className="py-16 md:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <Link href="/blog" className="text-[14px] text-mint hover:underline">
+        <Link href="/blog" className="text-[14px] font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy">
           ← Blog
         </Link>
-        <p className="mt-6 text-[13px] text-[rgba(255,255,255,0.45)]">
+        <p className="mt-6 text-[13px] text-slate/70">
           {post.formattedDate} · {post.author}
         </p>
-        <h1 className="mt-3 text-[clamp(1.85rem,4vw,2.75rem)] font-bold leading-tight text-white">
+        <h1 className="mt-3 text-[clamp(1.85rem,4vw,2.75rem)] font-bold leading-tight text-navy">
           {post.title}
         </h1>
         {post.tags.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
             {post.tags.map((tag) => (
-              <span key={tag} className="text-[11px] font-semibold uppercase tracking-wide text-mint">
+              <span key={tag} className="text-[11px] font-semibold uppercase tracking-wide text-slate">
                 {tag}
               </span>
             ))}
@@ -58,8 +58,8 @@ export default async function BlogPostPage({ params }: Props) {
           className="prose-awb mt-10"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
-        <div className="mt-14 rounded-xl border border-[rgba(255,255,255,0.08)] bg-slate p-6 text-center">
-          <p className="text-[16px] font-medium text-white">Want the practical stack?</p>
+        <div className="mt-14 rounded-xl border border-sand bg-white p-6 text-center">
+          <p className="text-[16px] font-medium text-navy">Want the practical stack?</p>
           <Link
             href="/free-checklist"
             className="mt-4 inline-flex rounded-lg bg-mint px-5 py-2.5 text-[15px] font-semibold text-navy hover:brightness-110"

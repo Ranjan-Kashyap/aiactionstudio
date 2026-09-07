@@ -5,14 +5,17 @@
   --slate: #1e293b;
   --mint: #00f5a0;
   --white: #ffffff;
+  --ivory: #faf7f0;
+  --cream: #f5f1e8;
+  --sand: #ede8dc;
   --error: #ff4d6d;
   --warning: #ffb020;
 
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.72);
-  --text-muted: rgba(255, 255, 255, 0.48);
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-default: rgba(255, 255, 255, 0.12);
+  --text-primary: var(--navy);
+  --text-secondary: var(--slate);
+  --text-muted: rgba(10, 15, 29, 0.55);
+  --border-subtle: var(--sand);
+  --border-default: #e4dece;
 
   --space-1: 8px;
   --space-2: 16px;
@@ -34,6 +37,9 @@
   --color-navy: var(--navy);
   --color-slate: var(--slate);
   --color-mint: var(--mint);
+  --color-ivory: var(--ivory);
+  --color-cream: var(--cream);
+  --color-sand: var(--sand);
   --color-awb-white: var(--white);
   --color-awb-error: var(--error);
   --color-awb-warning: var(--warning);
@@ -45,7 +51,7 @@ html {
 }
 
 body {
-  background: var(--navy);
+  background: var(--ivory);
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 16px;
@@ -53,8 +59,8 @@ body {
 }
 
 ::selection {
-  background: rgba(0, 245, 160, 0.25);
-  color: #fff;
+  background: rgba(0, 245, 160, 0.28);
+  color: var(--navy);
 }
 
 @keyframes fade-up {
@@ -110,24 +116,21 @@ body {
 }
 
 .hero-grid {
-  background-image: linear-gradient(
-      rgba(0, 245, 160, 0.04) 1px,
-      transparent 1px
-    ),
-    linear-gradient(90deg, rgba(0, 245, 160, 0.04) 1px, transparent 1px);
+  background-image: linear-gradient(rgba(10, 15, 29, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(10, 15, 29, 0.045) 1px, transparent 1px);
   background-size: 48px 48px;
   animation: grid-drift 28s linear infinite;
 }
 
 .prose-awb {
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--slate);
   line-height: 1.75;
 }
 
 .prose-awb h2,
 .prose-awb h3,
 .prose-awb h4 {
-  color: #fff;
+  color: var(--navy);
   font-weight: 600;
   margin-top: 2rem;
   margin-bottom: 0.75rem;
@@ -148,21 +151,26 @@ body {
 }
 
 .prose-awb a {
-  color: var(--mint);
+  color: var(--navy);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
+.prose-awb a:hover {
+  color: var(--slate);
+}
+
 .prose-awb code {
-  background: var(--slate);
+  background: var(--cream);
   padding: 0.15rem 0.4rem;
   border-radius: 4px;
   font-size: 0.9em;
 }
 
 .prose-awb pre {
-  background: var(--slate);
-  border: 1px solid var(--border-subtle);
+  background: var(--navy);
+  color: var(--white);
+  border: 1px solid var(--slate);
   border-radius: 8px;
   padding: 1rem;
   overflow-x: auto;

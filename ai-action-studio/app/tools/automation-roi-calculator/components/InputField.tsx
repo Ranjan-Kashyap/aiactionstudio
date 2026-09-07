@@ -23,30 +23,30 @@ export default function InputField({
     <div>
       <label
         htmlFor={id}
-        className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-[rgba(255,255,255,0.55)]"
+        className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate"
       >
         {label}
       </label>
       <div className="relative">
         {prefix && (
-          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[15px] text-[rgba(255,255,255,0.45)]">
+          <span className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-[15px] text-slate">
             {prefix}
           </span>
         )}
         <input
           id={id}
-          className={`w-full rounded-md border border-[rgba(255,255,255,0.12)] bg-navy px-3.5 py-2.5 text-[15px] text-white outline-none transition focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)] ${
+          className={`w-full rounded-md border border-sand bg-ivory px-3.5 py-2.5 text-[15px] text-navy outline-none transition placeholder:text-slate/50 focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)] ${
             prefix ? "pl-8" : ""
           } ${suffix ? "pr-12" : ""} ${className}`}
           {...props}
         />
         {suffix && (
-          <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[13px] text-[rgba(255,255,255,0.4)]">
+          <span className="pointer-events-none absolute right-3.5 top-1/2 -translate-y-1/2 text-[13px] text-slate/70">
             {suffix}
           </span>
         )}
       </div>
-      {hint && <p className="mt-1.5 text-[12px] text-[rgba(255,255,255,0.4)]">{hint}</p>}
+      {hint && <p className="mt-1.5 text-[12px] text-slate/70">{hint}</p>}
     </div>
   );
 }

@@ -20,46 +20,46 @@ export default function AboutPage() {
   return (
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-mint">About</p>
-        <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold text-white">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">About</p>
+        <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
           Built for people tired of AI hype
         </h1>
-        <p className="mt-6 text-[17px] leading-relaxed text-[rgba(255,255,255,0.72)]">
+        <p className="mt-6 text-[17px] leading-relaxed text-slate">
           AI Action Studio tests, reviews, and breaks down AI software, automation systems, and digital
           tools — honestly and with real workflows — so viewers can build genuine online income
           without wasting time or money on hype.
         </p>
-        <p className="mt-4 text-[17px] leading-relaxed text-[rgba(255,255,255,0.72)]">
+        <p className="mt-4 text-[17px] leading-relaxed text-slate">
           For freelancers, side hustlers, and business owners overwhelmed by AI noise, we&apos;re the
           channel that actually tests every tool and method on camera — backed by real marketing
           agency experience.
         </p>
 
-        <h2 className="mt-12 text-[24px] font-semibold text-white">Brand pillars</h2>
+        <h2 className="mt-12 text-[24px] font-semibold text-navy">Brand pillars</h2>
         <ul className="mt-5 space-y-3">
           {pillars.map((item) => (
             <li
               key={item}
-              className="border-l-2 border-mint pl-4 text-[15px] leading-relaxed text-[rgba(255,255,255,0.7)]"
+              className="border-l-2 border-mint pl-4 text-[15px] leading-relaxed text-slate"
             >
               {item}
             </li>
           ))}
         </ul>
 
-        <h2 className="mt-12 text-[24px] font-semibold text-white">Viewer promise</h2>
-        <p className="mt-4 text-[17px] text-[rgba(255,255,255,0.72)]">
+        <h2 className="mt-12 text-[24px] font-semibold text-navy">Viewer promise</h2>
+        <p className="mt-4 text-[17px] text-slate">
           Watch us test every method first, and copy only what works.
         </p>
 
-        <h2 className="mt-12 text-[24px] font-semibold text-white">Sister company</h2>
-        <p className="mt-4 text-[15px] leading-relaxed text-[rgba(255,255,255,0.68)]">
+        <h2 className="mt-12 text-[24px] font-semibold text-navy">Sister company</h2>
+        <p className="mt-4 text-[15px] leading-relaxed text-slate">
           The founder runs{" "}
           <a
             href="https://scalerise.io"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-mint hover:underline"
+            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
           >
             ScaleRise
           </a>
@@ -79,7 +79,7 @@ export default function AboutPage() {
             href="https://youtube.com/@AIWealthBase"
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-lg border border-mint px-5 py-3 text-[15px] font-medium text-white hover:bg-[rgba(0,245,160,0.08)]"
+            className="rounded-lg border border-navy px-5 py-3 text-[15px] font-medium text-navy hover:bg-navy hover:text-white"
           >
             YouTube Channel
           </a>

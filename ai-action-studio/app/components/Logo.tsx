@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Logo({ className = "" }: { className?: string }) {
+type LogoProps = {
+  className?: string;
+  variant?: "color" | "white";
+};
+
+export default function Logo({ className = "", variant = "color" }: LogoProps) {
+  const src = variant === "white" ? "/images/aias-logo-white.png" : "/images/aias-logo.png";
+
   return (
     <Link
       href="/"
@@ -9,7 +16,7 @@ export default function Logo({ className = "" }: { className?: string }) {
       aria-label="AI Action Studio home"
     >
       <Image
-        src="/images/aias-logo-white.png"
+        src={src}
         alt="AI Action Studio"
         width={2500}
         height={400}

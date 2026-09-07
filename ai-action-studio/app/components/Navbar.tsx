@@ -22,9 +22,9 @@ export default function Navbar() {
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[rgba(255,255,255,0.08)] bg-[rgba(10,15,29,0.88)] backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-sand bg-ivory/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8">
-        <Logo />
+        <Logo variant="color" />
 
         <nav className="hidden items-center gap-4 whitespace-nowrap xl:flex xl:gap-6" aria-label="Primary">
           {links.map((link) => (
@@ -33,8 +33,8 @@ export default function Navbar() {
               href={link.href}
               className={`text-[14px] font-medium tracking-[0.02em] transition-colors xl:text-[15px] ${
                 isActive(link.href)
-                  ? "text-mint"
-                  : "text-[rgba(255,255,255,0.72)] hover:text-white"
+                  ? "text-navy"
+                  : "text-slate hover:text-navy"
               }`}
             >
               {link.label}
@@ -50,7 +50,7 @@ export default function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-white xl:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-navy xl:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint"
           aria-label={open ? "Close menu" : "Open menu"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -66,7 +66,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <div className="border-t border-[rgba(255,255,255,0.08)] bg-navy px-4 py-4 md:hidden">
+        <div className="border-t border-sand bg-ivory px-4 py-4 xl:hidden">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {links.map((link) => (
               <Link
@@ -74,7 +74,7 @@ export default function Navbar() {
                 href={link.href}
                 onClick={() => setOpen(false)}
                 className={`rounded-md px-3 py-3 text-[15px] font-medium ${
-                  isActive(link.href) ? "bg-slate text-mint" : "text-white"
+                  isActive(link.href) ? "bg-cream text-navy" : "text-slate"
                 }`}
               >
                 {link.label}

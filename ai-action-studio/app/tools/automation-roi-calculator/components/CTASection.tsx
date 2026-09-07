@@ -4,11 +4,11 @@ import { trackEvent } from "@/lib/analytics";
 
 export default function CTASection() {
   return (
-    <div className="rounded-xl border border-[rgba(0,245,160,0.35)] bg-[rgba(0,245,160,0.08)] p-6 text-center md:p-8">
-      <h2 className="text-[22px] font-bold leading-tight text-white md:text-[26px]">
+    <div className="rounded-xl border border-sand bg-cream p-6 text-center md:p-8">
+      <h2 className="text-[22px] font-bold leading-tight text-navy md:text-[26px]">
         Want this task automated for your business?
       </h2>
-      <p className="mx-auto mt-3 max-w-lg text-[15px] text-[rgba(255,255,255,0.65)]">
+      <p className="mx-auto mt-3 max-w-lg text-[15px] text-slate">
         ScaleRise designs and builds the automations — so you keep the hours and dollars this
         calculator just showed you.
       </p>

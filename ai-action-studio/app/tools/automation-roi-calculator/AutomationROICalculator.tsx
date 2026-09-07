@@ -89,9 +89,9 @@ export default function AutomationROICalculator() {
     <div className="space-y-10">
       <div className="grid gap-8 lg:grid-cols-2 lg:items-start">
         {/* Inputs */}
-        <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-slate p-6 shadow-[0_2px_8px_rgba(0,0,0,0.3)] md:p-8">
-          <h2 className="text-[20px] font-semibold text-white">Your repetitive task</h2>
-          <p className="mt-1 mb-6 text-[14px] text-[rgba(255,255,255,0.5)]">
+        <div className="rounded-xl border border-sand bg-white p-6 shadow-[0_8px_24px_rgba(10,15,29,0.05)] md:p-8">
+          <h2 className="text-[20px] font-semibold text-navy">Your repetitive task</h2>
+          <p className="mt-1 mb-6 text-[14px] text-slate">
             Results update live — no submit needed.
           </p>
 
@@ -109,7 +109,7 @@ export default function AutomationROICalculator() {
             <div>
               <label
                 htmlFor="frequency"
-                className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-[rgba(255,255,255,0.55)]"
+                className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate"
               >
                 Frequency
               </label>
@@ -117,7 +117,7 @@ export default function AutomationROICalculator() {
                 id="frequency"
                 value={frequency}
                 onChange={(e) => setFrequency(e.target.value as Frequency)}
-                className="w-full rounded-md border border-[rgba(255,255,255,0.12)] bg-navy px-3.5 py-2.5 text-[15px] text-white outline-none transition focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
+                className="w-full rounded-md border border-sand bg-ivory px-3.5 py-2.5 text-[15px] text-navy outline-none transition focus:border-mint focus:ring-2 focus:ring-[rgba(0,245,160,0.25)]"
               >
                 {FREQUENCY_OPTIONS.map((opt) => (
                   <option key={opt.value} value={opt.value}>
@@ -164,7 +164,7 @@ export default function AutomationROICalculator() {
               <button
                 type="button"
                 onClick={() => setAdvancedOpen((open) => !open)}
-                className="flex w-full items-center justify-between rounded-md py-2 text-left text-[14px] font-medium text-mint hover:underline"
+                className="flex w-full items-center justify-between rounded-md py-2 text-left text-[14px] font-medium text-navy hover:underline"
                 aria-expanded={advancedOpen}
               >
                 Advanced: % that can be automated
@@ -172,9 +172,9 @@ export default function AutomationROICalculator() {
               </button>
               {advancedOpen && (
                 <div className="mt-3">
-                  <div className="mb-2 flex items-center justify-between text-[13px] text-[rgba(255,255,255,0.65)]">
+                  <div className="mb-2 flex items-center justify-between text-[13px] text-slate">
                     <span>Automatable</span>
-                    <span className="font-semibold text-mint">{automatablePercent}%</span>
+                    <span className="font-semibold text-navy">{automatablePercent}%</span>
                   </div>
                   <input
                     id="automatable"
@@ -184,10 +184,10 @@ export default function AutomationROICalculator() {
                     step={1}
                     value={automatablePercent}
                     onChange={(e) => setAutomatablePercent(Number(e.target.value))}
-                    className="h-2 w-full cursor-pointer appearance-none rounded-full bg-[rgba(255,255,255,0.12)] accent-[#00F5A0]"
+                    className="h-2 w-full cursor-pointer appearance-none rounded-full bg-sand accent-[#00F5A0]"
                     aria-label="Percent of this task that can be automated"
                   />
-                  <p className="mt-2 text-[12px] text-[rgba(255,255,255,0.4)]">
+                  <p className="mt-2 text-[12px] text-slate/70">
                     Most ops tasks land around 70–90%. Leave at 80% if you&apos;re unsure.
                   </p>
                 </div>
@@ -197,14 +197,14 @@ export default function AutomationROICalculator() {
         </div>
 
         {/* Results */}
-        <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-slate p-6 shadow-[0_2px_8px_rgba(0,0,0,0.3)] md:p-8">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-mint">
+        <div className="rounded-xl border border-sand bg-white p-6 shadow-[0_8px_24px_rgba(10,15,29,0.05)] md:p-8">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
             Estimated annual savings
           </p>
-          <p className="mt-4 text-[clamp(2.4rem,5vw,3.5rem)] font-bold leading-none tracking-tight text-white">
+          <p className="mt-4 text-[clamp(2.4rem,5vw,3.5rem)] font-bold leading-none tracking-tight text-navy">
             {formatCurrency(animatedDollars)}
           </p>
-          <p className="mt-3 text-[14px] text-[rgba(255,255,255,0.5)]">
+          <p className="mt-3 text-[14px] text-slate">
             {taskName.trim() ? `If you automate “${taskName.trim()}”` : "If you automate this task"}{" "}
             at {automatablePercent}% coverage
           </p>
@@ -233,9 +233,9 @@ export default function AutomationROICalculator() {
 
       <CTASection />
 
-      <div className="rounded-xl border border-[rgba(255,255,255,0.08)] bg-slate p-6 md:p-8">
-        <h2 className="text-[18px] font-semibold text-white">Want this report in your inbox?</h2>
-        <p className="mt-1 mb-6 text-[14px] text-[rgba(255,255,255,0.5)]">
+      <div className="rounded-xl border border-sand bg-white p-6 md:p-8">
+        <h2 className="text-[18px] font-semibold text-navy">Want this report in your inbox?</h2>
+        <p className="mt-1 mb-6 text-[14px] text-slate">
           We&apos;ll send a copy of these numbers. No spam.
         </p>
         <LeadCaptureForm

@@ -32,13 +32,13 @@ export default function AutomationRoiCalculatorPage() {
     <section className="relative overflow-hidden py-16 md:py-24">
       <div className="absolute inset-0 hero-grid opacity-40" aria-hidden />
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-mint">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
           Free tool
         </p>
-        <h1 className="mt-3 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-white">
+        <h1 className="mt-3 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-navy">
           Automation ROI Calculator
         </h1>
-        <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-[rgba(255,255,255,0.7)]">
+        <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-slate">
           See how many hours and dollars a repetitive task costs you every year — then decide if
           it&apos;s worth automating.
         </p>
