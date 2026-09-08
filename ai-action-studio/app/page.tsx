@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import HeroAiBackdrop from "./components/HeroAiBackdrop";
 import LeadForm from "./components/LeadForm";
 
 export const metadata: Metadata = {
@@ -47,16 +48,8 @@ const reviewTeasers = [
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center bg-ivory">
-        <div className="absolute inset-0 hero-grid opacity-70" aria-hidden />
-        <div
-          className="absolute -top-24 right-[-10%] h-[420px] w-[420px] rounded-full bg-[rgba(0,245,160,0.16)] blur-3xl mint-glow"
-          aria-hidden
-        />
-        <div
-          className="absolute bottom-[-20%] left-[-10%] h-[380px] w-[380px] rounded-full bg-[rgba(237,232,220,0.9)] blur-3xl"
-          aria-hidden
-        />
+      <section className="relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center bg-white">
+        <HeroAiBackdrop />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
           <p className="animate-fade-up text-[12px] font-semibold uppercase tracking-[0.18em] text-slate">
@@ -88,7 +81,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-sand bg-cream py-20 md:py-24">
+      <section className="border-t border-sand bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="max-w-2xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
             Watch us test every method first. Copy only what works.
@@ -109,7 +102,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-ivory py-20 md:py-24">
+      <section className="bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
             <div>
@@ -128,7 +121,7 @@ export default function HomePage() {
             {reviewTeasers.map((item) => (
               <article
                 key={item.title}
-                className="rounded-xl border border-sand bg-white p-6 transition hover:border-mint hover:shadow-[0_8px_24px_rgba(10,15,29,0.06)]"
+                className="rounded-xl border border-sand bg-ivory p-6 transition hover:border-mint hover:shadow-[0_8px_24px_rgba(10,15,29,0.06)]"
               >
                 <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate">
                   {item.tag}
@@ -141,7 +134,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-sand bg-cream py-20 md:py-24">
+      <section className="border-t border-sand bg-ivory py-20 md:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
@@ -172,7 +165,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-t border-sand bg-ivory py-16">
+      <section className="border-t border-sand bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-[22px] font-semibold text-navy md:text-[26px]">
             Running a business and need operators, not another tool video?
