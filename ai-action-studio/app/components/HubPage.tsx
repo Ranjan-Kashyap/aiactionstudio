@@ -1,4 +1,7 @@
+import Link from "next/link";
 import LeadForm from "./LeadForm";
+
+export type HubTeaser = string | { title: string; href?: string };
 
 type HubPageProps = {
   eyebrow: string;
@@ -6,10 +9,18 @@ type HubPageProps = {
   subheading?: string;
   copy: string;
   supporting?: string;
-  teasers?: string[];
+  teasers?: HubTeaser[];
   children?: React.ReactNode;
   source: string;
 };
+
+function teaserTitle(item: HubTeaser) {
+  return typeof item === "string" ? item : item.title;
+}
+
+function teaserHref(item: HubTeaser) {
+  return typeof item === "string" ? undefined : item.href;
+}
 
 export default function HubPage({
   eyebrow,
@@ -39,18 +50,50 @@ export default function HubPage({
         ) : null}
         {children}
         {teasers && teasers.length > 0 ? (
-          <div className="mt-10">
-            <h2 className="text-[18px] font-semibold text-navy">What&apos;s coming</h2>
-            <ul className="mt-4 grid gap-3">
-              {teasers.map((title) => (
-                <li
-                  key={title}
-                  className="rounded-xl border border-sand bg-white p-5 text-[15px] font-medium text-navy"
-                >
-                  {title}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-10 space-y-8">
+            {teasers.some((item) => teaserHref(item)) ? (
+              <div>
+                <h2 className="text-[18px] font-semibold text-navy">Start here</h2>
+                <ul className="mt-4 grid gap-3">
+                  {teasers
+                    .filter((item) => teaserHref(item))
+                    .map((item) => {
+                      const title = teaserTitle(item);
+                      const href = teaserHref(item)!;
+                      return (
+                        <li key={title}>
+                          <Link
+                            href={href}
+                            className="block rounded-xl border border-sand bg-white p-5 text-[15px] font-medium text-navy transition hover:border-mint"
+                          >
+                            {title}
+                          </Link>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+            ) : null}
+            {teasers.some((item) => !teaserHref(item)) ? (
+              <div>
+                <h2 className="text-[18px] font-semibold text-navy">What&apos;s coming</h2>
+                <ul className="mt-4 grid gap-3">
+                  {teasers
+                    .filter((item) => !teaserHref(item))
+                    .map((item) => {
+                      const title = teaserTitle(item);
+                      return (
+                        <li
+                          key={title}
+                          className="rounded-xl border border-sand bg-white p-5 text-[15px] font-medium text-navy"
+                        >
+                          {title}
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+            ) : null}
           </div>
         ) : null}
         <div className="mt-12 rounded-xl border border-sand bg-white p-6 md:p-8">

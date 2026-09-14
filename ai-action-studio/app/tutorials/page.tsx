@@ -15,7 +15,10 @@ export default function TutorialsPage() {
       heading="AI Tutorials: How to Actually Use ChatGPT, Gemini, Claude & More"
       copy="Most AI tutorials assume you already know what a prompt is. These don't. Clear, step-by-step walkthroughs for actually using ChatGPT, Gemini, Claude, Midjourney and the other tools everyone's talking about — written for people getting started, not people showing off."
       teasers={[
-        "How to Use ChatGPT (Complete Beginner's Guide)",
+        {
+          title: "How to Use ChatGPT (Complete Beginner's Guide)",
+          href: "/tutorials/how-to-use-chatgpt",
+        },
         "What Is Artificial Intelligence? (Explained Simply)",
         "How to Use Gemini AI",
         "How to Use Claude AI",

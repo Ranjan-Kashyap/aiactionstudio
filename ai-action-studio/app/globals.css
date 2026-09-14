@@ -702,7 +702,12 @@ body {
   margin: 1.25rem 0;
 }
 
-.prose-awb li {
+.prose-awb ul > li {
   margin-left: 1.25rem;
   list-style: disc;
+}
+
+.prose-awb ol > li {
+  margin-left: 1.25rem;
+  list-style: decimal;
 }

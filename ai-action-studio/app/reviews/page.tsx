@@ -8,6 +8,25 @@ export const metadata: Metadata = {
   alternates: { canonical: "/reviews" },
 };
 
+const live = [
+  {
+    href: "/reviews/chatgpt-vs-gemini",
+    title: "ChatGPT vs Gemini: Which Should You Use?",
+    category: "Comparisons",
+    status: "Published",
+    summary:
+      "Which one actually makes sense for you — pricing, ecosystem, and real use cases, not a hype cycle.",
+  },
+  {
+    href: "/reviews/chatgpt-vs-claude",
+    title: "ChatGPT vs Claude: Which Should You Use?",
+    category: "Comparisons",
+    status: "Published",
+    summary:
+      "ChatGPT vs Claude on writing, coding, pricing, and which one is worth paying for.",
+  },
+];
+
 const upcoming = [
   {
     slug: "ai-chatbots-sales-recovery",
@@ -58,6 +77,22 @@ export default function ReviewsPage() {
         </p>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {live.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="rounded-xl border border-sand bg-white p-6 md:p-7 transition hover:border-mint"
+            >
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.12em] text-slate">
+                  {item.category}
+                </span>
+                <span className="text-[12px] text-slate/60">{item.status}</span>
+              </div>
+              <h2 className="mt-3 text-[22px] font-semibold text-navy">{item.title}</h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-slate">{item.summary}</p>
+            </Link>
+          ))}
           {upcoming.map((item) => (
             <article
               key={item.slug}
