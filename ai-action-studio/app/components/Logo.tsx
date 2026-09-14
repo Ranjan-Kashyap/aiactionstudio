@@ -13,7 +13,7 @@ export default function Logo({ className = "", variant = "color" }: LogoProps) {
       : variant === "onDark"
         ? "/images/aias-logo-on-dark.png"
         : "/images/aias-logo.png";
-  const size = variant === "onDark" ? { width: 3000, height: 512 } : { width: 2500, height: 400 };
+  const size = variant === "onDark" || variant === "white" ? { width: 2963, height: 512 } : { width: 2500, height: 400 };
 
   return (
     <Link
