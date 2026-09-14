@@ -6,11 +6,11 @@ import { useState } from "react";
 import Logo from "./Logo";
 
 const links = [
-  { href: "/tools", label: "AI Tools" },
+  { href: "/tutorials", label: "Tutorials" },
+  { href: "/tools", label: "Tools" },
+  { href: "/prompts", label: "Prompts" },
   { href: "/workflows", label: "Workflows" },
-  { href: "/resources", label: "Resources" },
   { href: "/build", label: "Build" },
-  { href: "/products", label: "Products" },
   { href: "/about", label: "About" },
 ];
 

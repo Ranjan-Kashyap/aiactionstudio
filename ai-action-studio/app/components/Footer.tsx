@@ -21,13 +21,12 @@ const socials = [
 ];
 
 const footerLinks = [
-  { href: "/tools", label: "AI Tools" },
-  { href: "/workflows", label: "Workflows" },
+  { href: "/reviews", label: "Comparisons" },
+  { href: "/business", label: "Business" },
   { href: "/resources", label: "Resources" },
-  { href: "/build", label: "Build" },
   { href: "/products", label: "Products" },
   { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
+  { href: "/free-checklist", label: "Free Checklist" },
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms-of-service", label: "Terms of Service" },
   { href: "/disclaimer", label: "Disclaimer" },

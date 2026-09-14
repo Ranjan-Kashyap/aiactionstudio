@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Comparisons",
+  title: "AI Tool Comparisons",
   description:
-    "Useful AI tools, comparisons and recommendations from AI Action Studio — to help you choose and use AI better.",
+    "Head-to-head AI tool comparisons — ChatGPT vs Gemini, Claude vs ChatGPT and more, tested on real tasks.",
   alternates: { canonical: "/reviews" },
 };
 
@@ -49,7 +49,7 @@ export default function ReviewsPage() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">AI Tools</p>
         <h1 className="mt-3 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
-          Useful tools and comparisons
+          AI Tool Comparisons: ChatGPT vs Gemini vs Claude &amp; More
         </h1>
         <p className="mt-4 max-w-2xl text-[17px] text-slate">
           Explore useful tools, discover what they can actually do, and find the right option for a

@@ -3,8 +3,10 @@ import LeadForm from "./LeadForm";
 type HubPageProps = {
   eyebrow: string;
   heading: string;
+  subheading?: string;
   copy: string;
   supporting?: string;
+  teasers?: string[];
   children?: React.ReactNode;
   source: string;
 };
@@ -12,8 +14,10 @@ type HubPageProps = {
 export default function HubPage({
   eyebrow,
   heading,
+  subheading,
   copy,
   supporting,
+  teasers,
   children,
   source,
 }: HubPageProps) {
@@ -26,11 +30,29 @@ export default function HubPage({
         <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-navy">
           {heading}
         </h1>
+        {subheading ? (
+          <p className="mt-3 text-[18px] font-semibold leading-snug text-navy">{subheading}</p>
+        ) : null}
         <p className="mt-5 text-[17px] leading-relaxed text-slate">{copy}</p>
         {supporting ? (
           <p className="mt-4 text-[16px] leading-relaxed text-slate">{supporting}</p>
         ) : null}
         {children}
+        {teasers && teasers.length > 0 ? (
+          <div className="mt-10">
+            <h2 className="text-[18px] font-semibold text-navy">What&apos;s coming</h2>
+            <ul className="mt-4 grid gap-3">
+              {teasers.map((title) => (
+                <li
+                  key={title}
+                  className="rounded-xl border border-sand bg-white p-5 text-[15px] font-medium text-navy"
+                >
+                  {title}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         <div className="mt-12 rounded-xl border border-sand bg-white p-6 md:p-8">
           <h2 className="text-[20px] font-semibold text-navy">Stay in the loop</h2>
           <p className="mt-2 mb-6 text-[14px] text-slate">

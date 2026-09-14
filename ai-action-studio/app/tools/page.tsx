@@ -3,9 +3,9 @@ import Link from "next/link";
 import HubPage from "../components/HubPage";
 
 export const metadata: Metadata = {
-  title: "AI Tools",
+  title: "Best AI Tools in 2026 (Tested, Not Hyped)",
   description:
-    "Explore useful AI tools, discover what they can actually do, compare options and find the right tool for the job.",
+    "Compare the best AI tools for writing, marketing, automation and business — tested and ranked, refreshed monthly.",
   alternates: { canonical: "/tools" },
 };
 
@@ -13,7 +13,7 @@ export default function ToolsPage() {
   return (
     <HubPage
       eyebrow="AI Tools"
-      heading="Find AI tools worth using."
+      heading="Best AI Tools in 2026 (Tested, Not Hyped)"
       copy="There are thousands of AI tools. You don't need all of them. Explore useful tools, discover what they can actually do, compare options and find the right tool for the job."
       supporting="AI Action Studio may review or test tools when it helps answer a real question — but the goal is not to test everything. The goal is to help you choose and use AI better."
       source="tools"
