@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "AI tool verdicts, income experiments, and honest workflow notes from AI Action Studio.",
+    "Practical AI tutorials, workflows, experiments, and notes from AI Action Studio.",
   alternates: { canonical: "/blog" },
 };
 
@@ -18,13 +18,13 @@ export default function BlogPage() {
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">Blog</p>
-        <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
-          Verdicts &amp; notes
-        </h1>
-        <p className="mt-4 max-w-xl text-[17px] text-slate">
-          Written companion pieces to our on-camera tests — what worked, what failed, and what
-          we&apos;d do next.
-        </p>
+          <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
+            Notes from the studio
+          </h1>
+          <p className="mt-4 max-w-xl text-[17px] text-slate">
+            Written companions to the tutorials, workflows and experiments — what worked, what
+            didn&apos;t, and what to try next.
+          </p>
 
         {posts.length === 0 ? (
           <p className="py-20 text-center text-slate">

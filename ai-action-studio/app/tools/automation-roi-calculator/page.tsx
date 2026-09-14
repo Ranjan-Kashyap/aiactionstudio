@@ -4,7 +4,7 @@ import AutomationROICalculator from "./AutomationROICalculator";
 
 const title = "Free Automation ROI Calculator — See How Much Time & Money You're Losing";
 const description =
-  "Calculate hours and dollars your business wastes on repetitive tasks each year. Get a live automation ROI estimate, then get a free plan from ScaleRise.";
+  "Calculate hours and dollars your business wastes on repetitive tasks each year. Get a live automation ROI estimate from AI Action Studio.";
 
 export const metadata: Metadata = {
   title: {
@@ -61,13 +61,8 @@ export default function AutomationRoiCalculatorPage() {
             maintained well. If the number is large, the task is a strong candidate to automate.
           </p>
           <p>
-            Explore more honest AI tool tests on the{" "}
-            <Link href="/">AI Action Studio homepage</Link>, or talk to operators who build these
-            systems at{" "}
-            <a href="https://scalerise.io" target="_blank" rel="noopener noreferrer">
-              ScaleRise.io
-            </a>
-            .
+            Explore more practical AI workflows and tools on the{" "}
+            <Link href="/">AI Action Studio homepage</Link>.
           </p>
         </div>
       </div>

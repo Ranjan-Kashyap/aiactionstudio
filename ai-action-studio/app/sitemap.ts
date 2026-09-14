@@ -1,11 +1,15 @@
 import type { MetadataRoute } from "next";
-
-const siteUrl = "https://aiactionstudio.com";
+import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     "",
     "/about",
+    "/tools",
+    "/workflows",
+    "/resources",
+    "/build",
+    "/products",
     "/reviews",
     "/free-checklist",
     "/tools/automation-roi-calculator",
@@ -16,13 +20,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   return routes.map((route) => ({
-    url: `${siteUrl}${route}`,
+    url: `${SITE_URL}${route}`,
     lastModified: new Date(),
     changeFrequency: route === "" || route === "/blog" ? "weekly" : "monthly",
     priority:
       route === ""
         ? 1
-        : route === "/free-checklist" || route === "/tools/automation-roi-calculator"
+        : route === "/resources" ||
+            route === "/tools" ||
+            route === "/tools/automation-roi-calculator"
           ? 0.9
           : 0.7,
   }));

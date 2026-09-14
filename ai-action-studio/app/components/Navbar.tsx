@@ -6,11 +6,11 @@ import { useState } from "react";
 import Logo from "./Logo";
 
 const links = [
-  { href: "/", label: "Home" },
-  { href: "/reviews", label: "Reviews" },
-  { href: "/free-checklist", label: "Free Checklist" },
-  { href: "/tools/automation-roi-calculator", label: "ROI Calculator" },
-  { href: "/blog", label: "Blog" },
+  { href: "/tools", label: "AI Tools" },
+  { href: "/workflows", label: "Workflows" },
+  { href: "/resources", label: "Resources" },
+  { href: "/build", label: "Build" },
+  { href: "/products", label: "Products" },
   { href: "/about", label: "About" },
 ];
 
@@ -41,10 +41,10 @@ export default function Navbar() {
             </Link>
           ))}
           <Link
-            href="/free-checklist"
+            href="/#newsletter"
             className="rounded-lg bg-mint px-4 py-2 text-[14px] font-medium text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint xl:px-5 xl:py-2.5 xl:text-[15px]"
           >
-            Get Free Checklist
+            Join the List
           </Link>
         </nav>
 
@@ -83,11 +83,11 @@ export default function Navbar() {
               </Link>
             ))}
             <Link
-              href="/free-checklist"
+              href="/#newsletter"
               onClick={() => setOpen(false)}
               className="mt-2 rounded-lg bg-mint px-4 py-3 text-center text-[15px] font-medium text-navy"
             >
-              Get Free Checklist
+              Join the List
             </Link>
           </nav>
         </div>

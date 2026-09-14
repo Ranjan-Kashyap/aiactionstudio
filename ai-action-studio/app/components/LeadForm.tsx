@@ -4,7 +4,15 @@ import { FormEvent, useState } from "react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
-export default function LeadForm({ source = "free-checklist" }: { source?: string }) {
+export default function LeadForm({
+  source = "free-checklist",
+  submitLabel = "Get the Free Checklist",
+  successMessage = "You're in. Check your inbox for the AI Tool Stack Checklist.",
+}: {
+  source?: string;
+  submitLabel?: string;
+  successMessage?: string;
+}) {
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
@@ -34,7 +42,7 @@ export default function LeadForm({ source = "free-checklist" }: { source?: strin
         return;
       }
       setStatus("success");
-      setMessage("You're in. Check your inbox for the AI Tool Stack Checklist.");
+      setMessage(successMessage);
       form.reset();
     } catch {
       setStatus("error");
@@ -77,7 +85,7 @@ export default function LeadForm({ source = "free-checklist" }: { source?: strin
         disabled={status === "loading"}
         className="w-full rounded-lg bg-mint px-6 py-3 text-[15px] font-semibold text-navy transition hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-70 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
       >
-        {status === "loading" ? "Sending…" : "Get the Free Checklist"}
+        {status === "loading" ? "Sending…" : submitLabel}
       </button>
       {message && (
         <p

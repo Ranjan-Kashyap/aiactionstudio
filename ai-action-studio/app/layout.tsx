@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import Script from "next/script";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import { siteDescription, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const GTM_ID = "GTM-NM3KCZDD";
@@ -14,28 +15,27 @@ const poppins = Poppins({
   display: "swap",
 });
 
-const siteUrl = "https://aiactionstudio.com";
+const siteUrl = SITE_URL;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "AI Action Studio — We Test the Tools. You Take Action.",
+    default: "AI Action Studio — Learn AI. Use AI. Take Action.",
     template: "%s | AI Action Studio",
   },
-  description:
-    "Honest AI tool tests and real workflows for freelancers, side hustlers, and business owners. No hype — just what actually works.",
+  description: siteDescription,
   keywords: [
+    "learn AI",
+    "AI tutorials",
+    "AI workflows",
     "AI tools",
-    "make money with AI",
-    "AI tool reviews",
-    "AI automation",
-    "AI side hustle",
+    "AI resources",
     "AI for business",
+    "practical AI",
   ],
   openGraph: {
-    title: "AI Action Studio — We Test the Tools. You Take Action.",
-    description:
-      "Honest AI tool tests and real workflows. Watch us test every method first, and copy only what works.",
+    title: "AI Action Studio — Learn AI. Use AI. Take Action.",
+    description: siteDescription,
     url: siteUrl,
     siteName: "AI Action Studio",
     type: "website",
@@ -43,9 +43,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Action Studio — We Test the Tools. You Take Action.",
-    description:
-      "Honest AI tool tests and real workflows. Watch us test every method first, and copy only what works.",
+    title: "AI Action Studio — Learn AI. Use AI. Take Action.",
+    description: siteDescription,
   },
   alternates: {
     canonical: siteUrl,

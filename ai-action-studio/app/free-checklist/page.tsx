@@ -36,7 +36,7 @@ export default function FreeChecklistPage() {
             </li>
             <li className="flex gap-3">
               <span className="mt-0.5 text-navy">03</span>
-              <span>Weekly tool verdicts when we publish new tests</span>
+              <span>New practical ideas when we publish</span>
             </li>
           </ul>
           <p className="mt-8 text-[14px] text-slate/70">

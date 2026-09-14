@@ -1,43 +1,47 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { YOUTUBE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "About",
   description:
-    "AI Action Studio tests AI tools honestly — with real workflows, operator credibility, and transparent results.",
+    "Ranjan is the person behind AI Action Studio — a practical, creator-led AI education and digital-product brand that helps you learn AI, use AI, and take action.",
   alternates: { canonical: "/about" },
 };
 
-const pillars = [
-  "Honesty over hype — failed experiments are published, not hidden.",
-  "Documentation, not preaching — learn with us in public.",
-  "Operator credibility — tools tested in real business contexts.",
-  "Skill + ecosystem — no tool prints money by itself.",
-  "Transparency about AI — our avatar host is openly disclosed as AI-generated.",
-];
-
 export default function AboutPage() {
   return (
-    <section className="py-16 md:py-24">
+    <section className="bg-ivory py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">About</p>
         <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
-          Built for people tired of AI hype
+          Hi, I&apos;m Ranjan.
         </h1>
         <p className="mt-6 text-[17px] leading-relaxed text-slate">
-          AI Action Studio tests, reviews, and breaks down AI software, automation systems, and digital
-          tools — honestly and with real workflows — so viewers can build genuine online income
-          without wasting time or money on hype.
+          I&apos;m the person behind AI Action Studio. I&apos;m interested in one simple question:
+          How can we actually use AI to do things better?
         </p>
         <p className="mt-4 text-[17px] leading-relaxed text-slate">
-          For freelancers, side hustlers, and business owners overwhelmed by AI noise, we&apos;re the
-          channel that actually tests every tool and method on camera — backed by real marketing
-          agency experience.
+          I explore AI tools, workflows and ideas, test them in real situations when useful, and
+          share what I learn so you can apply it yourself. AI Action Studio is where that
+          exploration becomes useful content, resources and products.
+        </p>
+        <p className="mt-4 text-[17px] leading-relaxed text-slate">
+          This is a long-term AI education and digital-product brand — not a channel that exists
+          only to review software. Tools and comparisons are one useful part of the work. The
+          bigger aim is practical: help creators, freelancers, marketers, entrepreneurs and
+          business owners learn AI, use AI, and take action.
         </p>
 
-        <h2 className="mt-12 text-[24px] font-semibold text-navy">Brand pillars</h2>
+        <h2 className="mt-12 text-[24px] font-semibold text-navy">What AI Action Studio is for</h2>
         <ul className="mt-5 space-y-3">
-          {pillars.map((item) => (
+          {[
+            "Practical tutorials that show you how to actually use AI.",
+            "Workflows and automation ideas that save time on real work.",
+            "Useful tools, comparisons and recommendations when they answer a real question.",
+            "Resources you can use right away — prompts, templates, guides and free tools.",
+            "Building with AI: content, products, websites, systems and software.",
+          ].map((item) => (
             <li
               key={item}
               className="border-l-2 border-mint pl-4 text-[15px] leading-relaxed text-slate"
@@ -47,41 +51,20 @@ export default function AboutPage() {
           ))}
         </ul>
 
-        <h2 className="mt-12 text-[24px] font-semibold text-navy">Viewer promise</h2>
-        <p className="mt-4 text-[17px] text-slate">
-          Watch us test every method first, and copy only what works.
-        </p>
-
-        <h2 className="mt-12 text-[24px] font-semibold text-navy">Sister company</h2>
-        <p className="mt-4 text-[15px] leading-relaxed text-slate">
-          The founder runs{" "}
-          <a
-            href="https://scalerise.io"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
-          >
-            ScaleRise
-          </a>
-          , a performance marketing agency. Business viewers who need operators — not another tool
-          video — can explore ScaleRise separately. We never hard-sell agency services on this
-          channel.
-        </p>
-
         <div className="mt-12 flex flex-wrap gap-4">
           <Link
-            href="/free-checklist"
+            href="/resources"
             className="rounded-lg bg-mint px-5 py-3 text-[15px] font-semibold text-navy hover:brightness-110"
           >
-            Get Free Checklist
+            Explore AI Resources
           </Link>
           <a
-            href="https://youtube.com/@AIWealthBase"
+            href={YOUTUBE_URL}
             target="_blank"
             rel="noopener noreferrer"
             className="rounded-lg border border-navy px-5 py-3 text-[15px] font-medium text-navy hover:bg-navy hover:text-white"
           >
-            YouTube Channel
+            Watch on YouTube
           </a>
         </div>
       </div>

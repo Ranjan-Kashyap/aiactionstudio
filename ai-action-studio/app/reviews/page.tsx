@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "AI Tool Reviews",
+  title: "Comparisons",
   description:
-    "Honest AI tool reviews and verdicts from AI Action Studio — who should use them, who shouldn't, and cost vs value.",
+    "Useful AI tools, comparisons and recommendations from AI Action Studio — to help you choose and use AI better.",
   alternates: { canonical: "/reviews" },
 };
 
@@ -13,7 +13,7 @@ const upcoming = [
     slug: "ai-chatbots-sales-recovery",
     title: "AI chatbots for sales recovery",
     category: "AI for Business",
-    status: "In testing",
+    status: "In progress",
     summary:
       "Testing chatbot stacks against real abandoned-cart and lead-response workflows — with honest friction points.",
   },
@@ -47,13 +47,14 @@ export default function ReviewsPage() {
   return (
     <section className="py-16 md:py-24">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">Reviews</p>
+        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">AI Tools</p>
         <h1 className="mt-3 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
-          Tool tests &amp; verdicts
+          Useful tools and comparisons
         </h1>
         <p className="mt-4 max-w-2xl text-[17px] text-slate">
-          Every review ends with a clear call: who should use it, who shouldn&apos;t, and whether the
-          cost is worth it. Full write-ups publish as tests complete.
+          Explore useful tools, discover what they can actually do, and find the right option for a
+          specific job. We may review or compare tools when it helps answer a real question — not
+          because every tool needs a verdict.
         </p>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -77,9 +78,9 @@ export default function ReviewsPage() {
         </div>
 
         <div className="mt-14 rounded-xl border border-sand bg-cream p-8 text-center">
-          <h2 className="text-[22px] font-semibold text-navy">Want the stack before the reviews?</h2>
+          <h2 className="text-[22px] font-semibold text-navy">Want practical resources while this grows?</h2>
           <p className="mx-auto mt-2 max-w-lg text-[15px] text-slate">
-            Grab the free AI Tool Stack Checklist and get weekly verdicts when we publish.
+            Grab the free AI Tool Stack Checklist and get useful ideas when we publish.
           </p>
           <Link
             href="/free-checklist"

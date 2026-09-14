@@ -15,12 +15,12 @@ export default function DisclaimerPage() {
           ← Home
         </Link>
         <h1 className="mt-4 text-[clamp(1.75rem,3vw,2.5rem)] font-bold text-navy">Disclaimer</h1>
-        <p className="mt-2 text-[13px] text-slate/70">Last updated: September 7, 2026</p>
+        <p className="mt-2 text-[13px] text-slate/70">Last updated: September 14, 2026</p>
         <div className="prose-awb mt-8">
           <h2>Earnings disclaimer</h2>
           <p>
             AI Action Studio does not guarantee income, results, or business outcomes. Examples and
-            experiments shown reflect specific tests under specific conditions. Your results will
+            experiments shown reflect specific situations under specific conditions. Your results will
             differ based on skill, effort, market, and execution.
           </p>
           <h2>No income promises</h2>
@@ -31,9 +31,8 @@ export default function DisclaimerPage() {
           <h2>Affiliate disclosure</h2>
           <p>
             Some links on this website or in our videos may be affiliate links. If you purchase
-            through those links, we may earn a commission at no extra cost to you. We only recommend
-            tools we have tested or are actively testing. Affiliations never override an honest
-            verdict.
+            through those links, we may earn a commission at no extra cost to you. Affiliations never
+            override an honest recommendation.
           </p>
           <h2>Third-party tools</h2>
           <p>
@@ -41,10 +40,10 @@ export default function DisclaimerPage() {
             data practices. Always review a vendor&apos;s own terms and privacy policy before
             subscribing.
           </p>
-          <h2>AI-generated presenter</h2>
+          <h2>The person behind the brand</h2>
           <p>
-            Our on-camera host may be an AI-generated avatar. This is disclosed as part of the brand.
-            Editorial testing, analysis, and recommendations remain human-directed.
+            AI Action Studio is created and presented by Ranjan, a real person. Content, analysis, and
+            recommendations are human-directed.
           </p>
         </div>
       </div>

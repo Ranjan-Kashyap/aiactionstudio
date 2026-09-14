@@ -1,28 +1,31 @@
 import Link from "next/link";
 import Logo from "./Logo";
+import { YOUTUBE_URL } from "@/lib/site";
 
 const socials = [
   {
-    href: "https://www.facebook.com/AIWealthBase",
+    href: "https://www.facebook.com/aiactionstudio",
     label: "AI Action Studio on Facebook",
     src: "/images/social/facebook.svg",
   },
   {
-    href: "https://www.instagram.com/aiwealthbase/",
+    href: "https://www.instagram.com/ai.actionstudio",
     label: "AI Action Studio on Instagram",
     src: "/images/social/instagram.svg",
   },
   {
-    href: "https://www.youtube.com/@AIWealthBase",
+    href: YOUTUBE_URL,
     label: "AI Action Studio on YouTube",
     src: "/images/social/youtube.svg",
   },
 ];
 
 const footerLinks = [
-  { href: "/reviews", label: "Reviews" },
-  { href: "/free-checklist", label: "Free Checklist" },
-  { href: "/tools/automation-roi-calculator", label: "ROI Calculator" },
+  { href: "/tools", label: "AI Tools" },
+  { href: "/workflows", label: "Workflows" },
+  { href: "/resources", label: "Resources" },
+  { href: "/build", label: "Build" },
+  { href: "/products", label: "Products" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/privacy-policy", label: "Privacy Policy" },
@@ -38,8 +41,8 @@ export default function Footer() {
           <div className="max-w-sm">
             <Logo variant="onDark" />
             <p className="mt-4 text-[14px] leading-relaxed text-[rgba(255,255,255,0.55)]">
-              We test AI tools and methods on camera — honestly, with real workflows — so you can
-              build genuine online income without the hype.
+              Practical AI tutorials, workflows, tools and resources to help you work smarter,
+              create more and build better.
             </p>
             <div className="mt-5 flex items-center gap-3">
               {socials.map((item) => (
@@ -72,8 +75,9 @@ export default function Footer() {
         <div className="mt-10 border-t border-[rgba(255,255,255,0.08)] pt-6 text-[13px] text-[rgba(255,255,255,0.4)]">
           <p>© {new Date().getFullYear()} AI Action Studio. All rights reserved.</p>
           <p className="mt-2 max-w-3xl leading-relaxed">
-            Some links may be affiliate links. We only recommend tools we&apos;ve tested. Results vary
-            — income requires skill, effort, and a real business ecosystem around any tool.
+            Some links may be affiliate links. If you buy through them, we may earn a commission at
+            no extra cost to you. Results vary — putting AI to work still takes skill, effort, and
+            judgment.
           </p>
         </div>
       </div>
