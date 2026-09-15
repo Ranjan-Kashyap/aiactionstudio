@@ -1,18 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllSlugs, getPostBySlug } from "@/lib/blog";
+import BlogCategoryView from "../../components/BlogCategoryView";
+import { getAllSlugs, getPostBySlug, getPostsByCategory } from "@/lib/blog";
+import { BLOG_CATEGORIES, getBlogCategory } from "@/lib/blog-categories";
 
 export const dynamic = "force-static";
 
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+  return [
+    ...BLOG_CATEGORIES.map((category) => ({ slug: category.slug })),
+    ...getAllSlugs().map((slug) => ({ slug })),
+  ];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
+  const category = getBlogCategory(slug);
+  if (category) {
+    return {
+      title: { absolute: `${category.name} | AI Action Studio Blog` },
+      description: category.description,
+      alternates: { canonical: `/blog/${category.slug}` },
+    };
+  }
   const post = await getPostBySlug(slug);
   if (!post) return { title: "Post not found" };
   return {
@@ -28,19 +41,39 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function BlogSlugPage({ params }: Props) {
   const { slug } = await params;
+  const category = getBlogCategory(slug);
+  if (category) {
+    return <BlogCategoryView category={category} posts={getPostsByCategory(category.slug)} />;
+  }
+
   const post = await getPostBySlug(slug);
   if (!post) notFound();
+  const postCategory = getBlogCategory(post.category);
 
   return (
     <article className="py-16 md:py-20">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
-        <Link href="/blog" className="text-[14px] font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy">
+        <Link
+          href="/blog"
+          className="text-[14px] font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+        >
           ← Blog
         </Link>
         <p className="mt-6 text-[13px] text-slate/70">
           {post.formattedDate} · {post.author}
+          {postCategory ? (
+            <>
+              {" · "}
+              <Link
+                href={`/blog/${postCategory.slug}`}
+                className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+              >
+                {postCategory.name}
+              </Link>
+            </>
+          ) : null}
         </p>
         <h1 className="mt-3 text-[clamp(1.85rem,4vw,2.75rem)] font-bold leading-tight text-navy">
           {post.title}

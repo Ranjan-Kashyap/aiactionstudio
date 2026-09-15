@@ -24,6 +24,7 @@ export default function PromptsPage() {
         "AI Image Prompts (Midjourney & Stable Diffusion)",
         "Fun ChatGPT Prompts Worth Trying",
       ]}
+      blogLinks={[{ href: "/blog/prompts", label: "Read more prompt notes on the blog" }]}
       source="prompts"
     />
   );

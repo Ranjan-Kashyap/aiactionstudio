@@ -74,7 +74,9 @@ export default function BusinessPage() {
         . To browse tools by job, see{" "}
         <Link href="/tools">Best AI Tools in 2026</Link>. And if you still don&apos;t know whether a
         task is worth the setup, run the{" "}
-        <Link href="/tools/automation-roi-calculator">Automation ROI Calculator</Link> first.
+        <Link href="/tools/automation-roi-calculator">Automation ROI Calculator</Link> first. For
+        notes from real use, see{" "}
+        <Link href="/blog/business">AI for business on the blog</Link>.
       </p>
     </ArticlePage>
   );

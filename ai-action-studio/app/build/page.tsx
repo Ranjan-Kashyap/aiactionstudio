@@ -23,6 +23,7 @@ export default function BuildPage() {
           href: "/build/github-copilot-tutorial",
         },
       ]}
+      blogLinks={[{ href: "/blog/build", label: "Read more build notes on the blog" }]}
       source="build"
     />
   );

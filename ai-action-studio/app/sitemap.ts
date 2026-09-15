@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { BLOG_CATEGORIES } from "@/lib/blog-categories";
+import { getAllSlugs } from "@/lib/blog";
 import { SITE_URL } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -26,6 +28,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/free-checklist",
     "/tools/automation-roi-calculator",
     "/blog",
+    ...BLOG_CATEGORIES.map((category) => `/blog/${category.slug}`),
+    ...getAllSlugs().map((slug) => `/blog/${slug}`),
     "/privacy-policy",
     "/terms-of-service",
     "/disclaimer",

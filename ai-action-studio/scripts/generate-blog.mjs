@@ -2,6 +2,10 @@
  * Build-time script: reads all markdown posts from content/blog/,
  * runs them through the full unified/shiki pipeline, and writes
  * the result to lib/generated/blog-data.json.
+ *
+ * Every post must include frontmatter `category` (one of the 8 pillar slugs
+ * in lib/blog-categories.ts). Files starting with `_` are skipped so
+ * `_template.md` can show the required fields without becoming a post.
  */
 
 import fs from "fs";
@@ -21,6 +25,18 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, "..");
 const BLOG_DIR = path.join(ROOT, "content", "blog");
 const OUT_FILE = path.join(ROOT, "lib", "generated", "blog-data.json");
+
+/** Keep in sync with lib/blog-categories.ts */
+const ALLOWED_CATEGORIES = [
+  "tutorials",
+  "prompts",
+  "tools",
+  "comparisons",
+  "workflows",
+  "automation",
+  "business",
+  "build",
+];
 
 function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString("en-US", {
@@ -69,10 +85,32 @@ function extractToc(markdown) {
   return items;
 }
 
+function requireCategory(data, filename) {
+  const raw = data.category;
+  if (!raw || typeof raw !== "string" || !raw.trim()) {
+    throw new Error(
+      `[generate-blog] ${filename} is missing required frontmatter "category". Use one of: ${ALLOWED_CATEGORIES.join(", ")}`,
+    );
+  }
+  const category = raw.trim().toLowerCase();
+  if (!ALLOWED_CATEGORIES.includes(category)) {
+    throw new Error(
+      `[generate-blog] ${filename} has invalid category "${raw}". Use one of: ${ALLOWED_CATEGORIES.join(", ")}`,
+    );
+  }
+  return category;
+}
+
 async function processPost(filename) {
   const raw = fs.readFileSync(path.join(BLOG_DIR, filename), "utf-8");
   const { data, content } = matter(raw);
   const slug = data.slug ?? slugFromFilename(filename);
+  if (ALLOWED_CATEGORIES.includes(slug)) {
+    throw new Error(
+      `[generate-blog] ${filename} slug "${slug}" collides with a blog category URL. Rename the file.`,
+    );
+  }
+  const category = requireCategory(data, filename);
 
   const processed = await unified()
     .use(remarkParse)
@@ -92,6 +130,7 @@ async function processPost(filename) {
     excerpt: data.excerpt ?? "",
     coverImage: data.coverImage ?? null,
     author: data.author ?? "AI Action Studio",
+    category,
     tags: data.tags ?? [],
     toc: extractToc(content),
     contentHtml: String(processed),
@@ -106,7 +145,7 @@ async function main() {
     return;
   }
 
-  const files = fs.readdirSync(BLOG_DIR).filter((f) => /\.(md|mdx)$/.test(f));
+  const files = fs.readdirSync(BLOG_DIR).filter((f) => /\.(md|mdx)$/.test(f) && !f.startsWith("_"));
 
   if (files.length === 0) {
     console.log("[generate-blog] No markdown files found — writing empty data.");

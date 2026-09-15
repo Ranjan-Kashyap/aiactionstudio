@@ -22,6 +22,10 @@ export default function WorkflowsPage() {
           href: "/workflows/ai-automation-no-code",
         },
       ]}
+      blogLinks={[
+        { href: "/blog/workflows", label: "workflows" },
+        { href: "/blog/automation", label: "automation" },
+      ]}
       source="workflows"
     />
   );

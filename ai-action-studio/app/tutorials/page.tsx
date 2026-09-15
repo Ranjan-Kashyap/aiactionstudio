@@ -28,6 +28,9 @@ export default function TutorialsPage() {
         "How to Use Claude AI",
         "How to Use Midjourney",
       ]}
+      blogLinks={[
+        { href: "/blog/tutorials", label: "Read more tutorials on the blog" },
+      ]}
       source="tutorials"
     />
   );

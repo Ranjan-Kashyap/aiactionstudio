@@ -100,7 +100,9 @@ export default function ToolsPage() {
       <p>
         We don&apos;t try to test every tool. When a comparison answers a real question, we look at
         actual tasks, friction, and whether we&apos;d point a friend to it — the same approach as{" "}
-        <Link href="/blog/how-we-test-ai-tools">How We Test AI Tools</Link>. Rankings in this
+        <Link href="/blog/how-we-test-ai-tools">How We Test AI Tools</Link>. More tools notes live in
+        the{" "}
+        <Link href="/blog/tools">Tools</Link> category on the blog. Rankings in this
         category shift fast, so this page should be refreshed roughly every quarter.
       </p>
 

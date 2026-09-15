@@ -75,6 +75,23 @@ export default function ReviewsPage() {
           specific job. We may review or compare tools when it helps answer a real question — not
           because every tool needs a verdict.
         </p>
+        <p className="mt-4 max-w-2xl text-[16px] text-slate">
+          See{" "}
+          <Link
+            href="/blog/how-we-test-ai-tools"
+            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+          >
+            how we test tools
+          </Link>
+          , or read more{" "}
+          <Link
+            href="/blog/comparisons"
+            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+          >
+            comparisons on the blog
+          </Link>
+          .
+        </p>
 
         <div className="mt-12 grid gap-6 md:grid-cols-2">
           {live.map((item) => (

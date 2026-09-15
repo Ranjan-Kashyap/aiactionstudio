@@ -10,6 +10,7 @@ type HubPageProps = {
   copy: string;
   supporting?: string;
   teasers?: HubTeaser[];
+  blogLinks?: { href: string; label: string }[];
   children?: React.ReactNode;
   source: string;
 };
@@ -29,6 +30,7 @@ export default function HubPage({
   copy,
   supporting,
   teasers,
+  blogLinks,
   children,
   source,
 }: HubPageProps) {
@@ -95,6 +97,34 @@ export default function HubPage({
               </div>
             ) : null}
           </div>
+        ) : null}
+        {blogLinks && blogLinks.length > 0 ? (
+          <p className="mt-10 text-[15px] leading-relaxed text-slate">
+            {blogLinks.length === 1 && blogLinks[0] ? (
+              <Link
+                href={blogLinks[0].href}
+                className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+              >
+                {blogLinks[0].label}
+              </Link>
+            ) : (
+              <>
+                More on the blog:{" "}
+                {blogLinks.map((link, index) => (
+                  <span key={link.href}>
+                    {index > 0 ? (index === blogLinks.length - 1 ? " and " : ", ") : null}
+                    <Link
+                      href={link.href}
+                      className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                    >
+                      {link.label}
+                    </Link>
+                  </span>
+                ))}
+                .
+              </>
+            )}
+          </p>
         ) : null}
         <div className="mt-12 rounded-xl border border-sand bg-white p-6 md:p-8">
           <h2 className="text-[20px] font-semibold text-navy">Stay in the loop</h2>

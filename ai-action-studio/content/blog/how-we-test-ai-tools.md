@@ -3,6 +3,7 @@ title: "How We Test AI Tools (Without the Hype)"
 date: 2026-08-13
 excerpt: "Our public testing method — what we measure, what we ignore, and why failed experiments get published."
 author: "AI Action Studio"
+category: tools
 tags: ["method", "honesty"]
 ---
 
