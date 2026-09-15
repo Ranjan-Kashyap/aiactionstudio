@@ -61,8 +61,12 @@ export default function AutomationRoiCalculatorPage() {
             maintained well. If the number is large, the task is a strong candidate to automate.
           </p>
           <p>
-            Explore more practical AI workflows and tools on the{" "}
-            <Link href="/">AI Action Studio homepage</Link>.
+            Explore more practical AI for operators in{" "}
+            <Link href="/business">AI for Small Business</Link>, or follow the step-by-step{" "}
+            <Link href="/workflows/ai-automation-no-code">
+              Build Your First AI Automation (No-Code)
+            </Link>{" "}
+            guide. Not sure if a task is worth automating? Run the numbers here first.
           </p>
         </div>
       </div>

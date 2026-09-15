@@ -11,6 +11,7 @@ const links = [
   { href: "/prompts", label: "Prompts" },
   { href: "/workflows", label: "Workflows" },
   { href: "/build", label: "Build" },
+  { href: "/business", label: "Business" },
   { href: "/about", label: "About" },
 ];
 

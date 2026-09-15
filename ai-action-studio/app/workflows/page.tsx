@@ -16,6 +16,12 @@ export default function WorkflowsPage() {
       subheading="Workflows & Automation"
       copy="The real power of AI often comes from combining tools and processes. Learn practical workflows for research, content creation, marketing, productivity, automation and business."
       supporting="This section is growing. Join the list to get new workflows as they publish."
+      teasers={[
+        {
+          title: "Build Your First AI Automation (No-Code)",
+          href: "/workflows/ai-automation-no-code",
+        },
+      ]}
       source="workflows"
     />
   );

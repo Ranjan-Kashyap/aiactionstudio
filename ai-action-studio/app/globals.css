@@ -702,6 +702,49 @@ body {
   margin: 1.25rem 0;
 }
 
+.prompt-card {
+  background: var(--white);
+  border: 1px solid var(--sand);
+  border-radius: 12px;
+  padding: 1.35rem 1.5rem;
+  margin: 1.25rem 0;
+}
+
+.prompt-card h2 {
+  margin-top: 0.35rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.25rem;
+}
+
+.prompt-card .prompt-kicker {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--slate);
+}
+
+.prompt-card .prompt-text {
+  background: var(--cream);
+  color: var(--navy);
+  border: 1px solid var(--sand);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  margin: 0 0 0.85rem;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.prompt-card .prompt-why {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--slate);
+}
+
 .prose-awb ul > li {
   margin-left: 1.25rem;
   list-style: disc;

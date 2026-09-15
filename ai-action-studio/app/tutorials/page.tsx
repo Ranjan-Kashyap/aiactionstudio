@@ -19,11 +19,14 @@ export default function TutorialsPage() {
           title: "How to Use ChatGPT (Complete Beginner's Guide)",
           href: "/tutorials/how-to-use-chatgpt",
         },
+        {
+          title: "What Is Generative AI? (Explained Simply)",
+          href: "/tutorials/what-is-generative-ai",
+        },
         "What Is Artificial Intelligence? (Explained Simply)",
         "How to Use Gemini AI",
         "How to Use Claude AI",
         "How to Use Midjourney",
-        "What Is Generative AI?",
       ]}
       source="tutorials"
     />

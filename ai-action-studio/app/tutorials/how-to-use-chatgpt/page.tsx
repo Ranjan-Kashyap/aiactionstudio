@@ -94,8 +94,8 @@ export default function HowToUseChatGptPage() {
       <p>
         Once you can get a useful first draft, steal from people who already solved the prompt
         problem: see{" "}
-        <Link href="/prompts">10 ChatGPT Prompts That Actually Save You Time</Link>. Not sure
-        ChatGPT is the right fit? See how it compares in{" "}
+        <Link href="/prompts/chatgpt-prompts">10 ChatGPT Prompts That Actually Save You Time</Link>.
+        Not sure ChatGPT is the right fit? See how it compares in{" "}
         <Link href="/reviews/chatgpt-vs-gemini">ChatGPT vs Gemini</Link> and{" "}
         <Link href="/reviews/chatgpt-vs-claude">ChatGPT vs Claude</Link>.
       </p>
