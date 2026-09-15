@@ -34,7 +34,7 @@ export default function ChatGptVsGeminiPage() {
       <ul>
         <li>
           <strong>ChatGPT:</strong> Free tier with usage limits; Plus around $20/month; Pro around
-          $100–$200/month for heavy, less-restricted use (OpenAI currently lists two Pro tiers).
+          $200/month for heavy, less-restricted use.
         </li>
         <li>
           <strong>Gemini:</strong> Free tier built into a Google account; Google AI Pro around

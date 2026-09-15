@@ -32,7 +32,7 @@ export default function ChatGptVsClaudePage() {
       <h2>Pricing (as of Sept 2026)</h2>
       <ul>
         <li>
-          <strong>ChatGPT:</strong> Free with limits; Plus around $20/month; Pro around $100–$200/month.
+          <strong>ChatGPT:</strong> Free with limits; Plus around $20/month; Pro around $200/month.
         </li>
         <li>
           <strong>Claude:</strong> Free with limits; Pro $20/month, or about $17/month if you pay

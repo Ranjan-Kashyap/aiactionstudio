@@ -51,10 +51,9 @@ export default function HowToUseChatGptPage() {
       <p>
         Free gives full access to core chat with usage limits and slower access during peak times.
         Plus (about $20/month) removes most of those limits and adds faster responses, more image
-        generation, and priority access to newer models. Pro is built for heavy daily users and
-        researchers who need the least-restricted access — OpenAI currently lists Pro in $100 and
-        $200 tiers, depending on usage. Most beginners should start free and only upgrade once they
-        hit a limit that actually bothers them.
+        generation, and priority access to newer models. Pro (~$200/month) is built for heavy daily
+        users and researchers who need the least-restricted access. Most beginners should start free
+        and only upgrade once they hit a limit that actually bothers them.
       </p>
 
       <h2>How to write a prompt that works</h2>
