@@ -9,6 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/tutorials/how-to-use-chatgpt",
     "/tutorials/what-is-generative-ai",
     "/tools",
+    "/tools/best-ai-website-builders",
     "/prompts",
     "/prompts/chatgpt-prompts",
     "/workflows",
@@ -39,7 +40,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
         ? 1
         : route === "/resources" ||
             route === "/tools" ||
-            route === "/tools/automation-roi-calculator"
+            route === "/tools/automation-roi-calculator" ||
+            route === "/tools/best-ai-website-builders"
           ? 0.9
           : 0.7,
   }));

@@ -50,6 +50,15 @@ export default function ToolsPage() {
         </li>
       </ul>
 
+      <h2>Websites</h2>
+      <ul>
+        <li>
+          <strong>AI website builders</strong> — compared by who they&apos;re actually for, from a
+          fast local-business site to a polished SaaS landing page. See{" "}
+          <Link href="/tools/best-ai-website-builders">Best AI Website Builders in 2026</Link>.
+        </li>
+      </ul>
+
       <h2>Images &amp; design</h2>
       <ul>
         <li>
@@ -107,6 +116,21 @@ export default function ToolsPage() {
           <p className="mt-2 text-[15px] leading-relaxed text-slate">
             See how many hours and dollars a repetitive task costs you every year — then decide if
             it&apos;s worth automating.
+          </p>
+        </Link>
+        <Link
+          href="/tools/best-ai-website-builders"
+          className="block rounded-xl border border-sand bg-white p-6 no-underline transition hover:border-mint"
+        >
+          <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+            Comparison
+          </p>
+          <h3 className="mt-2 text-[20px] font-semibold text-navy">
+            Best AI Website Builders in 2026
+          </h3>
+          <p className="mt-2 text-[15px] leading-relaxed text-slate">
+            Wix, Framer, Hostinger, 10Web, Durable, and Squarespace — compared by what you&apos;re
+            actually building.
           </p>
         </Link>
         <Link
