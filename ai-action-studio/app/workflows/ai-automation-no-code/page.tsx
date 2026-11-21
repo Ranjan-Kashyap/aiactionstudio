@@ -97,6 +97,9 @@ export default function AiAutomationNoCodePage() {
         Run the numbers first with the{" "}
         <Link href="/tools/automation-roi-calculator">Automation ROI Calculator</Link>.
       </p>
+      <p>
+        Outgrown no-code? See our <Link href="/services/integrations">integration services</Link>.
+      </p>
     </ArticlePage>
   );
 }

@@ -1,5 +1,7 @@
 import Link from "next/link";
+import { JsonLd, buildBreadcrumbSchema } from "./Breadcrumbs";
 import LeadForm from "./LeadForm";
+import TalkToUsBanner from "./TalkToUsBanner";
 
 export type HubTeaser = string | { title: string; href?: string };
 
@@ -13,6 +15,8 @@ type HubPageProps = {
   blogLinks?: { href: string; label: string }[];
   children?: React.ReactNode;
   source: string;
+  bannerHeading?: string;
+  hideBanner?: boolean;
 };
 
 function teaserTitle(item: HubTeaser) {
@@ -33,9 +37,17 @@ export default function HubPage({
   blogLinks,
   children,
   source,
+  bannerHeading,
+  hideBanner = false,
 }: HubPageProps) {
   return (
     <section className="bg-ivory py-16 md:py-24">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: eyebrow, href: `/${source}` },
+        ])}
+      />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
           {eyebrow}
@@ -125,6 +137,13 @@ export default function HubPage({
               </>
             )}
           </p>
+        ) : null}
+        {!hideBanner ? (
+          <TalkToUsBanner
+            heading={bannerHeading}
+            location={`banner-${source}`}
+            className="mt-12"
+          />
         ) : null}
         <div className="mt-12 rounded-xl border border-sand bg-white p-6 md:p-8">
           <h2 className="text-[20px] font-semibold text-navy">Stay in the loop</h2>

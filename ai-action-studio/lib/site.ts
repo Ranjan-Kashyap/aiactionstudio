@@ -3,7 +3,7 @@ export const SITE_URL = "https://aiactionstudio.com";
 export const YOUTUBE_URL = "https://www.youtube.com/@ai.actionstudio";
 
 export const siteDescription =
-  "Practical AI tutorials, workflows, tools and resources to help you work smarter, create more and build better. Learn AI, use AI, and take action with AI Action Studio.";
+  "AI Action Studio is an AI automation agency that builds AI agents, workflow automations, custom software and integrations for growing businesses, plus free AI tutorials and resources.";
 
 /**
  * Last verified against official vendor pricing pages:

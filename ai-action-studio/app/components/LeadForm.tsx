@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useState } from "react";
+import { FormEvent, useId, useState } from "react";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -13,6 +13,9 @@ export default function LeadForm({
   submitLabel?: string;
   successMessage?: string;
 }) {
+  const formId = useId();
+  const nameId = `${formId}-name`;
+  const emailId = `${formId}-email`;
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
 
@@ -53,11 +56,11 @@ export default function LeadForm({
   return (
     <form onSubmit={onSubmit} className="w-full space-y-4">
       <div>
-        <label htmlFor="name" className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate">
+        <label htmlFor={nameId} className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate">
           Name
         </label>
         <input
-          id="name"
+          id={nameId}
           name="name"
           type="text"
           required
@@ -67,11 +70,11 @@ export default function LeadForm({
         />
       </div>
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate">
+        <label htmlFor={emailId} className="mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate">
           Email
         </label>
         <input
-          id="email"
+          id={emailId}
           name="email"
           type="email"
           required

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd, buildBreadcrumbSchema } from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
@@ -10,6 +11,12 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <section className="py-16 md:py-20">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: "Terms of Service", href: "/terms-of-service" },
+        ])}
+      />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Link href="/" className="text-[14px] font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy">
           ← Home
@@ -46,7 +53,7 @@ export default function TermsPage() {
           </p>
           <h2>Contact</h2>
           <p>
-            <a href="mailto:hello@aiactionstudio.com">hello@aiactionstudio.com</a>
+            <Link href="/contact">Contact us</Link> (hello@aiactionstudio.com)
           </p>
         </div>
       </div>

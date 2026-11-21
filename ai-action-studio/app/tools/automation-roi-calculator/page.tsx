@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd, buildBreadcrumbSchema } from "../../components/Breadcrumbs";
 import AutomationROICalculator from "./AutomationROICalculator";
 
 const title = "Free Automation ROI Calculator — See How Much Time & Money You're Losing";
@@ -30,6 +31,13 @@ export const metadata: Metadata = {
 export default function AutomationRoiCalculatorPage() {
   return (
     <section className="relative overflow-hidden py-16 md:py-24">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: "AI Tools", href: "/tools" },
+          { label: "Automation ROI Calculator", href: "/tools/automation-roi-calculator" },
+        ])}
+      />
       <div className="absolute inset-0 hero-grid opacity-40" aria-hidden />
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">

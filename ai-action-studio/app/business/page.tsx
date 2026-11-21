@@ -55,7 +55,8 @@ export default function BusinessPage() {
       <h2>Getting started without overcomplicating it</h2>
       <ul>
         <li>
-          Pick ONE repetitive task you already do weekly and try automating just that, not your
+          Pick ONE repetitive task you already do weekly and try{" "}
+          <Link href="/services/workflow-automation">automating a single weekly task</Link>, not your
           whole operation.
         </li>
         <li>Use the free tier of a tool before paying for anything.</li>
@@ -76,7 +77,8 @@ export default function BusinessPage() {
         task is worth the setup, run the{" "}
         <Link href="/tools/automation-roi-calculator">Automation ROI Calculator</Link> first. For
         notes from real use, see{" "}
-        <Link href="/blog/business">AI for business on the blog</Link>.
+        <Link href="/blog/business">AI for business on the blog</Link>. Want it done for you? See
+        our <Link href="/services">business automation services</Link>.
       </p>
     </ArticlePage>
   );

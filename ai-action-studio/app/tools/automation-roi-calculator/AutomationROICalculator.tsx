@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
+import TalkToUsBanner from "../../components/TalkToUsBanner";
 import { calculateRoi, type Frequency } from "./lib/calculate";
 import { useCountUp } from "./hooks/useCountUp";
 import InputField from "./components/InputField";
@@ -228,10 +230,31 @@ export default function AutomationROICalculator() {
               value={formatCurrency(results.threeYearSavings)}
             />
           </div>
+
+          <p className="mt-6 text-[15px] text-slate">
+            Worth automating?{" "}
+            <Link
+              href="/contact"
+              onClick={() =>
+                trackEvent("cta_talk_to_us_click", {
+                  location: "roi-calculator-result",
+                })
+              }
+              className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+            >
+              Talk to us
+            </Link>{" "}
+            about building it.
+          </p>
         </div>
       </div>
 
       <CTASection />
+
+      <TalkToUsBanner
+        location="banner-automation-roi-calculator"
+        className="mt-0"
+      />
 
       <div className="rounded-xl border border-sand bg-white p-6 md:p-8">
         <h2 className="text-[18px] font-semibold text-navy">Want this report in your inbox?</h2>

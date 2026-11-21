@@ -25,9 +25,10 @@ npm run deploy
 
 | Variable | Purpose |
 |----------|---------|
-| `GHL_LEAD_WEBHOOK_URL` | GoHighLevel webhook for checklist leads |
+| `GHL_LEAD_WEBHOOK_URL` | GoHighLevel webhook for checklist & contact audit leads |
 | `RESEND_API_KEY` | Email notifications via Resend |
 | `LEAD_NOTIFY_EMAIL` | Inbox for new leads (default: ranjan@scalerise.io) |
 | `LEAD_NOTIFY_FROM` | From address for Resend |
+| `NEXT_PUBLIC_BOOKING_URL` | Optional direct booking link shown after contact form submission |
 
 Without `GHL_LEAD_WEBHOOK_URL`, leads are logged server-side and the form still succeeds (for local testing).

@@ -20,21 +20,12 @@ const siteUrl = SITE_URL;
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "AI Action Studio — Learn AI. Use AI. Take Action.",
+    default: "AI Automation Agency for Business | AI Action Studio",
     template: "%s | AI Action Studio",
   },
   description: siteDescription,
-  keywords: [
-    "learn AI",
-    "AI tutorials",
-    "AI workflows",
-    "AI tools",
-    "AI resources",
-    "AI for business",
-    "practical AI",
-  ],
   openGraph: {
-    title: "AI Action Studio — Learn AI. Use AI. Take Action.",
+    title: "AI Automation Agency for Business | AI Action Studio",
     description: siteDescription,
     url: siteUrl,
     siteName: "AI Action Studio",
@@ -43,7 +34,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "AI Action Studio — Learn AI. Use AI. Take Action.",
+    title: "AI Automation Agency for Business | AI Action Studio",
     description: siteDescription,
   },
   alternates: {

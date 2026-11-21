@@ -1,7 +1,18 @@
+declare global {
+  interface Window {
+    dataLayer?: Record<string, unknown>[];
+  }
+}
+
 /**
- * Analytics stub — logs events to the console until a real tracker
- * (GTM, Plausible, etc.) is connected.
+ * Pushes analytics events to GTM dataLayer on the client.
  */
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
-  console.log("[analytics]", eventName, params ?? {});
+  if (typeof window !== "undefined") {
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: eventName,
+      ...(params ?? {}),
+    });
+  }
 }

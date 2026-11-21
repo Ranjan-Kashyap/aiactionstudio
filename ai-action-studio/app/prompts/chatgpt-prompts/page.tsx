@@ -88,11 +88,11 @@ No client names. Under 1,300 characters. Do not invent any number that isn't in 
     why: "Your best content comes from real results. The structure keeps the post focused on one change and one lesson, and the last line stops it from inventing numbers.",
   },
   {
-    title: "Blog post, planned before it's written",
-    useFor: "Writing SEO blog posts that answer the reader's question and still sound like you.",
+    title: "Plan the blog post first",
+    useFor: "Getting the title, meta description and outline right before a single paragraph is written.",
     steps: [
       {
-        label: "Step 1 · plan first",
+        label: "Blog post · part 1",
         text: `Act as an SEO content writer. I want a blog post on [topic].
 
 Primary keyword: [keyword].
@@ -100,8 +100,16 @@ Audience: [who they are and what they're trying to decide].
 
 Before writing anything, give me: a title under 60 characters, a meta description under 155 characters, and an H2/H3 outline. Wait for my approval.`,
       },
+    ],
+    why: "Fixing the outline first is much faster than rewriting a finished draft that went the wrong way.",
+    watchOut: "Read the outline properly and change it before you approve. Once it starts writing, the structure is much harder to fix.",
+  },
+  {
+    title: "Write it, leaving room for your stories",
+    useFor: "Turning the approved outline into a full SEO post that still sounds like you. Use it in the same chat as prompt 04.",
+    steps: [
       {
-        label: "Step 2 · then write",
+        label: "Blog post · part 2",
         text: `Now write it.
 
 Answer the main question in the first 100 words. Use short paragraphs, one table where it helps, and an FAQ with 4 questions.
@@ -109,26 +117,9 @@ Answer the main question in the first 100 words. Use short paragraphs, one table
 Wherever a personal story or a real number from my business should go, leave a [MY EXAMPLE] placeholder instead of making one up.`,
       },
     ],
-    why: "Fixing the outline first is much faster than rewriting a finished draft that went the wrong way.",
+    why: "Answering the question early is what readers and search engines both reward, and the placeholders stop it from inventing stories or numbers.",
     watchOut:
       "Those [MY EXAMPLE] placeholders are the most important part. Fill them with your own stories and numbers. That's what makes a post worth reading and worth ranking.",
-  },
-  {
-    title: "Edit AI writing so it sounds like you",
-    useFor: "Making an AI draft read like a real person wrote it, in your own voice.",
-    steps: [
-      {
-        text: `Act as a professional human editor and rewrite the following text so it sounds naturally written by a real person instead of an AI system. Preserve the original meaning, but improve sentence rhythm, flow, transitions, emotional nuance, clarity, and conversational naturalness. Avoid robotic phrasing, repetitive sentence patterns, overly formal wording, and predictable structure.
-
-Match my voice. Here's a sample of how I write: [paste 2–3 paragraphs you wrote yourself].
-Keep every fact, number and name exactly as it is. Don't add new claims.
-
-Here is the text: [paste text]`,
-      },
-    ],
-    why: "A sample of your own writing gives it something real to match, and the last lines stop it from changing your facts while it rewrites.",
-    watchOut:
-      "Rewording helps, but it isn't what makes writing feel human. Your own stories and experience do, and no prompt can add those for you.",
   },
   {
     title: "Professional photo from one image",

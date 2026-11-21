@@ -10,6 +10,18 @@ type LeadPayload = {
   name?: string;
   email?: string;
   source?: string;
+  company?: string;
+  country?: string;
+  teamSize?: string;
+  tools?: string;
+  automateGoal?: string;
+  hearAbout?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  landing_page?: string;
+  referrer?: string;
+  honeypot?: string;
 };
 
 function escapeHtml(value: string): string {
@@ -21,15 +33,54 @@ function escapeHtml(value: string): string {
     .replace(/'/g, "&#39;");
 }
 
+function renderEmailField(label: string, value: string): string {
+  if (!value) return "";
+  return `
+            <p style="margin:0 0 6px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#00F5A0;">${escapeHtml(label)}</p>
+            <p style="margin:0 0 16px;font-size:15px;white-space:pre-wrap;">${escapeHtml(value)}</p>`;
+}
+
 async function sendNotificationEmail(fields: {
   name: string;
   email: string;
   source: string;
+  isContact: boolean;
+  company?: string;
+  country?: string;
+  teamSize?: string;
+  tools?: string;
+  automateGoal?: string;
+  hearAbout?: string;
+  utm_source?: string;
+  utm_medium?: string;
+  utm_campaign?: string;
+  landing_page?: string;
+  referrer?: string;
 }) {
   if (!RESEND_API_KEY) {
     console.error("RESEND_API_KEY is not set — skipping lead notification email.");
     return { sent: false as const, reason: "missing_api_key" };
   }
+
+  const headerSubtitle = fields.isContact
+    ? "New audit request"
+    : "New checklist lead";
+
+  const extraFieldsHtml = fields.isContact
+    ? [
+        renderEmailField("Company", fields.company ?? ""),
+        renderEmailField("Country", fields.country ?? ""),
+        renderEmailField("Team size", fields.teamSize ?? ""),
+        renderEmailField("Tools you use", fields.tools ?? ""),
+        renderEmailField("What would you like to automate?", fields.automateGoal ?? ""),
+        renderEmailField("How did you hear about us?", fields.hearAbout ?? ""),
+        renderEmailField("UTM Source", fields.utm_source ?? ""),
+        renderEmailField("UTM Medium", fields.utm_medium ?? ""),
+        renderEmailField("UTM Campaign", fields.utm_campaign ?? ""),
+        renderEmailField("Landing page", fields.landing_page ?? ""),
+        renderEmailField("Referrer", fields.referrer ?? ""),
+      ].join("")
+    : "";
 
   const htmlBody = `
 <!DOCTYPE html>
@@ -41,17 +92,15 @@ async function sendNotificationEmail(fields: {
         <tr>
           <td style="background:#00F5A0;padding:24px 32px;text-align:center;">
             <p style="margin:0;color:#0A0F1D;font-size:18px;font-weight:700;">AI Action Studio</p>
-            <p style="margin:8px 0 0;color:#0A0F1D;font-size:13px;">New checklist lead</p>
+            <p style="margin:8px 0 0;color:#0A0F1D;font-size:13px;">${escapeHtml(headerSubtitle)}</p>
           </td>
         </tr>
         <tr>
           <td style="padding:28px 32px;color:#fff;">
-            <p style="margin:0 0 8px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#00F5A0;">Name</p>
-            <p style="margin:0 0 18px;font-size:16px;">${escapeHtml(fields.name)}</p>
-            <p style="margin:0 0 8px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#00F5A0;">Email</p>
-            <p style="margin:0 0 18px;font-size:16px;">${escapeHtml(fields.email)}</p>
-            <p style="margin:0 0 8px;font-size:12px;letter-spacing:1px;text-transform:uppercase;color:#00F5A0;">Source</p>
-            <p style="margin:0;font-size:16px;">${escapeHtml(fields.source)}</p>
+            ${renderEmailField("Name", fields.name)}
+            ${renderEmailField("Email", fields.email)}
+            ${extraFieldsHtml}
+            ${renderEmailField("Source", fields.source)}
           </td>
         </tr>
       </table>
@@ -59,6 +108,10 @@ async function sendNotificationEmail(fields: {
   </table>
 </body>
 </html>`;
+
+  const subject = fields.isContact
+    ? `New audit request — ${fields.company || fields.name}`
+    : `New AI Action Studio lead — ${fields.name}`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -70,7 +123,7 @@ async function sendNotificationEmail(fields: {
       from: RESEND_FROM,
       to: [NOTIFY_EMAIL],
       reply_to: fields.email,
-      subject: `New AI Action Studio lead — ${fields.name}`,
+      subject,
       html: htmlBody,
     }),
   });
@@ -93,9 +146,15 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
 
+  // Reject submission if honeypot field is filled
+  if (body.honeypot && body.honeypot.trim() !== "") {
+    return NextResponse.json({ error: "Invalid submission." }, { status: 400 });
+  }
+
   const name = body.name?.trim();
   const email = body.email?.trim();
   const source = body.source?.trim() || "website";
+  const isContact = source === "contact";
 
   if (!name || !email) {
     return NextResponse.json({ error: "Name and email are required." }, { status: 400 });
@@ -105,15 +164,56 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "Please enter a valid email." }, { status: 400 });
   }
 
+  const company = body.company?.trim() ?? "";
+  const country = body.country?.trim() ?? "";
+  const teamSize = body.teamSize?.trim() ?? "";
+  const tools = body.tools?.trim() ?? "";
+  const automateGoal = body.automateGoal?.trim() ?? "";
+  const hearAbout = body.hearAbout?.trim() ?? "";
+  const utm_source = body.utm_source?.trim() ?? "";
+  const utm_medium = body.utm_medium?.trim() ?? "";
+  const utm_campaign = body.utm_campaign?.trim() ?? "";
+  const landing_page = body.landing_page?.trim() ?? "";
+  const referrer = body.referrer?.trim() ?? "";
+
+  if (isContact) {
+    if (!company || !country || !teamSize || !automateGoal) {
+      return NextResponse.json(
+        { error: "Please fill in all required fields." },
+        { status: 400 },
+      );
+    }
+  }
+
   const nameParts = name.split(/\s+/);
-  const payload = {
-    name,
-    firstName: nameParts[0] ?? name,
-    lastName: nameParts.slice(1).join(" "),
-    email,
-    source,
-    formSource: "AI Action Studio — AI Tool Stack Checklist",
-  };
+  const payload = isContact
+    ? {
+        name,
+        firstName: nameParts[0] ?? name,
+        lastName: nameParts.slice(1).join(" "),
+        email,
+        company,
+        country,
+        teamSize,
+        tools,
+        automateGoal,
+        hearAbout,
+        utm_source,
+        utm_medium,
+        utm_campaign,
+        landing_page,
+        referrer,
+        source: "contact",
+        formSource: "AI Action Studio — Contact / Free Systems Audit",
+      }
+    : {
+        name,
+        firstName: nameParts[0] ?? name,
+        lastName: nameParts.slice(1).join(" "),
+        email,
+        source,
+        formSource: "AI Action Studio — AI Tool Stack Checklist",
+      };
 
   if (GHL_WEBHOOK_URL) {
     const ghlResponse = await fetch(GHL_WEBHOOK_URL, {
@@ -135,7 +235,23 @@ export async function POST(request: Request) {
   }
 
   try {
-    await sendNotificationEmail({ name, email, source });
+    await sendNotificationEmail({
+      name,
+      email,
+      source,
+      isContact,
+      company,
+      country,
+      teamSize,
+      tools,
+      automateGoal,
+      hearAbout,
+      utm_source,
+      utm_medium,
+      utm_campaign,
+      landing_page,
+      referrer,
+    });
   } catch (err) {
     console.error("Lead notification email failed:", err);
   }

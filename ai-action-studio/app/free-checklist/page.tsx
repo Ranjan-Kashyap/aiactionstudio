@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd, buildBreadcrumbSchema } from "../components/Breadcrumbs";
 import LeadForm from "../components/LeadForm";
 
 export const metadata: Metadata = {
@@ -12,6 +13,12 @@ export const metadata: Metadata = {
 export default function FreeChecklistPage() {
   return (
     <section className="relative overflow-hidden py-16 md:py-24">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: "Free AI Tool Stack Checklist", href: "/free-checklist" },
+        ])}
+      />
       <div className="absolute inset-0 hero-grid opacity-40" aria-hidden />
       <div className="relative z-10 mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:items-start lg:px-8">
         <div>

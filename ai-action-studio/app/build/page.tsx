@@ -25,6 +25,7 @@ export default function BuildPage() {
       ]}
       blogLinks={[{ href: "/blog/build", label: "Read more build notes on the blog" }]}
       source="build"
+      bannerHeading="Want us to build it?"
     />
   );
 }

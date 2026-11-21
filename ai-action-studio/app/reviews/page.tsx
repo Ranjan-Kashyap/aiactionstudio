@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd, buildBreadcrumbSchema } from "../components/Breadcrumbs";
+import TalkToUsBanner from "../components/TalkToUsBanner";
 
 export const metadata: Metadata = {
   title: "AI Tool Comparisons",
@@ -65,6 +67,12 @@ const upcoming = [
 export default function ReviewsPage() {
   return (
     <section className="py-16 md:py-24">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: "Comparisons", href: "/reviews" },
+        ])}
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">AI Tools</p>
         <h1 className="mt-3 max-w-3xl text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
@@ -129,7 +137,9 @@ export default function ReviewsPage() {
           ))}
         </div>
 
-        <div className="mt-14 rounded-xl border border-sand bg-cream p-8 text-center">
+        <TalkToUsBanner location="banner-reviews" className="mt-14" />
+
+        <div className="mt-12 rounded-xl border border-sand bg-cream p-8 text-center">
           <h2 className="text-[22px] font-semibold text-navy">Want practical resources while this grows?</h2>
           <p className="mx-auto mt-2 max-w-lg text-[15px] text-slate">
             Grab the free AI Tool Stack Checklist and get useful ideas when we publish.

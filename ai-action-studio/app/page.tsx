@@ -2,55 +2,128 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import HeroAiBackdrop from "./components/HeroAiBackdrop";
 import LeadForm from "./components/LeadForm";
-import { siteDescription, YOUTUBE_URL } from "@/lib/site";
+import ServiceCard from "./components/ServiceCard";
+import TalkToUsButton from "./components/TalkToUsButton";
+import CaseStudies from "./components/CaseStudies";
+import {
+  JsonLd,
+  buildFaqSchema,
+  buildProfessionalServiceSchema,
+} from "./components/Breadcrumbs";
+import { HOW_WE_WORK_STEPS, SERVICES } from "@/src/data/services";
+import { SITE_URL, YOUTUBE_URL } from "@/lib/site";
+
+const homeTitle = "AI Automation Agency for Business | AI Action Studio";
+const homeDescription =
+  "AI automation agency that builds AI agents, workflow automations and custom tools for growing businesses. Built, connected and maintained for you.";
 
 export const metadata: Metadata = {
   title: {
-    absolute: "AI Action Studio — Learn AI. Use AI. Take Action.",
+    absolute: homeTitle,
   },
-  description: siteDescription,
+  description: homeDescription,
   alternates: { canonical: "/" },
+  openGraph: {
+    title: homeTitle,
+    description: homeDescription,
+    url: SITE_URL,
+    siteName: "AI Action Studio",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: homeTitle,
+    description: homeDescription,
+  },
 };
 
-const findCards = [
+const problemCards = [
   {
-    title: "Learn",
-    body: "Step-by-step tutorials that show you how to actually use AI tools and techniques.",
+    title: "Work typed in twice",
+    body: "The same data goes into the CRM, the accounts and three spreadsheets, by hand.",
   },
   {
-    title: "Work Smarter",
-    body: "AI workflows, automation and productivity ideas that help you save time and reduce repetitive work.",
+    title: "Leads and requests slip through",
+    body: "Enquiries wait for replies, follow-ups depend on memory, and nobody owns the inbox.",
   },
   {
-    title: "Discover",
-    body: "Useful AI tools, comparisons, new capabilities and honest recommendations for specific needs.",
-  },
-  {
-    title: "Build",
-    body: "Explore how AI can help you create content, digital products, websites, systems, software and businesses.",
-  },
-  {
-    title: "Get Resources",
-    body: "Practical prompts, templates, guides, checklists and free tools you can use right away.",
+    title: "Everything depends on one person",
+    body: "Reports, approvals and onboarding stop when one key person is away.",
   },
 ];
 
-const resourceCards = [
+// TODO: owner to confirm the 6,000+ hours figure before launch.
+const whyBullets = [
+  "We start with your process, not a tool. Sometimes the answer is a simple automation, and we'll say so.",
+  "Built in your accounts, documented, and yours to keep.",
+  "Least-privilege access and NDAs as standard.",
+  "Founder-led: you work directly with Ranjan, who has 6,000+ hours of data, tracking and automation work behind him.",
+];
+
+const whoColumns = [
   {
-    title: "Free AI Tools",
-    body: "Useful tools you can try without adding another unnecessary subscription.",
+    title: "Owner-led businesses in India",
+    body: "that run on Excel, Tally and WhatsApp.",
   },
   {
+    title: "Operations teams in the US, UK, Canada and Australia",
+    body: "juggling CRMs, accounting and HR tools.",
+  },
+  {
+    title: "Agencies",
+    body: "buried in onboarding, proposals and follow-ups.",
+  },
+];
+
+const freeResourceCards = [
+  {
+    href: "/tutorials",
+    title: "Tutorials",
+    body: "Step-by-step guides to use ChatGPT, Gemini, Claude and more.",
+  },
+  {
+    href: "/tools",
+    title: "AI Tools",
+    body: "Tested tool picks and the free Automation ROI Calculator.",
+  },
+  {
+    href: "/workflows",
+    title: "Workflows",
+    body: "Practical no-code automations you can set up yourself.",
+  },
+  {
+    href: "/prompts",
     title: "Prompts",
-    body: "Practical prompts for real tasks and workflows.",
+    body: "Prompts built for real business and research tasks.",
+  },
+];
+
+const homeFaqs = [
+  {
+    question: "What does an AI automation agency do?",
+    answer:
+      "We find the manual, repetitive work in your business and replace it with AI agents, automations, integrations or custom tools, then maintain them so they keep working.",
   },
   {
-    title: "Templates",
-    body: "Ready-to-use templates that help you get started faster.",
+    question: "What are AI agents for business?",
+    answer:
+      "Software that can answer customers, qualify leads, book appointments, process documents or update your systems on its own, within rules you set. Ours connect to your existing tools.",
   },
   {
-    title: "Guides & Checklists",
-    body: "Simple resources for learning and implementing AI.",
+    question: "Do I need custom software, or will Zapier do?",
+    answer:
+      "For simple steps, a no-code tool is often enough, and we'll tell you. We build custom when the process needs logic, AI, a proper app or more reliability.",
+  },
+  {
+    question: "How much does it cost?",
+    answer:
+      "Every project starts with a free audit, then a fixed-price blueprint and a fixed quote for the build. Ongoing care is a monthly plan sized to the system.",
+  },
+  {
+    question: "Do you work with businesses outside India?",
+    answer:
+      "Yes. We work with businesses in the US, UK, Canada, Australia and India, remotely.",
   },
 ];
 
@@ -62,25 +135,191 @@ const secondaryCtaClass =
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={buildProfessionalServiceSchema()} />
+      <JsonLd data={buildFaqSchema(homeFaqs)} />
+
+      {/* 3.1 Hero */}
       <section className="relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center bg-ivory">
         <HeroAiBackdrop />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-          <p className="animate-fade-up text-[12px] font-semibold uppercase tracking-[0.18em] text-slate">
-            AI Action Studio
+          <p className="animate-fade-up text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            AI automation agency
           </p>
           <h1 className="animate-fade-up-delay-1 mt-4 max-w-4xl text-[clamp(2rem,5vw,3.5rem)] font-bold leading-[1.15] text-navy">
-            Learn AI. Use AI. Take Action.
+            The AI automation agency that builds AI agents for your business
           </h1>
           <p className="animate-fade-up-delay-2 mt-6 max-w-2xl text-[18px] leading-relaxed text-slate">
-            Practical AI tutorials, workflows, tools and resources to help you work smarter, create
-            more and build better. Whether you&apos;re a creator, freelancer, marketer, entrepreneur
-            or business owner, AI Action Studio helps you turn AI into something useful — not just
-            something you read about.
+            We replace spreadsheets, copy-paste and chasing with AI agents, automations and custom
+            tools that fit how your team already works. Then we keep them running.
           </p>
           <div className="animate-fade-up-delay-3 mt-10 flex flex-wrap items-center gap-4">
-            <Link href="/resources" className={primaryCtaClass}>
-              Explore AI Resources
+            <TalkToUsButton location="home-hero" className={primaryCtaClass} />
+            <Link href="/services" className={secondaryCtaClass}>
+              See what we build
+            </Link>
+          </div>
+          <p className="animate-fade-up-delay-3 mt-6 text-[13px] font-medium text-slate">
+            Free 30-minute systems audit · Fixed-price start · Maintained after launch
+          </p>
+        </div>
+      </section>
+
+      {/* 3.2 Problem */}
+      <section id="problem" className="border-t border-sand bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Your business outgrew spreadsheets and WhatsApp
+          </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {problemCards.map((item) => (
+              <article
+                key={item.title}
+                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
+              >
+                <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                <h3 className="text-[20px] font-semibold text-navy">{item.title}</h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-slate">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3.3 What we build */}
+      <section id="what-we-build" className="border-t border-sand bg-cream py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            What we build
+          </h2>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICES.map((service) => (
+              <ServiceCard key={service.slug} service={service} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3.4 How we work */}
+      <section id="how-we-work" className="border-t border-sand bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            How we work
+          </h2>
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {HOW_WE_WORK_STEPS.map((item) => (
+              <article
+                key={item.step}
+                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
+              >
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-mint text-[13px] font-bold text-navy">
+                  {item.step}
+                </span>
+                <h3 className="mt-4 text-[18px] font-semibold text-navy">{item.title}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate">{item.body}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3.5 Why AI Action Studio */}
+      <section id="why-us" className="border-t border-sand bg-ivory py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Why businesses work with us
+          </h2>
+          <ul className="mt-10 grid max-w-4xl gap-4">
+            {whyBullets.map((bullet) => (
+              <li
+                key={bullet}
+                className="rounded-xl border border-sand bg-white p-5 border-l-4 border-l-mint text-[16px] leading-relaxed text-slate"
+              >
+                {bullet}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 3.6 Who we work with */}
+      <section id="who-we-work-with" className="border-t border-sand bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Built for growing teams
+          </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
+            {whoColumns.map((col) => (
+              <div
+                key={col.title}
+                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
+              >
+                <p className="text-[16px] leading-relaxed text-slate">
+                  <strong className="font-semibold text-navy">{col.title}</strong> {col.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Hidden CaseStudies component (renders nothing while empty) */}
+      <CaseStudies />
+
+      {/* 3.7 Founder */}
+      <section id="creator" className="border-t border-sand bg-cream py-20 md:py-24">
+        <div className="mx-auto grid max-w-7xl items-start gap-10 px-4 sm:px-6 lg:grid-cols-[auto_1fr] lg:px-8">
+          <div
+            className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white border border-sand text-[28px] font-bold text-navy"
+            aria-hidden
+          >
+            R
+          </div>
+          <div>
+            <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+              Hi, I&apos;m Ranjan
+            </h2>
+            <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
+              I run AI Action Studio. My background is data engineering, tracking and automation for
+              agencies and growing businesses. We build the systems I wish every team had:
+              practical, documented, and maintained. I also share what I learn on YouTube.
+            </p>
+            <div className="mt-8">
+              <Link href="/about" className={secondaryCtaClass}>
+                More about us
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3.8 Free resources */}
+      <section id="free-resources" className="border-t border-sand bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Prefer to learn it yourself?
+          </h2>
+          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-slate">
+            Our tutorials, tool comparisons, prompts and workflows are free.
+          </p>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {freeResourceCards.map((card) => (
+              <Link
+                key={card.href}
+                href={card.href}
+                className="rounded-xl border border-sand bg-ivory p-6 transition hover:border-mint"
+              >
+                <h3 className="text-[18px] font-semibold text-navy">{card.title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-slate">{card.body}</p>
+              </Link>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Link
+              href="/resources"
+              className="text-[15px] font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+            >
+              All free resources &rarr;
             </Link>
             <a
               href={YOUTUBE_URL}
@@ -94,209 +333,48 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="core-idea" className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            AI is only useful when you actually use it.
+      {/* 3.9 FAQ */}
+      <section id="faq" className="border-t border-sand bg-ivory py-20 md:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Frequently asked questions
           </h2>
-          <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-            AI is moving fast. New tools appear every day, but knowing about AI is not the same as
-            knowing what to do with it. AI Action Studio focuses on the practical side: how to use
-            AI to solve real problems, save time, create better work, automate repetitive tasks and
-            build new things.
-          </p>
-          <p className="mt-8 text-[18px] font-semibold tracking-tight text-navy">
-            Less hype. More action.
-          </p>
-        </div>
-      </section>
-
-      <section id="what-youll-find" className="border-t border-sand bg-cream py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Practical AI for real work
-          </h2>
-          <p className="mt-4 max-w-3xl text-[17px] leading-relaxed text-slate">
-            From simple tutorials to advanced workflows, everything is designed to help you move
-            from &quot;I wonder if AI can do this&quot; to &quot;I just did it.&quot;
-          </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {findCards.map((item) => (
-              <article
-                key={item.title}
+          <div className="mt-10 space-y-4">
+            {homeFaqs.map((faq) => (
+              <div
+                key={faq.question}
                 className="rounded-xl border border-sand bg-white p-6 md:p-7"
               >
-                <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
-                <h3 className="text-[20px] font-semibold text-navy">{item.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-slate">{item.body}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section id="youtube" className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div>
-            <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-              See AI in action.
-            </h2>
-            <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-slate">
-              No endless theory. No need to understand every new AI buzzword. The YouTube channel
-              focuses on useful tutorials, workflows, experiments, comparisons and practical ideas
-              that you can follow and apply.
-            </p>
-            <a
-              href={YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`${primaryCtaClass} mt-8`}
-            >
-              Watch AI Action Studio on YouTube
-            </a>
-          </div>
-          <div className="rounded-xl border border-sand bg-ivory p-10 md:p-14">
-            <a
-              href={YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex aspect-video items-center justify-center rounded-xl bg-white shadow-[0_8px_24px_rgba(10,15,29,0.06)] transition hover:shadow-[0_8px_24px_rgba(10,15,29,0.1)]"
-            >
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-mint text-navy">
-                <svg className="ml-1 h-7 w-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-                  <path d="M8 5.14v13.72L19.14 12 8 5.14z" />
-                </svg>
-                <span className="sr-only">Watch AI Action Studio on YouTube</span>
+                <h3 className="text-[18px] font-semibold text-navy">{faq.question}</h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate">{faq.answer}</p>
               </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <section id="tools" className="border-t border-sand bg-ivory py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Find AI tools worth using.
-          </h2>
-          <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-            There are thousands of AI tools. You don&apos;t need all of them. Explore useful tools,
-            discover what they can actually do, compare options and find the right tool for the job.
-          </p>
-          <p className="mt-4 max-w-3xl text-[16px] leading-relaxed text-slate">
-            AI Action Studio may review or test tools when it helps answer a real question — but the
-            goal is not to test everything. The goal is to help you choose and use AI better.
-          </p>
-          <Link href="/tools" className={`${primaryCtaClass} mt-8`}>
-            Explore AI Tools
-          </Link>
-        </div>
-      </section>
-
-      <section id="workflows" className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Don&apos;t just collect tools. Build workflows.
-          </h2>
-          <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-            The real power of AI often comes from combining tools and processes. Learn practical
-            workflows for research, content creation, marketing, productivity, automation and
-            business.
-          </p>
-          <Link href="/workflows" className={`${primaryCtaClass} mt-8`}>
-            Explore Workflows
-          </Link>
-        </div>
-      </section>
-
-      <section id="resources" className="border-t border-sand bg-cream py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Useful resources. Ready to use.
-          </h2>
-          <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-            Get practical resources designed to help you put AI into action.
-          </p>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {resourceCards.map((item) => (
-              <article
-                key={item.title}
-                className="rounded-xl border border-sand bg-white p-6"
-              >
-                <h3 className="text-[18px] font-semibold text-navy">{item.title}</h3>
-                <p className="mt-3 text-[14px] leading-relaxed text-slate">{item.body}</p>
-              </article>
             ))}
           </div>
-          <Link href="/resources" className={`${primaryCtaClass} mt-10`}>
-            Explore Free Resources
-          </Link>
         </div>
       </section>
 
-      <section id="build" className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            What can you build with AI?
+      {/* 3.10 Final CTA */}
+      <section id="final-cta" className="border-t border-sand bg-navy py-20 md:py-24">
+        <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-white">
+            Tell us what&apos;s slowing your team down
           </h2>
-          <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-            AI isn&apos;t only useful for asking questions or generating content. It can help you
-            build websites, digital products, automations, internal tools and software. As AI Action
-            Studio grows, we&apos;ll explore what is actually possible — and build useful things
-            along the way.
+          <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[rgba(255,255,255,0.78)]">
+            Book a free 30-minute systems audit. You&apos;ll leave with a clear view of what to
+            automate first.
           </p>
-          <Link href="/build" className={`${primaryCtaClass} mt-8`}>
-            Explore Build With AI
-          </Link>
-        </div>
-      </section>
-
-      <section id="products" className="border-t border-sand bg-ivory py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            We&apos;re building useful things too.
-          </h2>
-          <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-            AI Action Studio isn&apos;t just a content brand. Over time, we&apos;ll create products
-            that help creators, professionals, entrepreneurs and businesses put AI to work. That may
-            include courses, templates, digital products, software and AI-powered tools.
-          </p>
-          <Link href="/products" className={`${primaryCtaClass} mt-8`}>
-            Explore Products
-          </Link>
-        </div>
-      </section>
-
-      <section id="creator" className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto grid max-w-7xl items-start gap-10 px-4 sm:px-6 lg:grid-cols-[auto_1fr] lg:px-8">
-          <div
-            className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-cream text-[28px] font-bold text-navy"
-            aria-hidden
-          >
-            R
-          </div>
-          <div>
-            <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-              Hi, I&apos;m Ranjan.
-            </h2>
-            <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-              I&apos;m the person behind AI Action Studio. I&apos;m interested in one simple
-              question: How can we actually use AI to do things better? I explore AI tools,
-              workflows and ideas, test them in real situations when useful, and share what I learn
-              so you can apply it yourself. AI Action Studio is where that exploration becomes
-              useful content, resources and products.
-            </p>
-            <Link href="/about" className={`${secondaryCtaClass} mt-8`}>
-              Learn More About AI Action Studio
-            </Link>
+          <div className="mt-8 flex justify-center">
+            <TalkToUsButton location="home-final-cta" className={primaryCtaClass} />
           </div>
         </div>
       </section>
 
+      {/* 3.11 Newsletter */}
       <section id="newsletter" className="border-t border-sand bg-cream py-20 md:py-24">
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
           <div>
             <h2 className="text-[clamp(1.75rem,3vw,2.35rem)] font-bold leading-tight text-navy">
-              Stay ahead without chasing every AI update.
+              Get practical AI notes by email
             </h2>
             <p className="mt-5 text-[17px] leading-relaxed text-slate">
               Get practical AI ideas, useful tools, workflows and resources delivered without the
@@ -309,30 +387,6 @@ export default function HomePage() {
               submitLabel="Join the AI Action Studio List"
               successMessage="You're in. Watch your inbox for practical AI ideas."
             />
-          </div>
-        </div>
-      </section>
-
-      <section id="get-started" className="border-t border-sand bg-ivory py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Ready to put AI to work?
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-slate">
-            Learn something useful. Try it yourself. Then take action.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <Link href="/resources" className={primaryCtaClass}>
-              Explore AI Action Studio
-            </Link>
-            <a
-              href={YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={secondaryCtaClass}
-            >
-              Watch on YouTube
-            </a>
           </div>
         </div>
       </section>

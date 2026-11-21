@@ -1,5 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import Logo from "./Logo";
+import LeadForm from "./LeadForm";
+import { SERVICES } from "@/src/data/services";
 import { YOUTUBE_URL } from "@/lib/site";
 
 const socials = [
@@ -20,13 +23,30 @@ const socials = [
   },
 ];
 
-const footerLinks = [
+const serviceLinks = [
+  ...SERVICES.map((service) => ({
+    href: service.href,
+    label: service.navLabel,
+  })),
+  { href: "/services", label: "All services" },
+];
+
+const resourceLinks = [
+  { href: "/resources", label: "Free Resources" },
+  { href: "/tutorials", label: "Tutorials" },
+  { href: "/tools", label: "AI Tools" },
+  { href: "/prompts", label: "Prompts" },
   { href: "/reviews", label: "Comparisons" },
-  { href: "/business", label: "Business" },
-  { href: "/resources", label: "Resources" },
-  { href: "/products", label: "Products" },
+  { href: "/workflows", label: "Workflows" },
+  { href: "/build", label: "Build With AI" },
+  { href: "/business", label: "AI for Small Business" },
   { href: "/blog", label: "Blog" },
   { href: "/free-checklist", label: "Free Checklist" },
+];
+
+const companyLinks = [
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
   { href: "/privacy-policy", label: "Privacy Policy" },
   { href: "/terms-of-service", label: "Terms of Service" },
   { href: "/disclaimer", label: "Disclaimer" },
@@ -35,15 +55,24 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="mt-auto border-t border-[rgba(255,255,255,0.08)] bg-navy">
-      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          <div className="max-w-sm">
+      <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-10 lg:grid-cols-12">
+          <div className="lg:col-span-4">
             <Logo variant="onDark" />
-            <p className="mt-4 text-[14px] leading-relaxed text-[rgba(255,255,255,0.55)]">
-              Practical AI tutorials, workflows, tools and resources to help you work smarter,
-              create more and build better.
+            <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-[rgba(255,255,255,0.68)]">
+              AI Action Studio is an AI automation agency that builds AI agents, workflow automations, custom software and integrations for growing businesses.
             </p>
-            <div className="mt-5 flex items-center gap-3">
+            <p className="mt-4 text-[14px] leading-relaxed text-[rgba(255,255,255,0.68)]">
+              Need dashboards and reporting? See our sister company{" "}
+              <a
+                href="https://scalelens.app"
+                className="font-medium text-white underline decoration-mint underline-offset-4 transition hover:text-mint"
+              >
+                ScaleLens
+              </a>
+              .
+            </p>
+            <div className="mt-6 flex items-center gap-3">
               {socials.map((item) => (
                 <a
                   key={item.href}
@@ -53,25 +82,77 @@ export default function Footer() {
                   aria-label={item.label}
                   className="inline-flex h-11 w-11 items-center justify-center rounded-lg transition hover:bg-[rgba(255,255,255,0.08)]"
                 >
-                  <img src={item.src} alt="" width={24} height={24} className="h-6 w-6" />
+                  <Image src={item.src} alt="" width={24} height={24} className="h-6 w-6" />
                 </a>
               ))}
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-x-6 gap-y-3 text-[14px] text-[rgba(255,255,255,0.55)]">
-            {footerLinks.map((link) => (
-              <Link key={link.href} href={link.href} className="transition hover:text-white">
-                {link.label}
-              </Link>
-            ))}
-            <a href="mailto:hello@aiactionstudio.com" className="transition hover:text-white">
-              Contact
-            </a>
+          <div className="grid gap-8 sm:grid-cols-3 lg:col-span-5">
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white">
+                Services
+              </p>
+              <ul className="mt-4 space-y-2.5 text-[14px] text-[rgba(255,255,255,0.68)]">
+                {serviceLinks.map((link) => (
+                  <li key={`${link.href}-${link.label}`}>
+                    <Link href={link.href} className="transition hover:text-mint">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white">
+                Resources
+              </p>
+              <ul className="mt-4 space-y-2.5 text-[14px] text-[rgba(255,255,255,0.68)]">
+                {resourceLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="transition hover:text-mint">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white">
+                Company
+              </p>
+              <ul className="mt-4 space-y-2.5 text-[14px] text-[rgba(255,255,255,0.68)]">
+                {companyLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="transition hover:text-mint">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="lg:col-span-3">
+            <div className="rounded-xl border border-sand bg-white p-5">
+              <p className="text-[15px] font-semibold text-navy">
+                Get practical AI notes by email
+              </p>
+              <p className="mt-1 mb-4 text-[13px] text-slate">
+                Tutorials, tool notes and workflow ideas from the studio.
+              </p>
+              <LeadForm
+                source="footer-newsletter"
+                submitLabel="Join the List"
+                successMessage="You're in. Watch your inbox for practical AI ideas."
+              />
+            </div>
           </div>
         </div>
 
-        <div className="mt-10 border-t border-[rgba(255,255,255,0.08)] pt-6 text-[13px] text-[rgba(255,255,255,0.4)]">
+        <div className="mt-12 border-t border-[rgba(255,255,255,0.08)] pt-6 text-[13px] text-[rgba(255,255,255,0.45)]">
           <p>© {new Date().getFullYear()} AI Action Studio. All rights reserved.</p>
           <p className="mt-2 max-w-3xl leading-relaxed">
             Some links may be affiliate links. If you buy through them, we may earn a commission at

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import BlogCategoryNav from "../components/BlogCategoryNav";
 import BlogPostCard from "../components/BlogPostCard";
+import { JsonLd, buildBreadcrumbSchema } from "../components/Breadcrumbs";
 import { getAllPostsMeta } from "@/lib/blog";
 
 export const dynamic = "force-static";
@@ -17,6 +18,12 @@ export default function BlogPage() {
 
   return (
     <section className="py-16 md:py-24">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: "Blog", href: "/blog" },
+        ])}
+      />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">Blog</p>
         <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold text-navy">

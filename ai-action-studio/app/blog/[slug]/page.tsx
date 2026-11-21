@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BlogCategoryView from "../../components/BlogCategoryView";
+import { JsonLd, buildBreadcrumbSchema } from "../../components/Breadcrumbs";
+import TalkToUsBanner from "../../components/TalkToUsBanner";
 import { getAllSlugs, getPostBySlug, getPostsByCategory } from "@/lib/blog";
 import { BLOG_CATEGORIES, getBlogCategory } from "@/lib/blog-categories";
 
@@ -45,7 +47,18 @@ export default async function BlogSlugPage({ params }: Props) {
   const { slug } = await params;
   const category = getBlogCategory(slug);
   if (category) {
-    return <BlogCategoryView category={category} posts={getPostsByCategory(category.slug)} />;
+    return (
+      <>
+        <JsonLd
+          data={buildBreadcrumbSchema([
+            { label: "Home", href: "/" },
+            { label: "Blog", href: "/blog" },
+            { label: category.name, href: `/blog/${category.slug}` },
+          ])}
+        />
+        <BlogCategoryView category={category} posts={getPostsByCategory(category.slug)} />
+      </>
+    );
   }
 
   const post = await getPostBySlug(slug);
@@ -54,6 +67,13 @@ export default async function BlogSlugPage({ params }: Props) {
 
   return (
     <article className="py-16 md:py-20">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: "Blog", href: "/blog" },
+          { label: post.title, href: `/blog/${post.slug}` },
+        ])}
+      />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Link
           href="/blog"
@@ -91,7 +111,8 @@ export default async function BlogSlugPage({ params }: Props) {
           className="prose-awb mt-10"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
-        <div className="mt-14 rounded-xl border border-sand bg-white p-6 text-center">
+        <TalkToUsBanner location={`banner-blog-${post.slug}`} className="mt-14" />
+        <div className="mt-12 rounded-xl border border-sand bg-white p-6 text-center">
           <p className="text-[16px] font-medium text-navy">Want the practical stack?</p>
           <Link
             href="/free-checklist"

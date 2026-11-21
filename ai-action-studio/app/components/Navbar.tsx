@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useId, useRef, useState } from "react";
+import { SERVICES } from "@/src/data/services";
 import Logo from "./Logo";
+import TalkToUsButton from "./TalkToUsButton";
 
 type NavLink = { href: string; label: string };
 type NavChild = NavLink | { divider: true };
@@ -11,79 +13,58 @@ type NavItem = NavLink & { children?: NavChild[] };
 
 const navItems: NavItem[] = [
   {
-    href: "/tutorials",
-    label: "Tutorials",
+    href: "/services",
+    label: "Services",
     children: [
-      { href: "/tutorials/how-to-use-chatgpt", label: "How to Use ChatGPT" },
-      { href: "/tutorials/what-is-generative-ai", label: "What Is Generative AI?" },
+      ...SERVICES.map((service) => ({
+        href: service.href,
+        label: service.navLabel,
+      })),
       { divider: true },
-      { href: "/blog/tutorials", label: "See all Tutorials posts" },
+      { href: "/services", label: "All services" },
     ],
   },
   {
-    href: "/tools",
-    label: "Tools",
-    children: [
-      { href: "/tools", label: "Best AI Tools in 2026" },
-      { href: "/tools/best-ai-website-builders", label: "Best AI Website Builders" },
-      { href: "/tools/automation-roi-calculator", label: "Automation ROI Calculator" },
-      { divider: true },
-      { href: "/blog/tools", label: "See all Tools posts" },
-    ],
+    href: "/#how-we-work",
+    label: "How we work",
   },
   {
-    href: "/prompts",
-    label: "Prompts",
+    href: "/resources",
+    label: "Resources",
     children: [
-      {
-        href: "/prompts/chatgpt-prompts",
-        label: "10 ChatGPT Prompts That Actually Save You Time",
-      },
-      { divider: true },
-      { href: "/blog/prompts", label: "See all Prompts posts" },
+      { href: "/resources", label: "Free Resources" },
+      { href: "/tutorials", label: "Tutorials" },
+      { href: "/tools", label: "AI Tools" },
+      { href: "/prompts", label: "Prompts" },
+      { href: "/reviews", label: "Comparisons" },
+      { href: "/workflows", label: "Workflows" },
+      { href: "/build", label: "Build With AI" },
+      { href: "/business", label: "AI for Small Business" },
+      { href: "/blog", label: "Blog" },
     ],
   },
-  {
-    href: "/reviews",
-    label: "Comparisons",
-    children: [
-      { href: "/reviews/chatgpt-vs-gemini", label: "ChatGPT vs Gemini" },
-      { href: "/reviews/chatgpt-vs-claude", label: "ChatGPT vs Claude" },
-      { divider: true },
-      { href: "/blog/comparisons", label: "See all Comparisons posts" },
-    ],
-  },
-  {
-    href: "/workflows",
-    label: "Workflows",
-    children: [
-      { href: "/workflows/ai-automation-no-code", label: "Build Your First AI Automation" },
-      { divider: true },
-      { href: "/blog/workflows", label: "See all Workflows posts" },
-      { href: "/blog/automation", label: "See all Automation posts" },
-    ],
-  },
-  {
-    href: "/build",
-    label: "Build",
-    children: [
-      { href: "/build/vibe-coding", label: "What Is Vibe Coding?" },
-      { href: "/build/github-copilot-tutorial", label: "How to Use GitHub Copilot" },
-      { divider: true },
-      { href: "/blog/build", label: "See all Build posts" },
-    ],
-  },
-  { href: "/business", label: "Business" },
-  { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
+];
+
+const resourcePaths = [
+  "/resources",
+  "/tutorials",
+  "/tools",
+  "/prompts",
+  "/reviews",
+  "/workflows",
+  "/build",
+  "/business",
+  "/blog",
+  "/free-checklist",
 ];
 
 function isNavLink(item: NavChild): item is NavLink {
   return "href" in item;
 }
 
-function linkClass(active: boolean, compact = false) {
-  return `${compact ? "text-[13px]" : "text-[14px] xl:text-[15px]"} font-medium tracking-[0.02em] transition-colors ${
+function linkClass(active: boolean) {
+  return `text-[14px] xl:text-[15px] font-medium tracking-[0.02em] transition-colors ${
     active ? "text-white hover:text-mint" : "text-[rgba(255,255,255,0.78)] hover:text-mint"
   }`;
 }
@@ -129,7 +110,7 @@ function DesktopDropdown({
       onMouseLeave={() => setHover(false)}
     >
       <div className="flex items-center gap-0.5">
-        <Link href={item.href} className={linkClass(active, true)}>
+        <Link href={item.href} className={linkClass(active)}>
           {item.label}
         </Link>
         <button
@@ -156,27 +137,27 @@ function DesktopDropdown({
             id={menuId}
             role="menu"
             aria-labelledby={buttonId}
-            className="min-w-[17.5rem] rounded-lg border border-[rgba(255,255,255,0.1)] bg-slate py-2 shadow-lg"
+            className="min-w-[16rem] rounded-lg border border-[rgba(255,255,255,0.1)] bg-slate py-2 shadow-lg"
           >
-          {children.map((child, index) =>
-            isNavLink(child) ? (
-              <li key={child.href} role="none">
-                <Link
-                  href={child.href}
-                  role="menuitem"
-                  className="block px-4 py-2 text-[14px] font-medium text-[rgba(255,255,255,0.82)] transition-colors hover:bg-[rgba(255,255,255,0.08)] hover:text-mint"
-                >
-                  {child.label}
-                </Link>
-              </li>
-            ) : (
-              <li
-                key={`divider-${index}`}
-                role="separator"
-                className="my-1 h-px bg-[rgba(255,255,255,0.12)]"
-              />
-            ),
-          )}
+            {children.map((child, index) =>
+              isNavLink(child) ? (
+                <li key={`${child.href}-${child.label}`} role="none">
+                  <Link
+                    href={child.href}
+                    role="menuitem"
+                    className="block px-4 py-2 text-[14px] font-medium text-[rgba(255,255,255,0.82)] transition-colors hover:bg-[rgba(255,255,255,0.08)] hover:text-mint"
+                  >
+                    {child.label}
+                  </Link>
+                </li>
+              ) : (
+                <li
+                  key={`divider-${index}`}
+                  role="separator"
+                  className="my-1 h-px bg-[rgba(255,255,255,0.12)]"
+                />
+              ),
+            )}
           </ul>
         </div>
       ) : null}
@@ -191,8 +172,16 @@ export default function Navbar() {
   const [desktopMenu, setDesktopMenu] = useState<string | null>(null);
   const [mobileSection, setMobileSection] = useState<string | null>(null);
 
-  const isActive = (href: string) =>
-    href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    if (href.startsWith("/#")) return false;
+    if (href === "/resources") {
+      return resourcePaths.some(
+        (rp) => pathname === rp || pathname.startsWith(`${rp}/`),
+      );
+    }
+    return pathname === href || pathname.startsWith(`${href}/`);
+  };
 
   useEffect(() => {
     setMobileOpen(false);
@@ -226,7 +215,7 @@ export default function Navbar() {
 
         <nav
           ref={navRef}
-          className="hidden items-center gap-2 whitespace-nowrap min-[1400px]:flex min-[1400px]:gap-3"
+          className="hidden items-center gap-5 whitespace-nowrap md:flex lg:gap-7"
           aria-label="Primary"
         >
           {navItems.map((item) =>
@@ -241,22 +230,20 @@ export default function Navbar() {
                 }
               />
             ) : (
-              <Link key={item.href} href={item.href} className={linkClass(isActive(item.href), true)}>
+              <Link key={item.href} href={item.href} className={linkClass(isActive(item.href))}>
                 {item.label}
               </Link>
             ),
           )}
-          <Link
-            href="/#newsletter"
-            className="rounded-lg bg-mint px-4 py-2 text-[13px] font-medium text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
-          >
-            Join the List
-          </Link>
+          <TalkToUsButton
+            location="header-desktop"
+            className="rounded-lg bg-mint px-4 py-2 text-[14px] font-semibold text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+          />
         </nav>
 
         <button
           type="button"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-white min-[1400px]:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint"
+          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-white md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
           onClick={() => setMobileOpen((value) => !value)}
@@ -272,7 +259,7 @@ export default function Navbar() {
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-[rgba(255,255,255,0.08)] bg-slate px-4 py-4 min-[1400px]:hidden">
+        <div className="border-t border-[rgba(255,255,255,0.08)] bg-slate px-4 py-4 md:hidden">
           <nav className="flex flex-col gap-1" aria-label="Mobile">
             {navItems.map((item) => (
               <div key={item.href}>
@@ -306,7 +293,7 @@ export default function Navbar() {
                   <ul className="mb-2 ml-3 border-l border-[rgba(255,255,255,0.12)] pl-3">
                     {item.children.map((child, index) =>
                       isNavLink(child) ? (
-                        <li key={child.href}>
+                        <li key={`${child.href}-${child.label}`}>
                           <Link
                             href={child.href}
                             onClick={() => setMobileOpen(false)}
@@ -327,13 +314,11 @@ export default function Navbar() {
                 ) : null}
               </div>
             ))}
-            <Link
-              href="/#newsletter"
+            <TalkToUsButton
+              location="header-mobile"
               onClick={() => setMobileOpen(false)}
-              className="mt-2 rounded-lg bg-mint px-4 py-3 text-center text-[15px] font-medium text-navy"
-            >
-              Join the List
-            </Link>
+              className="mt-3 rounded-lg bg-mint px-4 py-3 text-center text-[15px] font-semibold text-navy transition hover:brightness-110"
+            />
           </nav>
         </div>
       )}

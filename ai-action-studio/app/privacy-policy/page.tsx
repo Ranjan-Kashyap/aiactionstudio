@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd, buildBreadcrumbSchema } from "../components/Breadcrumbs";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
@@ -40,7 +41,7 @@ export default function PrivacyPolicyPage() {
       <h2>Contact</h2>
       <p>
         Questions about privacy:{" "}
-        <a href="mailto:hello@aiactionstudio.com">hello@aiactionstudio.com</a>
+        <Link href="/contact">Contact us</Link> (hello@aiactionstudio.com)
       </p>
     </LegalShell>
   );
@@ -57,6 +58,12 @@ function LegalShell({
 }) {
   return (
     <section className="py-16 md:py-20">
+      <JsonLd
+        data={buildBreadcrumbSchema([
+          { label: "Home", href: "/" },
+          { label: title, href: "/privacy-policy" },
+        ])}
+      />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Link href="/" className="text-[14px] font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy">
           ← Home

@@ -1,71 +1,106 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { YOUTUBE_URL } from "@/lib/site";
+import { Breadcrumbs } from "../components/Breadcrumbs";
+import TalkToUsButton from "../components/TalkToUsButton";
+import { SITE_URL } from "@/lib/site";
+
+const fullTitle = "About AI Action Studio | Founder-Led AI Automation Agency";
+const description =
+  "AI Action Studio is a founder-led AI automation agency. Meet Ranjan Kashyap and see how we build, connect and maintain AI systems for businesses.";
 
 export const metadata: Metadata = {
-  title: "About",
-  description:
-    "Ranjan is the person behind AI Action Studio — a practical, creator-led AI education and digital-product brand that helps you learn AI, use AI, and take action.",
+  title: {
+    absolute: fullTitle,
+  },
+  description,
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: fullTitle,
+    description,
+    url: `${SITE_URL}/about`,
+    siteName: "AI Action Studio",
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: fullTitle,
+    description,
+  },
 };
+
+const beliefs = [
+  "Start with the process, not the tool.",
+  "Use AI where it's reliable; use simple automation where that's better.",
+  "Build in the client's accounts and document everything.",
+  "Maintain what we build.",
+];
 
 export default function AboutPage() {
   return (
     <section className="bg-ivory py-16 md:py-24">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+        <Breadcrumbs
+          items={[
+            { label: "Home", href: "/" },
+            { label: "About", href: "/about" },
+          ]}
+        />
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">About</p>
-        <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold text-navy">
+        <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-navy">
           Hi, I&apos;m Ranjan.
         </h1>
         <p className="mt-6 text-[17px] leading-relaxed text-slate">
-          I&apos;m the person behind AI Action Studio. I&apos;m interested in one simple question:
-          How can we actually use AI to do things better?
-        </p>
-        <p className="mt-4 text-[17px] leading-relaxed text-slate">
-          I explore AI tools, workflows and ideas, test them in real situations when useful, and
-          share what I learn so you can apply it yourself. AI Action Studio is where that
-          exploration becomes useful content, resources and products.
-        </p>
-        <p className="mt-4 text-[17px] leading-relaxed text-slate">
-          This is a long-term AI education and digital-product brand — not a channel that exists
-          only to review software. Tools and comparisons are one useful part of the work. The
-          bigger aim is practical: help creators, freelancers, marketers, entrepreneurs and
-          business owners learn AI, use AI, and take action.
+          I&apos;m Ranjan Kashyap, founder of AI Action Studio. We&apos;re an AI automation agency:
+          we build AI agents, automations, custom tools and integrations for growing businesses, and
+          we maintain them after launch.
         </p>
 
-        <h2 className="mt-12 text-[24px] font-semibold text-navy">What AI Action Studio is for</h2>
-        <ul className="mt-5 space-y-3">
-          {[
-            "Practical tutorials that show you how to actually use AI.",
-            "Workflows and automation ideas that save time on real work.",
-            "Useful tools, comparisons and recommendations when they answer a real question.",
-            "Resources you can use right away — prompts, templates, guides and free tools.",
-            "Building with AI: content, products, websites, systems and software.",
-          ].map((item) => (
+        <h2 className="mt-10 text-[24px] font-semibold text-navy">What we do</h2>
+        <p className="mt-3 text-[16px] leading-relaxed text-slate">
+          Most teams don&apos;t need more tools; they need the tools they have to work together, and
+          the repetitive work taken off their plate. That&apos;s what we build.
+        </p>
+
+        <h2 className="mt-10 text-[24px] font-semibold text-navy">How we got here</h2>
+        <p className="mt-3 text-[16px] leading-relaxed text-slate">
+          My background is data engineering, tracking and automation for agencies and growing
+          businesses. I also run{" "}
+          <a
+            href="https://scalelens.app"
+            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+          >
+            ScaleLens
+          </a>
+          , which builds custom dashboards, and I share practical AI tutorials on YouTube.
+        </p>
+
+        <h2 className="mt-10 text-[24px] font-semibold text-navy">What we believe</h2>
+        <ul className="mt-4 space-y-3">
+          {beliefs.map((item) => (
             <li
               key={item}
-              className="border-l-2 border-mint pl-4 text-[15px] leading-relaxed text-slate"
+              className="border-l-2 border-mint pl-4 text-[16px] leading-relaxed text-slate"
             >
               {item}
             </li>
           ))}
         </ul>
 
-        <div className="mt-12 flex flex-wrap gap-4">
+        <h2 className="mt-10 text-[24px] font-semibold text-navy">Free resources</h2>
+        <p className="mt-3 text-[16px] leading-relaxed text-slate">
+          We still publish{" "}
           <Link
             href="/resources"
-            className="rounded-lg bg-mint px-5 py-3 text-[15px] font-semibold text-navy hover:brightness-110"
+            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
           >
-            Explore AI Resources
+            free tutorials, tool comparisons, prompts and workflows
           </Link>
-          <a
-            href={YOUTUBE_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-lg border border-navy px-5 py-3 text-[15px] font-medium text-navy hover:bg-navy hover:text-white"
-          >
-            Watch on YouTube
-          </a>
+          .
+        </p>
+
+        <div className="mt-12">
+          <TalkToUsButton location="about-page" />
         </div>
       </div>
     </section>
