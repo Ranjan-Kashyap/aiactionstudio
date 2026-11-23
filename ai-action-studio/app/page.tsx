@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import HeroAiBackdrop from "./components/HeroAiBackdrop";
 import LeadForm from "./components/LeadForm";
@@ -268,12 +269,15 @@ export default function HomePage() {
 
       {/* 3.7 Founder */}
       <section id="creator" className="border-t border-sand bg-cream py-20 md:py-24">
-        <div className="mx-auto grid max-w-7xl items-start gap-10 px-4 sm:px-6 lg:grid-cols-[auto_1fr] lg:px-8">
-          <div
-            className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white border border-sand text-[28px] font-bold text-navy"
-            aria-hidden
-          >
-            R
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[auto_1fr] lg:px-8">
+          <div className="relative h-32 w-32 sm:h-40 sm:w-40 shrink-0 overflow-hidden rounded-2xl border border-sand bg-white shadow-[0_8px_24px_rgba(10,15,29,0.06)]">
+            <Image
+              src="/images/ranjan-kashyap.png"
+              alt="Ranjan Kashyap — Founder of AI Action Studio"
+              width={320}
+              height={384}
+              className="h-full w-full object-cover object-top"
+            />
           </div>
           <div>
             <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
