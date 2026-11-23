@@ -13,6 +13,7 @@ export type ServiceItem = {
   href: string;
   navLabel: string;
   cardTitle: string;
+  primaryKeyword: string;
   shortDescription: string;
   hubBullets: string[];
   title: string;
@@ -21,9 +22,20 @@ export type ServiceItem = {
   eyebrow: string;
   h1: string;
   intro: string;
+  quickAnswer: string;
+  lastUpdated: string;
   sections: ServiceSection[];
   faqs: ServiceFaq[];
   relatedSlugs: string[];
+};
+
+const SERVICE_LAST_UPDATED = "November 23, 2026";
+
+// TODO(owner): if the owner approves showing typical price ranges, add them here; until then, no numbers.
+const COST_FAQ: ServiceFaq = {
+  question: "How much does it cost?",
+  answer:
+    "It depends on the process and the tools involved. Every project starts with a free audit, then a fixed-price blueprint with a fixed quote for the build, and an optional monthly care plan.",
 };
 
 export const SERVICES: ServiceItem[] = [
@@ -32,6 +44,7 @@ export const SERVICES: ServiceItem[] = [
     href: "/services/ai-agents",
     navLabel: "AI Agents",
     cardTitle: "AI Agents for Business",
+    primaryKeyword: "AI agents for business",
     shortDescription:
       "AI receptionists, chat and WhatsApp agents that answer, qualify and book, 24/7.",
     hubBullets: [
@@ -47,6 +60,9 @@ export const SERVICES: ServiceItem[] = [
     h1: "AI agents for business that answer, qualify and book, 24/7",
     intro:
       "Missed calls and slow replies cost you customers. We build AI agents that handle the first conversation, collect the right details and hand over to your team, connected to the tools you already use.",
+    quickAnswer:
+      "AI agents for business are software assistants that answer calls and messages, qualify leads, book appointments and update your systems on their own, within rules you set. AI Action Studio designs, builds and maintains them for growing businesses, connected to the CRM, calendar and WhatsApp tools you already use.",
+    lastUpdated: SERVICE_LAST_UPDATED,
     sections: [
       {
         heading: "AI receptionist and voice agents",
@@ -81,6 +97,7 @@ export const SERVICES: ServiceItem[] = [
         answer:
           "Common CRMs, calendars, help desks and WhatsApp Business. If you use something else, we check it in the audit.",
       },
+      COST_FAQ,
     ],
     relatedSlugs: ["workflow-automation", "integrations", "whatsapp-automation"],
   },
@@ -89,6 +106,7 @@ export const SERVICES: ServiceItem[] = [
     href: "/services/workflow-automation",
     navLabel: "Workflow Automation",
     cardTitle: "Workflow Automation",
+    primaryKeyword: "Business process automation",
     shortDescription:
       "Turn manual, spreadsheet-driven processes into automated workflows.",
     hubBullets: [
@@ -104,6 +122,9 @@ export const SERVICES: ServiceItem[] = [
     h1: "Business process automation that replaces spreadsheets and chasing",
     intro:
       "If your team copies data between sheets, chases approvals on email or rebuilds the same report every week, that process can run itself. We map it, automate it and maintain it.",
+    quickAnswer:
+      "Business process automation replaces repetitive, rule-based work, such as copying data between spreadsheets, chasing approvals and sending reminders, with workflows that run on their own. AI Action Studio maps the process, automates it with the simplest reliable tools, and maintains it on a monthly care plan.",
+    lastUpdated: SERVICE_LAST_UPDATED,
     sections: [
       {
         heading: "Automate repetitive tasks",
@@ -133,6 +154,7 @@ export const SERVICES: ServiceItem[] = [
         answer:
           "Usually not. We automate around the tools you already use.",
       },
+      COST_FAQ,
     ],
     relatedSlugs: ["finance-hr-automation", "integrations", "custom-software"],
   },
@@ -141,6 +163,7 @@ export const SERVICES: ServiceItem[] = [
     href: "/services/custom-software",
     navLabel: "Custom Software",
     cardTitle: "Custom Software & Internal Tools",
+    primaryKeyword: "Custom software development",
     shortDescription:
       "Custom CRMs, order, inventory and HR apps built around your process.",
     hubBullets: [
@@ -153,9 +176,12 @@ export const SERVICES: ServiceItem[] = [
     metaDescription:
       "Custom software development for growing businesses: custom CRMs, order, inventory and HR apps and internal tools, built around your process.",
     eyebrow: "Custom software",
-    h1: "Custom software and internal tools built around how you work",
+    h1: "Custom software development built around how your team works",
     intro:
       "Off-the-shelf software almost fits, so your team works around it with spreadsheets. We build the custom CRM, order system or internal tool that fits your process, and maintain it after launch.",
+    quickAnswer:
+      "Custom software development means building an app around your exact process instead of bending your team around an off-the-shelf tool. AI Action Studio builds custom CRMs, order, inventory and HR tools, delivers them in weekly stages, and maintains them after launch.",
+    lastUpdated: SERVICE_LAST_UPDATED,
     sections: [
       {
         heading: "Custom CRM",
@@ -185,6 +211,7 @@ export const SERVICES: ServiceItem[] = [
         answer:
           "You do. It's built in your accounts and documented.",
       },
+      COST_FAQ,
     ],
     relatedSlugs: ["workflow-automation", "integrations", "finance-hr-automation"],
   },
@@ -193,6 +220,7 @@ export const SERVICES: ServiceItem[] = [
     href: "/services/finance-hr-automation",
     navLabel: "Finance & HR Automation",
     cardTitle: "Finance & HR Automation",
+    primaryKeyword: "Accounts payable automation",
     shortDescription:
       "Invoices, payables, payroll steps and onboarding, automated and checked.",
     hubBullets: [
@@ -205,9 +233,12 @@ export const SERVICES: ServiceItem[] = [
     metaDescription:
       "Automate accounts payable, invoice processing, receivables reminders, payroll steps and employee onboarding, connected to your accounting tools.",
     eyebrow: "Finance & HR automation",
-    h1: "Accounts payable, invoice and HR automation for growing teams",
+    h1: "Accounts payable automation, invoice processing and HR workflows",
     intro:
       "Finance and HR admin is repetitive, rule-based and error-prone: perfect for automation. We automate the steps, keep humans on the approvals and connect everything to your accounting and HR tools.",
+    quickAnswer:
+      "Accounts payable automation captures invoices from email, extracts the data, routes it for approval and syncs it to your accounting software, with a human approving every payment. AI Action Studio also automates receivables reminders, payroll inputs and employee onboarding.",
+    lastUpdated: SERVICE_LAST_UPDATED,
     sections: [
       {
         heading: "Accounts payable automation",
@@ -233,6 +264,7 @@ export const SERVICES: ServiceItem[] = [
         answer:
           "QuickBooks, Xero, Zoho Books and Tally are common. We confirm yours in the audit.",
       },
+      COST_FAQ,
     ],
     relatedSlugs: ["workflow-automation", "integrations", "custom-software"],
   },
@@ -241,6 +273,7 @@ export const SERVICES: ServiceItem[] = [
     href: "/services/integrations",
     navLabel: "Integrations",
     cardTitle: "Integrations",
+    primaryKeyword: "API integration services",
     shortDescription:
       "Connect the tools you already pay for so data is entered once.",
     hubBullets: [
@@ -256,6 +289,9 @@ export const SERVICES: ServiceItem[] = [
     h1: "API integration services that connect the tools you already pay for",
     intro:
       "Your tools don't talk to each other, so people do the talking, by copy-paste. We connect them so data is entered once and flows everywhere it's needed.",
+    quickAnswer:
+      "API integration connects the tools your business already pays for, such as your CRM, ERP, accounting and HR systems, so data is entered once and flows everywhere. AI Action Studio builds integrations with Zapier, Make, n8n or custom code, and monitors them so failures are caught early.",
+    lastUpdated: SERVICE_LAST_UPDATED,
     sections: [
       {
         heading: "CRM and ERP integration",
@@ -281,6 +317,7 @@ export const SERVICES: ServiceItem[] = [
         answer:
           "On a care plan, we monitor integrations and fix failures, usually before you notice.",
       },
+      COST_FAQ,
     ],
     relatedSlugs: ["workflow-automation", "ai-agents", "custom-software"],
   },
@@ -289,6 +326,7 @@ export const SERVICES: ServiceItem[] = [
     href: "/services/whatsapp-automation",
     navLabel: "WhatsApp Automation",
     cardTitle: "WhatsApp Automation (India)",
+    primaryKeyword: "WhatsApp automation",
     shortDescription:
       "WhatsApp lead capture, follow-ups and CRM sync for Indian businesses.",
     hubBullets: [
@@ -304,6 +342,9 @@ export const SERVICES: ServiceItem[] = [
     h1: "WhatsApp automation for growing Indian businesses",
     intro:
       "Your customers are on WhatsApp, and so are your orders, enquiries and follow-ups. We automate the replies, capture every lead and connect WhatsApp to your CRM and Tally.",
+    quickAnswer:
+      "WhatsApp automation uses the official WhatsApp Business API to send instant replies, follow-ups and order updates, and to log every chat in your CRM. AI Action Studio sets it up compliantly for Indian businesses, including Tally and CRM integration.",
+    lastUpdated: SERVICE_LAST_UPDATED,
     sections: [
       {
         heading: "Automated replies and follow-ups",
@@ -329,6 +370,7 @@ export const SERVICES: ServiceItem[] = [
         answer:
           "Yes. WhatsApp automation also works for businesses in the UK, Canada, Australia and elsewhere.",
       },
+      COST_FAQ,
     ],
     relatedSlugs: ["ai-agents", "integrations", "custom-software"],
   },

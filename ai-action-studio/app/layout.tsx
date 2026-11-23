@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import Script from "next/script";
+import { JsonLd, buildSiteWideGraphSchema } from "./components/Breadcrumbs";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import { siteDescription, SITE_URL } from "@/lib/site";
@@ -31,11 +32,20 @@ export const metadata: Metadata = {
     siteName: "AI Action Studio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "AI Action Studio — AI automation agency",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "AI Automation Agency for Business | AI Action Studio",
     description: siteDescription,
+    images: ["/opengraph-image"],
   },
   alternates: {
     canonical: siteUrl,
@@ -79,6 +89,7 @@ export default function RootLayout({
             title="Google Tag Manager"
           />
         </noscript>
+        <JsonLd data={buildSiteWideGraphSchema()} />
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

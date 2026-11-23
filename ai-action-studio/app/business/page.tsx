@@ -3,7 +3,7 @@ import Link from "next/link";
 import ArticlePage from "../components/ArticlePage";
 
 export const metadata: Metadata = {
-  title: "AI for Small Business: Tools, Marketing & Automation That Pay Off",
+  title: "AI for Small Business: Tools & Automation",
   description:
     "Practical AI for small business owners — marketing tools, automation and lead generation that actually save time and money.",
   alternates: { canonical: "/business" },

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Breadcrumbs } from "../components/Breadcrumbs";
+import { Breadcrumbs, JsonLd, buildContactPageSchema } from "../components/Breadcrumbs";
 import ContactForm from "./ContactForm";
 import { SITE_URL } from "@/lib/site";
 
@@ -18,11 +18,20 @@ export const metadata: Metadata = {
     siteName: "AI Action Studio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "AI Action Studio — AI automation agency",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: fullTitle,
     description,
+    images: ["/opengraph-image"],
   },
 };
 
@@ -35,6 +44,7 @@ const nextSteps = [
 export default function ContactPage() {
   return (
     <section className="bg-ivory py-16 md:py-24">
+      <JsonLd data={buildContactPageSchema()} />
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs
           items={[

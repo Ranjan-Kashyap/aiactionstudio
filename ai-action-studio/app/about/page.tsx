@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
-import { Breadcrumbs } from "../components/Breadcrumbs";
+import { Breadcrumbs, JsonLd, buildAboutPageSchema } from "../components/Breadcrumbs";
 import TalkToUsButton from "../components/TalkToUsButton";
 import { SITE_URL } from "@/lib/site";
 
@@ -21,11 +22,20 @@ export const metadata: Metadata = {
     siteName: "AI Action Studio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "AI Action Studio — AI automation agency",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: fullTitle,
     description,
+    images: ["/opengraph-image"],
   },
 };
 
@@ -39,6 +49,7 @@ const beliefs = [
 export default function AboutPage() {
   return (
     <section className="bg-ivory py-16 md:py-24">
+      <JsonLd data={buildAboutPageSchema()} />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs
           items={[
@@ -47,9 +58,22 @@ export default function AboutPage() {
           ]}
         />
         <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">About</p>
-        <h1 className="mt-3 text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-navy">
-          Hi, I&apos;m Ranjan.
-        </h1>
+        <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-center">
+          <div className="relative h-24 w-24 sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-2xl border border-sand bg-white shadow-[0_8px_24px_rgba(10,15,29,0.06)]">
+            <Image
+              src="/images/ranjan-kashyap.png"
+              alt="Ranjan Kashyap — Founder of AI Action Studio"
+              width={224}
+              height={268}
+              className="h-full w-full object-cover object-top"
+            />
+          </div>
+          <div>
+            <h1 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-navy">
+              Hi, I&apos;m Ranjan.
+            </h1>
+          </div>
+        </div>
         <p className="mt-6 text-[17px] leading-relaxed text-slate">
           I&apos;m Ranjan Kashyap, founder of AI Action Studio. We&apos;re an AI automation agency:
           we build AI agents, automations, custom tools and integrations for growing businesses, and
@@ -68,6 +92,8 @@ export default function AboutPage() {
           businesses. I also run{" "}
           <a
             href="https://scalelens.app"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
           >
             ScaleLens

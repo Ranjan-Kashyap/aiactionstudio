@@ -66,6 +66,8 @@ export default function Footer() {
               Need dashboards and reporting? See our sister company{" "}
               <a
                 href="https://scalelens.app"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="font-medium text-white underline decoration-mint underline-offset-4 transition hover:text-mint"
               >
                 ScaleLens

@@ -1,7 +1,26 @@
 import Link from "next/link";
-import { JsonLd, buildBreadcrumbSchema } from "./Breadcrumbs";
+import { CONTENT_LAST_UPDATED } from "@/lib/site";
+import {
+  JsonLd,
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+} from "./Breadcrumbs";
 import LeadForm from "./LeadForm";
 import TalkToUsBanner from "./TalkToUsBanner";
+
+const SOURCE_TO_PATH: Record<string, string> = {
+  business: "/business",
+  tools: "/tools",
+  "tools-website-builders": "/tools/best-ai-website-builders",
+  "tutorial-chatgpt": "/tutorials/how-to-use-chatgpt",
+  "tutorial-generative-ai": "/tutorials/what-is-generative-ai",
+  "workflow-no-code": "/workflows/ai-automation-no-code",
+  "prompts-chatgpt": "/prompts/chatgpt-prompts",
+  "review-chatgpt-claude": "/reviews/chatgpt-vs-claude",
+  "review-chatgpt-gemini": "/reviews/chatgpt-vs-gemini",
+  "build-vibe-coding": "/build/vibe-coding",
+  "build-copilot": "/build/github-copilot-tutorial",
+};
 
 type ArticlePageProps = {
   eyebrow: string;
@@ -11,6 +30,9 @@ type ArticlePageProps = {
   intro: string;
   lastUpdated?: string;
   lastChecked?: string;
+  datePublished?: string;
+  dateModified?: string;
+  canonicalPath?: string;
   source: string;
   bannerHeading?: string;
   children: React.ReactNode;
@@ -24,25 +46,41 @@ export default function ArticlePage({
   intro,
   lastUpdated,
   lastChecked,
+  datePublished = CONTENT_LAST_UPDATED,
+  dateModified,
+  canonicalPath,
   source,
   bannerHeading,
   children,
 }: ArticlePageProps) {
+  const pagePath = canonicalPath ?? SOURCE_TO_PATH[source] ?? `/${source}`;
+  const effectiveDateModified = dateModified ?? lastUpdated ?? CONTENT_LAST_UPDATED;
+
   const breadcrumbItems =
     backHref === "/"
       ? [
           { label: "Home", href: "/" },
-          { label: heading, href: `/${source}` },
+          { label: heading, href: pagePath },
         ]
       : [
           { label: "Home", href: "/" },
           { label: backLabel, href: backHref },
-          { label: heading, href: backHref },
+          { label: heading, href: pagePath },
         ];
 
   return (
     <article className="bg-ivory py-16 md:py-24">
       <JsonLd data={buildBreadcrumbSchema(breadcrumbItems)} />
+      <JsonLd
+        data={buildArticleSchema({
+          type: "Article",
+          headline: heading,
+          description: intro,
+          url: pagePath,
+          datePublished,
+          dateModified: effectiveDateModified,
+        })}
+      />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Link
           href={backHref}
@@ -56,14 +94,18 @@ export default function ArticlePage({
         <h1 className="mt-3 text-[clamp(1.85rem,4vw,2.75rem)] font-bold leading-tight text-navy">
           {heading}
         </h1>
-        {lastUpdated || lastChecked ? (
-          <p className="mt-3 text-[13px] text-slate/70">
-            {lastUpdated ? `Last updated ${lastUpdated}. ` : null}
-            {lastChecked
-              ? `Prices last checked ${lastChecked} against official vendor pages. Confirm on the vendor's site before you subscribe.`
-              : null}
-          </p>
-        ) : null}
+        <p className="mt-3 text-[13px] text-slate/70">
+          Updated {effectiveDateModified} · By{" "}
+          <Link
+            href="/about"
+            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+          >
+            Ranjan Kashyap
+          </Link>
+          {lastChecked
+            ? ` · Prices last checked ${lastChecked} against official vendor pages. Confirm on the vendor's site before you subscribe.`
+            : null}
+        </p>
         <p className="mt-6 text-[17px] leading-relaxed text-slate">{intro}</p>
         <div className="prose-awb mt-10">{children}</div>
         <TalkToUsBanner

@@ -6,11 +6,7 @@ import LeadForm from "./components/LeadForm";
 import ServiceCard from "./components/ServiceCard";
 import TalkToUsButton from "./components/TalkToUsButton";
 import CaseStudies from "./components/CaseStudies";
-import {
-  JsonLd,
-  buildFaqSchema,
-  buildProfessionalServiceSchema,
-} from "./components/Breadcrumbs";
+import { JsonLd, buildFaqSchema } from "./components/Breadcrumbs";
 import { HOW_WE_WORK_STEPS, SERVICES } from "@/src/data/services";
 import { SITE_URL, YOUTUBE_URL } from "@/lib/site";
 
@@ -31,11 +27,20 @@ export const metadata: Metadata = {
     siteName: "AI Action Studio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "AI Action Studio — AI automation agency",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: homeTitle,
     description: homeDescription,
+    images: ["/opengraph-image"],
   },
 };
 
@@ -100,6 +105,7 @@ const freeResourceCards = [
   },
 ];
 
+// TODO(owner): confirm the two-to-four-week timeframe in "How long does it take to build an AI agent or automation?" before publishing.
 const homeFaqs = [
   {
     question: "What does an AI automation agency do?",
@@ -126,6 +132,26 @@ const homeFaqs = [
     answer:
       "Yes. We work with businesses in the US, UK, Canada, Australia and India, remotely.",
   },
+  {
+    question: "How do I choose an AI automation agency?",
+    answer:
+      "Look for an agency that starts with your process rather than a tool, gives a fixed price before building, shows working progress every week, documents everything in your own accounts, and offers ongoing maintenance. Ask how they handle data access and what happens when something breaks.",
+  },
+  {
+    question: "AI automation agency or freelancer: which is better?",
+    answer:
+      "A freelancer can be a good fit for a single, simple automation. An agency is usually better when several tools, people and processes are involved, or when the system needs to be maintained and improved over time.",
+  },
+  {
+    question: "How long does it take to build an AI agent or automation?",
+    answer:
+      "A focused automation or AI agent often takes two to four weeks from blueprint to launch; larger custom software takes longer. We confirm the timeline in the fixed-price blueprint.",
+  },
+  {
+    question: "Is my data safe with an AI automation agency?",
+    answer:
+      "We use least-privilege access, sign NDAs on request, build inside your own accounts where possible, and only send data to AI models where it is needed and allowed.",
+  },
 ];
 
 const primaryCtaClass =
@@ -136,8 +162,7 @@ const secondaryCtaClass =
 export default function HomePage() {
   return (
     <>
-      <JsonLd data={buildProfessionalServiceSchema()} />
-      <JsonLd data={buildFaqSchema(homeFaqs)} />
+      <JsonLd data={buildFaqSchema(homeFaqs, `${SITE_URL}/#faq`)} />
 
       {/* 3.1 Hero */}
       <section className="relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center bg-ivory">
@@ -221,6 +246,79 @@ export default function HomePage() {
               </article>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* 5.2 AI Action Studio at a glance */}
+      <section id="at-a-glance" className="border-t border-sand bg-cream py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.25rem)] font-bold leading-tight text-navy">
+            AI Action Studio at a glance
+          </h2>
+          <dl className="mt-8 grid gap-4 rounded-xl border border-sand bg-white p-6 md:grid-cols-2 md:p-8">
+            <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
+              <dt className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+                What we are
+              </dt>
+              <dd className="mt-1 text-[15px] leading-relaxed text-navy">
+                An AI automation agency that builds and maintains AI agents, automations, custom
+                software and integrations.
+              </dd>
+            </div>
+            <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
+              <dt className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+                Who we work with
+              </dt>
+              <dd className="mt-1 text-[15px] leading-relaxed text-navy">
+                Growing businesses with roughly 10 to 500 people, and owner-led businesses in India
+                with ₹1 crore+ turnover.
+              </dd>
+            </div>
+            <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
+              <dt className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+                Where
+              </dt>
+              <dd className="mt-1 text-[15px] leading-relaxed text-navy">
+                Remote, for clients in the US, UK, Canada, Australia and India.
+              </dd>
+            </div>
+            <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
+              <dt className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+                How projects work
+              </dt>
+              <dd className="mt-1 text-[15px] leading-relaxed text-navy">
+                Free 30-minute audit → fixed-price blueprint → build in weekly stages → monthly care
+                plan.
+              </dd>
+            </div>
+            <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
+              <dt className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+                Founder
+              </dt>
+              <dd className="mt-1 text-[15px] leading-relaxed text-navy">
+                <Link
+                  href="/about"
+                  className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                >
+                  Ranjan Kashyap
+                </Link>
+              </dd>
+            </div>
+            <div>
+              <dt className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+                Contact
+              </dt>
+              <dd className="mt-1 text-[15px] leading-relaxed text-navy">
+                hello@aiactionstudio.com ·{" "}
+                <Link
+                  href="/contact"
+                  className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                >
+                  Talk to us
+                </Link>
+              </dd>
+            </div>
+          </dl>
         </div>
       </section>
 

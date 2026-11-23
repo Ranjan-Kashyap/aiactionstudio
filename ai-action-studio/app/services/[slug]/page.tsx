@@ -39,11 +39,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: "AI Action Studio",
       type: "website",
       locale: "en_US",
+      images: [
+        {
+          url: `${service.href}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: service.h1,
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: service.fullTitle,
       description: service.metaDescription,
+      images: [`${service.href}/opengraph-image`],
     },
   };
 }
@@ -67,10 +76,10 @@ export default async function ServiceDetailPage({ params }: Props) {
           name: service.cardTitle,
           description: service.metaDescription,
           url: service.href,
-          serviceType: service.navLabel,
+          serviceType: service.primaryKeyword,
         })}
       />
-      <JsonLd data={buildFaqSchema(service.faqs)} />
+      <JsonLd data={buildFaqSchema(service.faqs, `${SITE_URL}${service.href}#faq`)} />
 
       {/* Hero */}
       <section className="bg-ivory py-16 md:py-24">
@@ -91,6 +100,16 @@ export default async function ServiceDetailPage({ params }: Props) {
           <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
             {service.intro}
           </p>
+
+          {/* 5.1 Quick answer block */}
+          <div className="mt-8 max-w-3xl rounded-xl border border-sand bg-white p-6 md:p-7">
+            <div className="mb-2.5 h-0.5 w-10 bg-mint" aria-hidden />
+            <h2 className="text-[18px] font-semibold text-navy">In short</h2>
+            <p className="mt-2 text-[15px] leading-relaxed text-slate">
+              {service.quickAnswer}
+            </p>
+          </div>
+
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <TalkToUsButton
               location={`service-hero-${service.slug}`}
@@ -179,7 +198,7 @@ export default async function ServiceDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* Related services */}
+      {/* Related services & 5.5 Visible trust signals */}
       <section className="border-t border-sand bg-ivory py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
@@ -198,6 +217,17 @@ export default async function ServiceDetailPage({ params }: Props) {
               <ServiceCard key={rel.slug} service={rel} />
             ))}
           </div>
+
+          <p className="mt-12 border-t border-sand pt-6 text-[14px] leading-relaxed text-slate">
+            Built and maintained by AI Action Studio, a founder-led AI automation agency. Led by{" "}
+            <Link
+              href="/about"
+              className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+            >
+              Ranjan Kashyap
+            </Link>
+            . · Last updated {service.lastUpdated}
+          </p>
         </div>
       </section>
 

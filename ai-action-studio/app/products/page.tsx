@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   title: "Products",
   description,
   alternates: { canonical: "/products" },
+  robots: { index: false, follow: true },
   openGraph: {
     title: fullTitle,
     description,
@@ -19,11 +20,20 @@ export const metadata: Metadata = {
     siteName: "AI Action Studio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "AI Action Studio — AI automation agency",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: fullTitle,
     description,
+    images: ["/opengraph-image"],
   },
 };
 

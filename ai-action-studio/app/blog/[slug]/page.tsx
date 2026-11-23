@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import BlogCategoryView from "../../components/BlogCategoryView";
-import { JsonLd, buildBreadcrumbSchema } from "../../components/Breadcrumbs";
+import {
+  JsonLd,
+  buildArticleSchema,
+  buildBreadcrumbSchema,
+} from "../../components/Breadcrumbs";
 import TalkToUsBanner from "../../components/TalkToUsBanner";
 import { getAllSlugs, getPostBySlug, getPostsByCategory } from "@/lib/blog";
 import { BLOG_CATEGORIES, getBlogCategory } from "@/lib/blog-categories";
@@ -39,6 +43,20 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: post.excerpt,
       type: "article",
       url: `https://aiactionstudio.com/blog/${post.slug}`,
+      images: [
+        {
+          url: "/opengraph-image",
+          width: 1200,
+          height: 630,
+          alt: "AI Action Studio — AI automation agency",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+      images: ["/opengraph-image"],
     },
   };
 }
@@ -74,6 +92,17 @@ export default async function BlogSlugPage({ params }: Props) {
           { label: post.title, href: `/blog/${post.slug}` },
         ])}
       />
+      <JsonLd
+        data={buildArticleSchema({
+          type: "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          url: `/blog/${post.slug}`,
+          image: post.coverImage,
+          datePublished: post.date,
+          dateModified: post.date,
+        })}
+      />
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         <Link
           href="/blog"
@@ -82,7 +111,13 @@ export default async function BlogSlugPage({ params }: Props) {
           ← Blog
         </Link>
         <p className="mt-6 text-[13px] text-slate/70">
-          {post.formattedDate} · {post.author}
+          Updated {post.formattedDate} · By{" "}
+          <Link
+            href="/about"
+            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+          >
+            Ranjan Kashyap
+          </Link>
           {postCategory ? (
             <>
               {" · "}

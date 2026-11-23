@@ -3,6 +3,7 @@ import {
   Breadcrumbs,
   JsonLd,
   buildFaqSchema,
+  buildServicesItemListSchema,
 } from "../components/Breadcrumbs";
 import ServiceCard from "../components/ServiceCard";
 import TalkToUsButton from "../components/TalkToUsButton";
@@ -24,11 +25,20 @@ export const metadata: Metadata = {
     siteName: "AI Action Studio",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "AI Action Studio — AI automation agency",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: fullTitle,
     description,
+    images: ["/opengraph-image"],
   },
 };
 
@@ -51,7 +61,8 @@ const primaryCtaClass =
 export default function ServicesHubPage() {
   return (
     <>
-      <JsonLd data={buildFaqSchema(servicesHubFaqs)} />
+      <JsonLd data={buildServicesItemListSchema(SERVICES)} />
+      <JsonLd data={buildFaqSchema(servicesHubFaqs, `${SITE_URL}/services#faq`)} />
 
       {/* Hero */}
       <section className="bg-ivory py-16 md:py-24">
