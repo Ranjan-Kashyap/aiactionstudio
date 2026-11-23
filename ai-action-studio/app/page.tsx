@@ -69,11 +69,11 @@ const whyBullets = [
 
 const whoColumns = [
   {
-    title: "Owner-led businesses in India",
-    body: "that run on Excel, Tally and WhatsApp.",
+    title: "Owner-led businesses",
+    body: "that run on spreadsheets, WhatsApp and accounting tools like Tally, QuickBooks or Xero.",
   },
   {
-    title: "Operations teams in the US, UK, Canada and Australia",
+    title: "Operations teams",
     body: "juggling CRMs, accounting and HR tools.",
   },
   {
@@ -128,9 +128,9 @@ const homeFaqs = [
       "Every project starts with a free audit, then a fixed-price blueprint and a fixed quote for the build. Ongoing care is a monthly plan sized to the system.",
   },
   {
-    question: "Do you work with businesses outside India?",
+    question: "Where are your clients based?",
     answer:
-      "Yes. We work with businesses in the US, UK, Canada, Australia and India, remotely.",
+      "We work remotely with growing businesses worldwide, across time zones.",
   },
   {
     question: "How do I choose an AI automation agency?",
@@ -270,8 +270,7 @@ export default function HomePage() {
                 Who we work with
               </dt>
               <dd className="mt-1 text-[15px] leading-relaxed text-navy">
-                Growing businesses with roughly 10 to 500 people, and owner-led businesses in India
-                with ₹1 crore+ turnover.
+                Growing and owner-led businesses with roughly 10 to 500 people.
               </dd>
             </div>
             <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
@@ -279,7 +278,7 @@ export default function HomePage() {
                 Where
               </dt>
               <dd className="mt-1 text-[15px] leading-relaxed text-navy">
-                Remote, for clients in the US, UK, Canada, Australia and India.
+                Remote, for clients worldwide.
               </dd>
             </div>
             <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">

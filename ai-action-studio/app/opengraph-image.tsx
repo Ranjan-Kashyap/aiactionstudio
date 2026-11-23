@@ -91,7 +91,7 @@ export default function OpengraphImage() {
           }}
         >
           <span>aiactionstudio.com</span>
-          <span>US · UK · Canada · Australia · India</span>
+          <span>Remote · Worldwide</span>
         </div>
       </div>
     ),

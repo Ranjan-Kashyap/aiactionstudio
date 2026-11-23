@@ -325,10 +325,10 @@ export const SERVICES: ServiceItem[] = [
     slug: "whatsapp-automation",
     href: "/services/whatsapp-automation",
     navLabel: "WhatsApp Automation",
-    cardTitle: "WhatsApp Automation (India)",
+    cardTitle: "WhatsApp Automation",
     primaryKeyword: "WhatsApp automation",
     shortDescription:
-      "WhatsApp lead capture, follow-ups and CRM sync for Indian businesses.",
+      "WhatsApp lead capture, follow-ups and CRM sync for growing businesses.",
     hubBullets: [
       "lead capture",
       "automated follow-ups",
@@ -337,13 +337,13 @@ export const SERVICES: ServiceItem[] = [
     title: "WhatsApp Automation for Business",
     fullTitle: "WhatsApp Automation for Business | AI Action Studio",
     metaDescription:
-      "WhatsApp automation for Indian businesses: lead capture, automated replies and follow-ups, CRM and Tally integration, built and maintained for you.",
-    eyebrow: "WhatsApp automation · India",
-    h1: "WhatsApp automation for growing Indian businesses",
+      "WhatsApp automation for growing businesses: lead capture, automated replies and follow-ups, CRM and accounting integration, built and maintained for you.",
+    eyebrow: "WhatsApp automation",
+    h1: "WhatsApp automation for growing businesses",
     intro:
-      "Your customers are on WhatsApp, and so are your orders, enquiries and follow-ups. We automate the replies, capture every lead and connect WhatsApp to your CRM and Tally.",
+      "Your customers are on WhatsApp, and so are your orders, enquiries and follow-ups. We automate the replies, capture every lead and connect WhatsApp to your CRM and accounting system.",
     quickAnswer:
-      "WhatsApp automation uses the official WhatsApp Business API to send instant replies, follow-ups and order updates, and to log every chat in your CRM. AI Action Studio sets it up compliantly for Indian businesses, including Tally and CRM integration.",
+      "WhatsApp automation uses the official WhatsApp Business API to send instant replies, follow-ups and order updates, and to log every chat in your CRM. AI Action Studio sets it up compliantly, including CRM and accounting integration.",
     lastUpdated: SERVICE_LAST_UPDATED,
     sections: [
       {
@@ -355,8 +355,8 @@ export const SERVICES: ServiceItem[] = [
         body: "Every chat logged against the right customer, with the next step assigned to your team.",
       },
       {
-        heading: "Tally and order updates",
-        body: "Order confirmations, payment reminders and dispatch updates sent automatically from your records.",
+        heading: "Order and payment updates",
+        body: "Order confirmations, payment reminders and dispatch updates sent automatically from your CRM or accounting system, such as QuickBooks, Xero or Tally.",
       },
     ],
     faqs: [
@@ -366,9 +366,9 @@ export const SERVICES: ServiceItem[] = [
           "Yes, when done through the official WhatsApp Business API with opt-in customers. We set it up the compliant way.",
       },
       {
-        question: "Do you work with businesses outside India?",
+        question: "Which countries do you work with?",
         answer:
-          "Yes. WhatsApp automation also works for businesses in the UK, Canada, Australia and elsewhere.",
+          "We work remotely with businesses worldwide. WhatsApp automation works wherever the WhatsApp Business API is available.",
       },
       COST_FAQ,
     ],

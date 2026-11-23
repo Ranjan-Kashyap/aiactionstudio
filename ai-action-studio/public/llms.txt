@@ -1,6 +1,6 @@
 # AI Action Studio
 
-> AI Action Studio is an AI automation agency. We build and maintain AI agents, workflow automations, custom software and integrations that take manual work off growing businesses in the United States, United Kingdom, Canada, Australia and India. Founder: Ranjan Kashyap.
+> AI Action Studio is an AI automation agency. We build and maintain AI agents, workflow automations, custom software and integrations that take manual work off growing businesses worldwide. We work remotely. Founder: Ranjan Kashyap.
 
 Every project starts with a free 30-minute systems audit, then a fixed-price blueprint, a build delivered in weekly stages, and a monthly care plan that keeps the system running. We start with the client's process, not a tool, and use AI only where it is reliable.
 
@@ -10,7 +10,7 @@ Every project starts with a free 30-minute systems audit, then a fixed-price blu
 - [Custom software development](https://aiactionstudio.com/services/custom-software): custom CRMs, order, inventory and HR apps and internal tools.
 - [Accounts payable and HR automation](https://aiactionstudio.com/services/finance-hr-automation): invoice capture, payables approvals, receivables reminders, payroll inputs and onboarding, connected to QuickBooks, Xero, Zoho Books or Tally.
 - [API integration services](https://aiactionstudio.com/services/integrations): connecting CRM, ERP, accounting and HR tools; Zapier, Make and n8n builds; custom API integrations.
-- [WhatsApp automation](https://aiactionstudio.com/services/whatsapp-automation): WhatsApp Business API replies, follow-ups, CRM and Tally integration, mainly for Indian businesses.
+- [WhatsApp automation](https://aiactionstudio.com/services/whatsapp-automation): WhatsApp Business API replies, follow-ups, and CRM and accounting integration.
 - [All services](https://aiactionstudio.com/services)
 
 ## Company
