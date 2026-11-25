@@ -1,13 +1,17 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { Breadcrumbs, JsonLd, buildAboutPageSchema } from "../components/Breadcrumbs";
+import {
+  Breadcrumbs,
+  JsonLd,
+  buildAboutPageSchema,
+} from "../components/Breadcrumbs";
 import TalkToUsButton from "../components/TalkToUsButton";
-import { SITE_URL } from "@/lib/site";
+import { SCALELENS_URL, SITE_URL } from "@/lib/site";
 
-const fullTitle = "About AI Action Studio | Founder-Led AI Automation Agency";
+const fullTitle = "About Ranjan Kashyap & AI Action Studio";
 const description =
-  "AI Action Studio is a founder-led AI automation agency. Meet Ranjan Kashyap and see how we build, connect and maintain AI systems for businesses.";
+  "Meet Ranjan Kashyap, founder of AI Action Studio, ScaleRise and ScaleLens. We build, connect and maintain practical AI systems and automations for growing businesses.";
 
 export const metadata: Metadata = {
   title: {
@@ -39,94 +43,145 @@ export const metadata: Metadata = {
   },
 };
 
-const beliefs = [
-  "Start with the process, not the tool.",
-  "Use AI where it's reliable; use simple automation where that's better.",
-  "Build in the client's accounts and document everything.",
-  "Maintain what we build.",
+const values = [
+  {
+    title: "Practical over hype",
+    body: "We start with your process, not a shiny tool. If a simple rule-based automation or off-the-shelf tool solves it, we tell you.",
+  },
+  {
+    title: "Small fixed-price starts",
+    body: "Every engagement begins with a free 30-minute audit and a fixed-price blueprint credited to the build, followed by weekly working demos.",
+  },
+  {
+    title: "We stay after launch",
+    body: "Software and automations drift when APIs change. Our monthly Care Plans keep your systems monitored, fixed and improving.",
+  },
+  {
+    title: "Your data stays in your accounts",
+    body: "We build inside your company accounts with least-privilege access, sign NDAs on request, and document everything so you own it.",
+  },
 ];
 
 export default function AboutPage() {
   return (
     <section className="bg-ivory py-16 md:py-24">
       <JsonLd data={buildAboutPageSchema()} />
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         <Breadcrumbs
           items={[
             { label: "Home", href: "/" },
             { label: "About", href: "/about" },
           ]}
         />
-        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">About</p>
-        <div className="mt-4 flex flex-col gap-6 sm:flex-row sm:items-center">
-          <div className="relative h-24 w-24 sm:h-28 sm:w-28 shrink-0 overflow-hidden rounded-2xl border border-sand bg-white shadow-[0_8px_24px_rgba(10,15,29,0.06)]">
+        <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+          About AI Action Studio
+        </p>
+
+        <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:items-center">
+          {/* TODO(Ranjan): replace /images/ranjan-kashyap.png if a newer photo is preferred */}
+          <div className="relative h-28 w-28 shrink-0 overflow-hidden rounded-2xl border border-sand bg-white shadow-[0_8px_24px_rgba(10,15,29,0.06)] sm:h-32 sm:w-32">
             <Image
               src="/images/ranjan-kashyap.png"
               alt="Ranjan Kashyap — Founder of AI Action Studio"
-              width={224}
-              height={268}
+              width={256}
+              height={304}
               className="h-full w-full object-cover object-top"
             />
           </div>
           <div>
             <h1 className="text-[clamp(2rem,4vw,3rem)] font-bold leading-tight text-navy">
-              Hi, I&apos;m Ranjan.
+              Built by an operator, not a hype merchant
             </h1>
+            <p className="mt-2 text-[15px] font-medium text-slate">
+              Ranjan Kashyap &middot; Founder, AI Action Studio
+            </p>
           </div>
         </div>
-        <p className="mt-6 text-[17px] leading-relaxed text-slate">
-          I&apos;m Ranjan Kashyap, founder of AI Action Studio. We&apos;re an AI automation agency:
-          we build AI agents, automations, custom tools and integrations for growing businesses, and
-          we maintain them after launch.
-        </p>
 
-        <h2 className="mt-10 text-[24px] font-semibold text-navy">What we do</h2>
-        <p className="mt-3 text-[16px] leading-relaxed text-slate">
-          Most teams don&apos;t need more tools; they need the tools they have to work together, and
-          the repetitive work taken off their plate. That&apos;s what we build.
-        </p>
-
-        <h2 className="mt-10 text-[24px] font-semibold text-navy">How we got here</h2>
-        <p className="mt-3 text-[16px] leading-relaxed text-slate">
-          My background is data engineering, tracking and automation for agencies and growing
-          businesses. I also run{" "}
-          <a
-            href="https://scalelens.app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
-          >
-            ScaleLens
-          </a>
-          , which builds custom dashboards, and I share practical AI tutorials on YouTube.
-        </p>
-
-        <h2 className="mt-10 text-[24px] font-semibold text-navy">What we believe</h2>
-        <ul className="mt-4 space-y-3">
-          {beliefs.map((item) => (
-            <li
-              key={item}
-              className="border-l-2 border-mint pl-4 text-[16px] leading-relaxed text-slate"
+        {/* TODO(Ranjan): fill in exact years running businesses, clients served count, Upwork rating & earnings (if verifiable), and total systems built count. */}
+        <div className="mt-8 space-y-5 text-[17px] leading-relaxed text-slate">
+          <p>
+            I&apos;m Ranjan Kashyap, founder of AI Action Studio. We build and maintain the
+            systems that take manual work off growing teams — from spreadsheets and WhatsApp to
+            connected workflow automations, AI agents and custom internal tools.
+          </p>
+          <p>
+            Before starting AI Action Studio, I ran <strong>ScaleRise</strong>, an agency focused
+            on data engineering, analytics tracking and workflow automation for agencies and
+            growing businesses across the US, UK, Canada, Australia and India, and built{" "}
+            <a
+              href={SCALELENS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
             >
-              {item}
-            </li>
+              ScaleLens
+            </a>
+            , our sister product for custom reporting dashboards and BI.
+          </p>
+          <p>
+            Most teams don&apos;t need another AI subscription or a 50-page consulting deck. They
+            need the tools they already pay for to talk to each other, the repetitive data entry
+            taken off their plate, and a partner who stays around after launch to keep things
+            running. That&apos;s why we exist.
+          </p>
+        </div>
+
+        {process.env.NODE_ENV === "development" ? (
+          <div className="mt-6 rounded-lg border border-[var(--warning)] bg-white p-4 text-[13px] text-navy">
+            <strong>Dev note — TODO(Ranjan):</strong> Add exact years running businesses, clients
+            served, Upwork track record (rating &amp; earnings), and total systems built in{" "}
+            <code>app/about/page.tsx</code>.
+          </div>
+        ) : null}
+
+        <h2 className="mt-14 text-[26px] font-bold text-navy">
+          What we stand for
+        </h2>
+        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+          {values.map((item) => (
+            <article
+              key={item.title}
+              className="rounded-xl border border-sand bg-white p-6 md:p-7"
+            >
+              <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+              <h3 className="text-[19px] font-semibold text-navy">
+                {item.title}
+              </h3>
+              <p className="mt-2.5 text-[15px] leading-relaxed text-slate">
+                {item.body}
+              </p>
+            </article>
           ))}
-        </ul>
+        </div>
 
-        <h2 className="mt-10 text-[24px] font-semibold text-navy">Free resources</h2>
-        <p className="mt-3 text-[16px] leading-relaxed text-slate">
-          We still publish{" "}
+        <div className="mt-12 rounded-xl border border-sand bg-white p-6 md:p-8">
+          <h2 className="text-[22px] font-semibold text-navy">
+            Free learning resources
+          </h2>
+          <p className="mt-2 text-[16px] leading-relaxed text-slate">
+            We also share what we learn through{" "}
+            <Link
+              href="/resources"
+              className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+            >
+              free tutorials, tool comparisons, prompts and workflows
+            </Link>{" "}
+            and on YouTube.
+          </p>
+        </div>
+
+        <div className="mt-12 flex flex-wrap items-center gap-4">
+          <TalkToUsButton
+            location="about-page"
+            className="inline-flex items-center justify-center rounded-lg bg-mint px-6 py-3 text-[15px] font-semibold text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
+          />
           <Link
-            href="/resources"
-            className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+            href="/ai-score"
+            className="inline-flex items-center justify-center rounded-lg border border-navy px-6 py-3 text-[15px] font-semibold text-navy transition hover:bg-navy hover:text-white"
           >
-            free tutorials, tool comparisons, prompts and workflows
+            Get your AI score
           </Link>
-          .
-        </p>
-
-        <div className="mt-12">
-          <TalkToUsButton location="about-page" />
         </div>
       </div>
     </section>

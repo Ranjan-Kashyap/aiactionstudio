@@ -1,34 +1,39 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useSyncExternalStore } from "react";
 import Logo from "./Logo";
 import LeadForm from "./LeadForm";
-import { SERVICES } from "@/src/data/services";
-import { YOUTUBE_URL } from "@/lib/site";
-
-const socials = [
-  {
-    href: "https://www.facebook.com/aiactionstudio",
-    label: "AI Action Studio on Facebook",
-    src: "/images/social/facebook.svg",
-  },
-  {
-    href: "https://www.instagram.com/ai.actionstudio",
-    label: "AI Action Studio on Instagram",
-    src: "/images/social/instagram.svg",
-  },
-  {
-    href: YOUTUBE_URL,
-    label: "AI Action Studio on YouTube",
-    src: "/images/social/youtube.svg",
-  },
-];
+import {
+  ONE_LINE_POSITIONING,
+  SCALELENS_URL,
+  SITE_TAGLINE,
+  SOCIAL_LINKS,
+} from "@/lib/site";
 
 const serviceLinks = [
-  ...SERVICES.map((service) => ({
-    href: service.href,
-    label: service.navLabel,
-  })),
+  { href: "/services/ai-consulting", label: "AI Consulting & Readiness Audit" },
+  { href: "/services/ai-training", label: "AI Training & Claude for Business" },
+  { href: "/services/workflow-automation", label: "Workflow Automation" },
+  { href: "/services/ai-agents", label: "AI Agents & Chatbots" },
+  { href: "/services/custom-software", label: "Custom Software & Internal Tools" },
+  { href: "/services/finance-hr-automation", label: "Finance & HR Automation" },
+  { href: "/services/integrations", label: "Integrations" },
+  { href: "/services/whatsapp-automation", label: "WhatsApp Automation" },
+  { href: "/services/care-plans", label: "AI Care Plans" },
   { href: "/services", label: "All services" },
+];
+
+const companyLinks = [
+  { href: "/about", label: "About" },
+  { href: "/work", label: "Our Work" },
+  { href: "/ai-score", label: "AI Readiness Scorecard" },
+  { href: "/contact", label: "Contact" },
+  { href: "/privacy-policy", label: "Privacy Policy" },
+  { href: "/terms-of-service", label: "Terms of Service" },
+  { href: "/disclaimer", label: "Disclaimer" },
 ];
 
 const resourceLinks = [
@@ -44,50 +49,74 @@ const resourceLinks = [
   { href: "/free-checklist", label: "Free Checklist" },
 ];
 
-const companyLinks = [
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-  { href: "/privacy-policy", label: "Privacy Policy" },
-  { href: "/terms-of-service", label: "Terms of Service" },
-  { href: "/disclaimer", label: "Disclaimer" },
-];
+const emptySubscribe = () => () => {};
 
 export default function Footer() {
+  const pathname = usePathname();
+  const isEmbed = useSyncExternalStore(
+    emptySubscribe,
+    () =>
+      pathname === "/ai-score" &&
+      new URLSearchParams(window.location.search).get("embed") === "1",
+    () => false,
+  );
+
+  if (isEmbed) return null;
+
   return (
-    <footer className="mt-auto border-t border-[rgba(255,255,255,0.08)] bg-navy">
+    <footer className="mt-auto border-t border-[rgba(255,255,255,0.08)] bg-navy pb-20 md:pb-0">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Logo variant="onDark" />
+            <Logo variant="onDark" showDescriptor />
             <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-[rgba(255,255,255,0.68)]">
-              AI Action Studio is an AI automation agency that builds AI agents, workflow automations, custom software and integrations for growing businesses.
+              {ONE_LINE_POSITIONING}
             </p>
-            <p className="mt-4 text-[14px] leading-relaxed text-[rgba(255,255,255,0.68)]">
-              Need dashboards and reporting? See our sister company{" "}
-              <a
-                href="https://scalelens.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-medium text-white underline decoration-mint underline-offset-4 transition hover:text-mint"
-              >
-                ScaleLens
-              </a>
-              .
+            <p className="mt-2 text-[13px] font-medium text-mint">
+              {SITE_TAGLINE}
             </p>
-            <div className="mt-6 flex items-center gap-3">
-              {socials.map((item) => (
+            {SCALELENS_URL ? (
+              <p className="mt-4 text-[14px] leading-relaxed text-[rgba(255,255,255,0.68)]">
+                Sister company:{" "}
                 <a
-                  key={item.href}
-                  href={item.href}
+                  href={SCALELENS_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  aria-label={item.label}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-lg transition hover:bg-[rgba(255,255,255,0.08)]"
+                  className="font-medium text-white underline decoration-mint underline-offset-4 transition hover:text-mint"
                 >
-                  <Image src={item.src} alt="" width={24} height={24} className="h-6 w-6" />
-                </a>
-              ))}
-            </div>
+                  ScaleLens
+                </a>{" "}
+                (dashboards &amp; BI).
+              </p>
+            ) : null}
+
+            {SOCIAL_LINKS.length > 0 ? (
+              <div className="mt-6">
+                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white">
+                  Connect
+                </p>
+                <div className="mt-3 flex items-center gap-3">
+                  {SOCIAL_LINKS.map((item) => (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={item.label}
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-lg transition hover:bg-[rgba(255,255,255,0.08)]"
+                    >
+                      <Image
+                        src={item.src}
+                        alt=""
+                        width={24}
+                        height={24}
+                        className="h-6 w-6"
+                      />
+                    </a>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
 
           <div className="grid gap-8 sm:grid-cols-3 lg:col-span-5">
@@ -108,10 +137,10 @@ export default function Footer() {
 
             <div>
               <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white">
-                Resources
+                Company
               </p>
               <ul className="mt-4 space-y-2.5 text-[14px] text-[rgba(255,255,255,0.68)]">
-                {resourceLinks.map((link) => (
+                {companyLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="transition hover:text-mint">
                       {link.label}
@@ -123,10 +152,10 @@ export default function Footer() {
 
             <div>
               <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-white">
-                Company
+                Resources
               </p>
               <ul className="mt-4 space-y-2.5 text-[14px] text-[rgba(255,255,255,0.68)]">
-                {companyLinks.map((link) => (
+                {resourceLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} className="transition hover:text-mint">
                       {link.label}

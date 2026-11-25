@@ -60,7 +60,7 @@ export function buildFaqSchema(
   };
 }
 
-// TODO(owner): add the company LinkedIn URL and the founder's LinkedIn URL to sameAs when available.
+// TODO(Ranjan): add the company LinkedIn URL and the founder's LinkedIn URL to sameAs when available.
 export function buildSiteWideGraphSchema() {
   return {
     "@context": "https://schema.org",
@@ -169,14 +169,14 @@ export function buildServicesItemListSchema(services: ServiceItem[] = SERVICES) 
   };
 }
 
-// TODO(owner): add the LinkedIn URL to sameAs.
+// TODO(Ranjan): add the LinkedIn URL to sameAs.
 export function buildAboutPageSchema() {
   return {
     "@context": "https://schema.org",
     "@type": "AboutPage",
     "@id": `${SITE_URL}/about#webpage`,
     url: `${SITE_URL}/about`,
-    name: "About AI Action Studio | Founder-Led AI Automation Agency",
+    name: "About Ranjan Kashyap & AI Action Studio",
     about: { "@id": ORG_ID },
     mainEntity: {
       "@type": "Person",

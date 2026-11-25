@@ -2,48 +2,68 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useId, useRef, useState } from "react";
-import { SERVICES } from "@/src/data/services";
+import { useEffect, useId, useRef, useState, useSyncExternalStore } from "react";
 import Logo from "./Logo";
 import TalkToUsButton from "./TalkToUsButton";
 
 type NavLink = { href: string; label: string };
-type NavChild = NavLink | { divider: true };
-type NavItem = NavLink & { children?: NavChild[] };
+type ServicePhaseGroup = {
+  phase: string;
+  items: NavLink[];
+};
 
-const navItems: NavItem[] = [
+const servicePhaseGroups: ServicePhaseGroup[] = [
   {
-    href: "/services",
-    label: "Services",
-    children: [
-      ...SERVICES.map((service) => ({
-        href: service.href,
-        label: service.navLabel,
-      })),
-      { divider: true },
-      { href: "/services", label: "All services" },
+    phase: "Consult",
+    items: [
+      {
+        href: "/services/ai-consulting",
+        label: "AI Consulting & Readiness Audit",
+      },
     ],
   },
   {
-    href: "/#how-we-work",
-    label: "How we work",
-  },
-  {
-    href: "/resources",
-    label: "Resources",
-    children: [
-      { href: "/resources", label: "Free Resources" },
-      { href: "/tutorials", label: "Tutorials" },
-      { href: "/tools", label: "AI Tools" },
-      { href: "/prompts", label: "Prompts" },
-      { href: "/reviews", label: "Comparisons" },
-      { href: "/workflows", label: "Workflows" },
-      { href: "/build", label: "Build With AI" },
-      { href: "/business", label: "AI for Small Business" },
-      { href: "/blog", label: "Blog" },
+    phase: "Enable",
+    items: [
+      {
+        href: "/services/ai-training",
+        label: "AI Training & Claude for Business",
+      },
     ],
   },
-  { href: "/about", label: "About" },
+  {
+    phase: "Build",
+    items: [
+      { href: "/services/workflow-automation", label: "Workflow Automation" },
+      { href: "/services/ai-agents", label: "AI Agents & Chatbots" },
+      {
+        href: "/services/custom-software",
+        label: "Custom Software & Internal Tools",
+      },
+      {
+        href: "/services/finance-hr-automation",
+        label: "Finance & HR Automation",
+      },
+      { href: "/services/integrations", label: "Integrations" },
+      { href: "/services/whatsapp-automation", label: "WhatsApp Automation" },
+    ],
+  },
+  {
+    phase: "Run",
+    items: [{ href: "/services/care-plans", label: "AI Care Plans" }],
+  },
+];
+
+const resourceItems: NavLink[] = [
+  { href: "/resources", label: "Free Resources" },
+  { href: "/tutorials", label: "Tutorials" },
+  { href: "/tools", label: "AI Tools" },
+  { href: "/prompts", label: "Prompts" },
+  { href: "/reviews", label: "Comparisons" },
+  { href: "/workflows", label: "Workflows" },
+  { href: "/build", label: "Build With AI" },
+  { href: "/business", label: "AI for Small Business" },
+  { href: "/blog", label: "Blog" },
 ];
 
 const resourcePaths = [
@@ -58,10 +78,6 @@ const resourcePaths = [
   "/blog",
   "/free-checklist",
 ];
-
-function isNavLink(item: NavChild): item is NavLink {
-  return "href" in item;
-}
 
 function linkClass(active: boolean) {
   return `text-[14px] xl:text-[15px] font-medium tracking-[0.02em] transition-colors ${
@@ -86,20 +102,17 @@ function Chevron({ open }: { open: boolean }) {
   );
 }
 
-function DesktopDropdown({
-  item,
+function ServicesMegaMenu({
   active,
   open,
   onToggle,
 }: {
-  item: NavItem;
   active: boolean;
   open: boolean;
   onToggle: () => void;
 }) {
   const menuId = useId();
   const buttonId = `${menuId}-button`;
-  const children = item.children ?? [];
   const [hover, setHover] = useState(false);
   const expanded = open || hover;
 
@@ -110,8 +123,8 @@ function DesktopDropdown({
       onMouseLeave={() => setHover(false)}
     >
       <div className="flex items-center gap-0.5">
-        <Link href={item.href} className={linkClass(active)}>
-          {item.label}
+        <Link href="/services" className={linkClass(active)}>
+          Services
         </Link>
         <button
           id={buttonId}
@@ -119,7 +132,95 @@ function DesktopDropdown({
           className={`inline-flex h-8 w-7 items-center justify-center rounded-md ${
             active ? "text-white" : "text-[rgba(255,255,255,0.78)]"
           } hover:text-mint focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint`}
-          aria-label={`${item.label} menu`}
+          aria-label="Services menu"
+          aria-haspopup="menu"
+          aria-expanded={expanded}
+          aria-controls={menuId}
+          onClick={(event) => {
+            event.preventDefault();
+            onToggle();
+          }}
+        >
+          <Chevron open={expanded} />
+        </button>
+      </div>
+      {expanded ? (
+        <div className="absolute left-0 top-full z-50 pt-2">
+          <div
+            id={menuId}
+            role="menu"
+            aria-labelledby={buttonId}
+            className="w-[22rem] rounded-xl border border-[rgba(255,255,255,0.12)] bg-slate p-4 shadow-xl"
+          >
+            <div className="space-y-3">
+              {servicePhaseGroups.map((group) => (
+                <div key={group.phase}>
+                  <p className="px-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-mint">
+                    {group.phase}
+                  </p>
+                  <ul className="mt-1 space-y-0.5">
+                    {group.items.map((item) => (
+                      <li key={item.href} role="none">
+                        <Link
+                          href={item.href}
+                          role="menuitem"
+                          className="block rounded-md px-2 py-1.5 text-[14px] font-medium text-[rgba(255,255,255,0.85)] transition-colors hover:bg-[rgba(255,255,255,0.08)] hover:text-mint"
+                        >
+                          {item.label}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 border-t border-[rgba(255,255,255,0.12)] pt-2.5">
+              <Link
+                href="/services"
+                role="menuitem"
+                className="block rounded-md px-2 py-1.5 text-[14px] font-semibold text-mint transition-colors hover:bg-[rgba(255,255,255,0.08)]"
+              >
+                All services &rarr;
+              </Link>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
+
+function ResourcesDropdown({
+  active,
+  open,
+  onToggle,
+}: {
+  active: boolean;
+  open: boolean;
+  onToggle: () => void;
+}) {
+  const menuId = useId();
+  const buttonId = `${menuId}-button`;
+  const [hover, setHover] = useState(false);
+  const expanded = open || hover;
+
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <div className="flex items-center gap-0.5">
+        <Link href="/resources" className={linkClass(active)}>
+          Resources
+        </Link>
+        <button
+          id={buttonId}
+          type="button"
+          className={`inline-flex h-8 w-7 items-center justify-center rounded-md ${
+            active ? "text-white" : "text-[rgba(255,255,255,0.78)]"
+          } hover:text-mint focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint`}
+          aria-label="Resources menu"
           aria-haspopup="menu"
           aria-expanded={expanded}
           aria-controls={menuId}
@@ -137,27 +238,19 @@ function DesktopDropdown({
             id={menuId}
             role="menu"
             aria-labelledby={buttonId}
-            className="min-w-[16rem] rounded-lg border border-[rgba(255,255,255,0.1)] bg-slate py-2 shadow-lg"
+            className="min-w-[15rem] rounded-xl border border-[rgba(255,255,255,0.12)] bg-slate py-2 shadow-xl"
           >
-            {children.map((child, index) =>
-              isNavLink(child) ? (
-                <li key={`${child.href}-${child.label}`} role="none">
-                  <Link
-                    href={child.href}
-                    role="menuitem"
-                    className="block px-4 py-2 text-[14px] font-medium text-[rgba(255,255,255,0.82)] transition-colors hover:bg-[rgba(255,255,255,0.08)] hover:text-mint"
-                  >
-                    {child.label}
-                  </Link>
-                </li>
-              ) : (
-                <li
-                  key={`divider-${index}`}
-                  role="separator"
-                  className="my-1 h-px bg-[rgba(255,255,255,0.12)]"
-                />
-              ),
-            )}
+            {resourceItems.map((child) => (
+              <li key={child.href} role="none">
+                <Link
+                  href={child.href}
+                  role="menuitem"
+                  className="block px-4 py-2 text-[14px] font-medium text-[rgba(255,255,255,0.85)] transition-colors hover:bg-[rgba(255,255,255,0.08)] hover:text-mint"
+                >
+                  {child.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       ) : null}
@@ -165,16 +258,24 @@ function DesktopDropdown({
   );
 }
 
+const emptySubscribe = () => () => {};
+
 export default function Navbar() {
   const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [desktopMenu, setDesktopMenu] = useState<string | null>(null);
-  const [mobileSection, setMobileSection] = useState<string | null>(null);
+  const [mobileSection, setMobileSection] = useState<string | null>("services");
+  const isEmbed = useSyncExternalStore(
+    emptySubscribe,
+    () =>
+      pathname === "/ai-score" &&
+      new URLSearchParams(window.location.search).get("embed") === "1",
+    () => false,
+  );
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
-    if (href.startsWith("/#")) return false;
     if (href === "/resources") {
       return resourcePaths.some(
         (rp) => pathname === rp || pathname.startsWith(`${rp}/`),
@@ -182,12 +283,6 @@ export default function Navbar() {
     }
     return pathname === href || pathname.startsWith(`${href}/`);
   };
-
-  useEffect(() => {
-    setMobileOpen(false);
-    setDesktopMenu(null);
-    setMobileSection(null);
-  }, [pathname]);
 
   useEffect(() => {
     if (!desktopMenu) return;
@@ -208,118 +303,220 @@ export default function Navbar() {
     };
   }, [desktopMenu]);
 
+  if (isEmbed) return null;
+
   return (
     <header className="sticky top-0 z-50 border-b border-[rgba(255,255,255,0.08)] bg-slate">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-[72px] sm:px-6 lg:px-8">
-        <Logo variant="onDark" />
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-[76px] sm:px-6 lg:px-8">
+        <Logo variant="onDark" showDescriptor />
 
         <nav
           ref={navRef}
           className="hidden items-center gap-5 whitespace-nowrap md:flex lg:gap-7"
           aria-label="Primary"
         >
-          {navItems.map((item) =>
-            item.children ? (
-              <DesktopDropdown
-                key={item.href}
-                item={item}
-                active={isActive(item.href)}
-                open={desktopMenu === item.href}
-                onToggle={() =>
-                  setDesktopMenu((current) => (current === item.href ? null : item.href))
-                }
-              />
-            ) : (
-              <Link key={item.href} href={item.href} className={linkClass(isActive(item.href))}>
-                {item.label}
-              </Link>
-            ),
-          )}
+          <ServicesMegaMenu
+            active={isActive("/services")}
+            open={desktopMenu === "services"}
+            onToggle={() =>
+              setDesktopMenu((curr) => (curr === "services" ? null : "services"))
+            }
+          />
+          <Link href="/ai-score" className={linkClass(isActive("/ai-score"))}>
+            AI Score
+          </Link>
+          <Link href="/work" className={linkClass(isActive("/work"))}>
+            Our Work
+          </Link>
+          <ResourcesDropdown
+            active={isActive("/resources")}
+            open={desktopMenu === "resources"}
+            onToggle={() =>
+              setDesktopMenu((curr) => (curr === "resources" ? null : "resources"))
+            }
+          />
+          <Link href="/about" className={linkClass(isActive("/about"))}>
+            About
+          </Link>
           <TalkToUsButton
             location="header-desktop"
             className="rounded-lg bg-mint px-4 py-2 text-[14px] font-semibold text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint"
           />
         </nav>
 
-        <button
-          type="button"
-          className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-white md:hidden focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint"
-          aria-label={mobileOpen ? "Close menu" : "Open menu"}
-          aria-expanded={mobileOpen}
-          onClick={() => setMobileOpen((value) => !value)}
-        >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-            {mobileOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <TalkToUsButton
+            location="header-mobile-top"
+            className="rounded-lg bg-mint px-3.5 py-2 text-[13px] font-semibold text-navy transition hover:brightness-110"
+          />
+          <button
+            type="button"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-md text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((value) => !value)}
+          >
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              {mobileOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
+        </div>
       </div>
 
       {mobileOpen && (
-        <div className="border-t border-[rgba(255,255,255,0.08)] bg-slate px-4 py-4 md:hidden">
-          <nav className="flex flex-col gap-1" aria-label="Mobile">
-            {navItems.map((item) => (
-              <div key={item.href}>
-                <div className="flex items-center">
-                  <Link
-                    href={item.href}
-                    onClick={() => setMobileOpen(false)}
-                    className={`flex-1 rounded-md px-3 py-3 text-[15px] font-medium transition-colors ${
-                      isActive(item.href)
-                        ? "bg-[rgba(255,255,255,0.08)] text-white hover:text-mint"
-                        : "text-[rgba(255,255,255,0.78)] hover:text-mint"
-                    }`}
-                  >
-                    {item.label}
-                  </Link>
-                  {item.children ? (
-                    <button
-                      type="button"
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-md text-[rgba(255,255,255,0.78)] hover:text-mint focus-visible:outline focus-visible:outline-2 focus-visible:outline-mint"
-                      aria-label={`${mobileSection === item.href ? "Collapse" : "Expand"} ${item.label} links`}
-                      aria-expanded={mobileSection === item.href}
-                      onClick={() =>
-                        setMobileSection((current) => (current === item.href ? null : item.href))
-                      }
-                    >
-                      <Chevron open={mobileSection === item.href} />
-                    </button>
-                  ) : null}
-                </div>
-                {item.children && mobileSection === item.href ? (
-                  <ul className="mb-2 ml-3 border-l border-[rgba(255,255,255,0.12)] pl-3">
-                    {item.children.map((child, index) =>
-                      isNavLink(child) ? (
-                        <li key={`${child.href}-${child.label}`}>
-                          <Link
-                            href={child.href}
-                            onClick={() => setMobileOpen(false)}
-                            className="block rounded-md px-3 py-2 text-[14px] text-[rgba(255,255,255,0.78)] hover:text-mint"
-                          >
-                            {child.label}
-                          </Link>
-                        </li>
-                      ) : (
-                        <li
-                          key={`divider-${item.href}-${index}`}
-                          className="my-1 h-px bg-[rgba(255,255,255,0.12)]"
-                          aria-hidden="true"
-                        />
-                      ),
-                    )}
-                  </ul>
-                ) : null}
+        <div className="fixed inset-x-0 bottom-0 top-16 z-50 flex flex-col justify-between overflow-y-auto border-t border-[rgba(255,255,255,0.08)] bg-navy px-4 py-5 sm:top-[76px] md:hidden">
+          <nav className="flex flex-col gap-2" aria-label="Mobile">
+            {/* Services accordion */}
+            <div className="rounded-xl border border-[rgba(255,255,255,0.1)] bg-slate/50 p-3">
+              <div className="flex items-center justify-between">
+                <Link
+                  href="/services"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-[16px] font-semibold text-white hover:text-mint"
+                >
+                  Services
+                </Link>
+                <button
+                  type="button"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-[rgba(255,255,255,0.78)] hover:text-mint"
+                  aria-label="Toggle Services menu"
+                  aria-expanded={mobileSection === "services"}
+                  onClick={() =>
+                    setMobileSection((c) => (c === "services" ? null : "services"))
+                  }
+                >
+                  <Chevron open={mobileSection === "services"} />
+                </button>
               </div>
-            ))}
-            <TalkToUsButton
-              location="header-mobile"
+              {mobileSection === "services" ? (
+                <div className="mt-3 space-y-3 border-t border-[rgba(255,255,255,0.08)] pt-3">
+                  {servicePhaseGroups.map((group) => (
+                    <div key={group.phase}>
+                      <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-mint">
+                        {group.phase}
+                      </p>
+                      <ul className="mt-1 space-y-1">
+                        {group.items.map((item) => (
+                          <li key={item.href}>
+                            <Link
+                              href={item.href}
+                              onClick={() => setMobileOpen(false)}
+                              className="block rounded-md py-1.5 text-[14px] text-[rgba(255,255,255,0.85)] hover:text-mint"
+                            >
+                              {item.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                  <Link
+                    href="/services"
+                    onClick={() => setMobileOpen(false)}
+                    className="inline-block pt-1 text-[14px] font-semibold text-mint"
+                  >
+                    All services &rarr;
+                  </Link>
+                </div>
+              ) : null}
+            </div>
+
+            <Link
+              href="/ai-score"
               onClick={() => setMobileOpen(false)}
-              className="mt-3 rounded-lg bg-mint px-4 py-3 text-center text-[15px] font-semibold text-navy transition hover:brightness-110"
-            />
+              className="rounded-xl border border-[rgba(255,255,255,0.08)] px-4 py-3 text-[16px] font-semibold text-white hover:text-mint"
+            >
+              AI Score
+            </Link>
+
+            <Link
+              href="/work"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-xl border border-[rgba(255,255,255,0.08)] px-4 py-3 text-[16px] font-semibold text-white hover:text-mint"
+            >
+              Our Work
+            </Link>
+
+            {/* Resources accordion */}
+            <div className="rounded-xl border border-[rgba(255,255,255,0.1)] bg-slate/50 p-3">
+              <div className="flex items-center justify-between">
+                <Link
+                  href="/resources"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-[16px] font-semibold text-white hover:text-mint"
+                >
+                  Resources
+                </Link>
+                <button
+                  type="button"
+                  className="inline-flex h-9 w-9 items-center justify-center rounded-md text-[rgba(255,255,255,0.78)] hover:text-mint"
+                  aria-label="Toggle Resources menu"
+                  aria-expanded={mobileSection === "resources"}
+                  onClick={() =>
+                    setMobileSection((c) => (c === "resources" ? null : "resources"))
+                  }
+                >
+                  <Chevron open={mobileSection === "resources"} />
+                </button>
+              </div>
+              {mobileSection === "resources" ? (
+                <ul className="mt-3 space-y-1 border-t border-[rgba(255,255,255,0.08)] pt-2">
+                  {resourceItems.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block rounded-md py-1.5 text-[14px] text-[rgba(255,255,255,0.85)] hover:text-mint"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </div>
+
+            <Link
+              href="/about"
+              onClick={() => setMobileOpen(false)}
+              className="rounded-xl border border-[rgba(255,255,255,0.08)] px-4 py-3 text-[16px] font-semibold text-white hover:text-mint"
+            >
+              About
+            </Link>
           </nav>
+
+          <div className="mt-6 flex flex-col gap-3 border-t border-[rgba(255,255,255,0.12)] pt-4">
+            <TalkToUsButton
+              location="header-mobile-menu"
+              onClick={() => setMobileOpen(false)}
+              className="w-full rounded-lg bg-mint px-4 py-3.5 text-center text-[15px] font-semibold text-navy transition hover:brightness-110"
+            />
+            <Link
+              href="/ai-score"
+              onClick={() => setMobileOpen(false)}
+              className="w-full rounded-lg border border-mint px-4 py-3 text-center text-[15px] font-semibold text-mint transition hover:bg-mint hover:text-navy"
+            >
+              Get your AI score
+            </Link>
+          </div>
         </div>
       )}
     </header>

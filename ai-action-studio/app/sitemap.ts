@@ -3,15 +3,20 @@ import { BLOG_CATEGORIES } from "@/lib/blog-categories";
 import { getAllPostsMeta } from "@/lib/blog";
 import { CONTENT_LAST_UPDATED, SITE_URL } from "@/lib/site";
 import { SERVICES } from "@/src/data/services";
+import { getPublishedCaseStudies } from "@/src/data/work";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const serviceMap = new Map(SERVICES.map((service) => [service.href, service]));
   const serviceRoutes = SERVICES.map((service) => service.href);
   const allPosts = getAllPostsMeta();
   const postMap = new Map(allPosts.map((post) => [`/blog/${post.slug}`, post]));
+  const caseStudies = getPublishedCaseStudies();
+  const caseStudyMap = new Map(
+    caseStudies.map((study) => [`/work/${study.slug}`, study]),
+  );
 
   const agencyUpdatedDate = new Date(
-    SERVICES[0]?.lastUpdated ?? "November 23, 2026",
+    SERVICES[0]?.lastUpdated ?? "November 26, 2026",
   );
   const staticContentDate = new Date(CONTENT_LAST_UPDATED);
 
@@ -19,6 +24,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/services",
     ...serviceRoutes,
+    "/ai-score",
+    "/work",
+    ...caseStudies.map((study) => `/work/${study.slug}`),
     "/contact",
     "/about",
     "/tutorials",
@@ -55,6 +63,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     } else if (
       route === "/services" ||
       serviceRoutes.includes(route) ||
+      route === "/ai-score" ||
+      route === "/work" ||
       route === "/resources" ||
       route === "/tools" ||
       route === "/tools/automation-roi-calculator" ||
@@ -67,15 +77,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     const service = serviceMap.get(route);
     const post = postMap.get(route);
+    const caseStudy = caseStudyMap.get(route);
 
     let lastModified = staticContentDate;
     if (service) {
       lastModified = new Date(service.lastUpdated);
     } else if (post) {
       lastModified = new Date(post.date);
+    } else if (caseStudy) {
+      lastModified = new Date(caseStudy.publishedDate);
     } else if (
       route === "" ||
       route === "/services" ||
+      route === "/ai-score" ||
+      route === "/work" ||
       route === "/contact" ||
       route === "/about" ||
       route === "/resources"

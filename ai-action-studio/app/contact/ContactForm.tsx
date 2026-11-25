@@ -1,7 +1,9 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import Link from "next/link";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
+import { BOOKING_URL } from "@/lib/site";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -18,8 +20,6 @@ const TEAM_SIZES = ["1–9", "10–49", "50–199", "200+"];
 
 const HEAR_OPTIONS = ["Google", "YouTube", "LinkedIn", "Referral", "Other"];
 
-const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL ?? "";
-
 const labelClass =
   "mb-1.5 block text-[12px] font-semibold uppercase tracking-[1px] text-slate";
 const inputClass =
@@ -28,10 +28,14 @@ const inputClass =
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
   const [errorMessage, setErrorMessage] = useState("");
-  const [tracking, setTracking] = useState({
+  const trackingRef = useRef({
     utm_source: "",
     utm_medium: "",
     utm_campaign: "",
+    utm_content: "",
+    utm_term: "",
+    fbclid: "",
+    gclid: "",
     landing_page: "",
     referrer: "",
   });
@@ -60,22 +64,29 @@ export default function ContactForm() {
     const utm_source = readOrStore("utm_source", params.get("utm_source"));
     const utm_medium = readOrStore("utm_medium", params.get("utm_medium"));
     const utm_campaign = readOrStore("utm_campaign", params.get("utm_campaign"));
+    const utm_content = readOrStore("utm_content", params.get("utm_content"));
+    const utm_term = readOrStore("utm_term", params.get("utm_term"));
+    const fbclid = readOrStore("fbclid", params.get("fbclid"));
+    const gclid = readOrStore("gclid", params.get("gclid"));
 
     let landing_page = "";
     try {
       landing_page =
-        window.sessionStorage.getItem("aias_landing_page") || window.location.href;
+        window.sessionStorage.getItem("aias_landing_page") ||
+        window.location.origin + window.location.pathname;
       if (!window.sessionStorage.getItem("aias_landing_page")) {
         window.sessionStorage.setItem("aias_landing_page", landing_page);
       }
     } catch {
-      landing_page = window.location.href;
+      landing_page = window.location.origin + window.location.pathname;
     }
 
     let referrer = "";
     try {
       referrer =
-        window.sessionStorage.getItem("aias_referrer") || document.referrer || "";
+        window.sessionStorage.getItem("aias_referrer") ||
+        document.referrer ||
+        "";
       if (!window.sessionStorage.getItem("aias_referrer") && referrer) {
         window.sessionStorage.setItem("aias_referrer", referrer);
       }
@@ -83,13 +94,17 @@ export default function ContactForm() {
       referrer = document.referrer || "";
     }
 
-    setTracking({
+    trackingRef.current = {
       utm_source,
       utm_medium,
       utm_campaign,
+      utm_content,
+      utm_term,
+      fbclid,
+      gclid,
       landing_page,
       referrer,
-    });
+    };
   }, []);
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -99,21 +114,27 @@ export default function ContactForm() {
 
     const form = e.currentTarget;
     const data = new FormData(form);
+    const t = trackingRef.current;
 
     const payload = {
       name: String(data.get("name") || "").trim(),
       email: String(data.get("email") || "").trim(),
+      phone: String(data.get("phone") || "").trim(),
       company: String(data.get("company") || "").trim(),
       country: String(data.get("country") || "").trim(),
       teamSize: String(data.get("teamSize") || "").trim(),
       tools: String(data.get("tools") || "").trim(),
       automateGoal: String(data.get("automateGoal") || "").trim(),
       hearAbout: String(data.get("hearAbout") || "").trim(),
-      utm_source: String(data.get("utm_source") || "").trim(),
-      utm_medium: String(data.get("utm_medium") || "").trim(),
-      utm_campaign: String(data.get("utm_campaign") || "").trim(),
-      landing_page: String(data.get("landing_page") || "").trim(),
-      referrer: String(data.get("referrer") || "").trim(),
+      utm_source: t.utm_source,
+      utm_medium: t.utm_medium,
+      utm_campaign: t.utm_campaign,
+      utm_content: t.utm_content,
+      utm_term: t.utm_term,
+      fbclid: t.fbclid,
+      gclid: t.gclid,
+      landing_page: t.landing_page,
+      referrer: t.referrer,
       honeypot: String(data.get("website_url_hp") || "").trim(),
       source: "contact",
     };
@@ -127,7 +148,9 @@ export default function ContactForm() {
       const json = await res.json().catch(() => ({}));
       if (!res.ok) {
         setStatus("error");
-        setErrorMessage(json.error || "Something went wrong. Please try again.");
+        setErrorMessage(
+          json.error || "Something went wrong. Please try again.",
+        );
         return;
       }
       setStatus("success");
@@ -161,7 +184,7 @@ export default function ContactForm() {
               rel="noopener noreferrer"
               className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
             >
-              Book your audit
+              Book your free 30-minute audit
             </a>
           </p>
         ) : null}
@@ -172,8 +195,22 @@ export default function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="rounded-xl border border-sand bg-white p-6 shadow-[0_8px_24px_rgba(10,15,29,0.05)] md:p-8 space-y-5"
+      className="space-y-5 rounded-xl border border-sand bg-white p-6 shadow-[0_8px_24px_rgba(10,15,29,0.05)] md:p-8"
     >
+      {BOOKING_URL ? (
+        <div className="rounded-lg border border-sand bg-ivory p-4 text-[14px] text-slate">
+          Prefer to book directly on the calendar?{" "}
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+          >
+            Pick a 30-minute slot now &rarr;
+          </a>
+        </div>
+      ) : null}
+
       {/* Hidden honeypot field */}
       <div className="hidden" aria-hidden="true">
         <label htmlFor="website_url_hp">Website</label>
@@ -185,13 +222,6 @@ export default function ContactForm() {
           autoComplete="off"
         />
       </div>
-
-      {/* Hidden UTM and session tracking fields */}
-      <input type="hidden" name="utm_source" value={tracking.utm_source} />
-      <input type="hidden" name="utm_medium" value={tracking.utm_medium} />
-      <input type="hidden" name="utm_campaign" value={tracking.utm_campaign} />
-      <input type="hidden" name="landing_page" value={tracking.landing_page} />
-      <input type="hidden" name="referrer" value={tracking.referrer} />
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
@@ -227,8 +257,23 @@ export default function ContactForm() {
 
       <div className="grid gap-5 sm:grid-cols-2">
         <div>
+          <label htmlFor="contact-phone" className={labelClass}>
+            Phone / WhatsApp *
+          </label>
+          <input
+            id="contact-phone"
+            name="phone"
+            type="tel"
+            required
+            autoComplete="tel"
+            className={inputClass}
+            placeholder="+1 415 555 2671 or +91 98765 43210"
+          />
+        </div>
+
+        <div>
           <label htmlFor="contact-company" className={labelClass}>
-            Company *
+            Business / Company name *
           </label>
           <input
             id="contact-company"
@@ -240,7 +285,9 @@ export default function ContactForm() {
             placeholder="Your company"
           />
         </div>
+      </div>
 
+      <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="contact-country" className={labelClass}>
             Country *
@@ -262,9 +309,7 @@ export default function ContactForm() {
             ))}
           </select>
         </div>
-      </div>
 
-      <div className="grid gap-5 sm:grid-cols-2">
         <div>
           <label htmlFor="contact-team-size" className={labelClass}>
             Team size *
@@ -286,24 +331,24 @@ export default function ContactForm() {
             ))}
           </select>
         </div>
+      </div>
 
-        <div>
-          <label htmlFor="contact-tools" className={labelClass}>
-            Tools you use
-          </label>
-          <input
-            id="contact-tools"
-            name="tools"
-            type="text"
-            className={inputClass}
-            placeholder="e.g. Excel, Tally, WhatsApp, HubSpot, QuickBooks"
-          />
-        </div>
+      <div>
+        <label htmlFor="contact-tools" className={labelClass}>
+          Tools you use
+        </label>
+        <input
+          id="contact-tools"
+          name="tools"
+          type="text"
+          className={inputClass}
+          placeholder="e.g. Excel, Tally, WhatsApp, HubSpot, QuickBooks"
+        />
       </div>
 
       <div>
         <label htmlFor="contact-automate" className={labelClass}>
-          What would you like to automate? *
+          What problem or manual process would you like to fix? *
         </label>
         <textarea
           id="contact-automate"
@@ -341,6 +386,17 @@ export default function ContactForm() {
       >
         {status === "loading" ? "Sending…" : "Request my free audit"}
       </button>
+
+      <p className="text-center text-[13px] text-slate">
+        Or take the 3-minute{" "}
+        <Link
+          href="/ai-score"
+          className="font-semibold text-navy underline decoration-mint underline-offset-4"
+        >
+          AI Readiness Scorecard
+        </Link>{" "}
+        first.
+      </p>
 
       {errorMessage ? (
         <p className="text-[14px] text-[var(--error)]" role="status">

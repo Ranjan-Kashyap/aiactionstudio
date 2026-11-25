@@ -1,18 +1,24 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import {
   Breadcrumbs,
   JsonLd,
   buildFaqSchema,
   buildServicesItemListSchema,
 } from "../components/Breadcrumbs";
+import PricingBlock from "../components/PricingBlock";
 import ServiceCard from "../components/ServiceCard";
 import TalkToUsButton from "../components/TalkToUsButton";
-import { HOW_WE_WORK_STEPS, SERVICES } from "@/src/data/services";
-import { SITE_URL } from "@/lib/site";
+import {
+  HOW_WE_WORK_STEPS,
+  SERVICE_PHASES,
+  getServicesByPhase,
+} from "@/src/data/services";
+import { SCALELENS_URL, SHOW_PRICING, SITE_URL } from "@/lib/site";
 
 const fullTitle = "AI Automation Services for Businesses | AI Action Studio";
 const description =
-  "AI automation services: AI agents, workflow automation, custom software, finance and HR automation and integrations, built and maintained for you.";
+  "AI automation services for growing businesses: AI consulting, Claude team training, workflow automation, AI agents, custom software, integrations and care plans.";
 
 export const metadata: Metadata = {
   title: "AI Automation Services for Businesses",
@@ -42,27 +48,49 @@ export const metadata: Metadata = {
   },
 };
 
-const servicesHubFaqs = [
+const servicesFaqs = [
   {
-    question: "Which service should I start with?",
+    question: "How do we know which service we need?",
     answer:
-      "Start with the free audit. We'll pick the one process where automation saves the most hours first.",
+      "You don't have to pick in advance. Start with a free 30-minute systems audit or the 3-minute AI Readiness Scorecard, and we'll tell you whether a simple automation, an AI agent, training or custom software is the right move.",
   },
   {
-    question: "Do you only build with AI?",
+    question: "How much does an AI automation project cost?",
     answer:
-      "No. We use AI where it's reliable and useful, and plain automation or software where that's better.",
+      "Every project starts with a free 30-minute audit, followed by a fixed-price blueprint (credited to the build) and a fixed quote for the build itself. Ongoing monitoring and maintenance is an optional monthly care plan.",
+  },
+  {
+    question: "Can we start with just one process?",
+    answer:
+      "Yes — that's what we recommend. Pick one bottleneck that wastes hours every week, let us fix and prove that first, and expand only when it's working.",
+  },
+  {
+    question: "Who owns the code, workflows and accounts?",
+    answer:
+      "You do. We build inside your company's accounts wherever possible, use least-privilege access, and hand over clear documentation.",
+  },
+  {
+    question: "What happens after the system goes live?",
+    answer:
+      "With an AI Care Plan, we monitor your workflows and agents, fix breakages when APIs change, handle a set number of small improvements each month, and review everything with you monthly.",
+  },
+  {
+    question: "Do you build BI or reporting dashboards?",
+    answer:
+      "If you mainly need reporting dashboards or business intelligence, our sister company ScaleLens handles that.",
   },
 ];
 
 const primaryCtaClass =
   "inline-flex items-center justify-center rounded-lg bg-mint px-6 py-3 text-[15px] font-semibold text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
+const secondaryCtaClass =
+  "inline-flex items-center justify-center rounded-lg border border-navy px-6 py-3 text-[15px] font-semibold text-navy transition hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
 
 export default function ServicesHubPage() {
   return (
     <>
-      <JsonLd data={buildServicesItemListSchema(SERVICES)} />
-      <JsonLd data={buildFaqSchema(servicesHubFaqs, `${SITE_URL}/services#faq`)} />
+      <JsonLd data={buildServicesItemListSchema()} />
+      <JsonLd data={buildFaqSchema(servicesFaqs, `${SITE_URL}/services#faq`)} />
 
       {/* Hero */}
       <section className="bg-ivory py-16 md:py-24">
@@ -80,35 +108,63 @@ export default function ServicesHubPage() {
             AI automation services that take manual work off your team
           </h1>
           <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-            We design, build and maintain the systems behind a calmer business: AI agents that
-            answer and follow up, workflows that run themselves, and tools that connect everything
-            you already use.
+            From your first process audit and team training to custom AI agents, workflow
+            automations and monthly care plans — we design, build and maintain the systems your team
+            runs on.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-4">
             <TalkToUsButton location="services-hub-hero" className={primaryCtaClass} />
+            <Link href="/ai-score" className={secondaryCtaClass}>
+              Get your AI score
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* 1. Our services */}
-      <section className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Our services
-          </h2>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service) => (
-              <ServiceCard key={service.slug} service={service} showBullets />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Four phase sections (Consult, Enable, Build, Run) */}
+      {SERVICE_PHASES.map((phaseInfo, index) => {
+        const phaseServices = getServicesByPhase(phaseInfo.phase);
+        const bgClass = index % 2 === 0 ? "bg-white" : "bg-cream";
+        return (
+          <section
+            key={phaseInfo.phase}
+            id={`phase-${phaseInfo.phase.toLowerCase()}`}
+            className={`border-t border-sand ${bgClass} py-20 md:py-24`}
+          >
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center gap-3">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-navy text-[13px] font-bold text-mint">
+                  0{index + 1}
+                </span>
+                <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+                  Phase 0{index + 1} &middot; {phaseInfo.phase}
+                </p>
+              </div>
+              <h2 className="mt-3 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+                {phaseInfo.title}
+              </h2>
+              <p className="mt-3 max-w-3xl text-[17px] leading-relaxed text-slate">
+                {phaseInfo.summary}
+              </p>
 
-      {/* 2. How every project runs */}
-      <section className="border-t border-sand bg-cream py-20 md:py-24">
+              <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {phaseServices.map((service) => (
+                  <ServiceCard key={service.slug} service={service} showBullets />
+                ))}
+              </div>
+            </div>
+          </section>
+        );
+      })}
+
+      {/* How we work */}
+      <section id="how-we-work" className="border-t border-sand bg-ivory py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            How every project runs
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            Process
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            How we work
           </h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {HOW_WE_WORK_STEPS.map((item) => (
@@ -119,77 +175,86 @@ export default function ServicesHubPage() {
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-mint text-[13px] font-bold text-navy">
                   {item.step}
                 </span>
-                <h3 className="mt-4 text-[18px] font-semibold text-navy">{item.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">{item.body}</p>
+                <h3 className="mt-4 text-[18px] font-semibold text-navy">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                  {item.body}
+                </p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. Business automation services, not just tools & 4. Need dashboards and reporting? */}
-      <section className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div className="rounded-xl border border-sand bg-ivory p-6 md:p-8">
-            <h2 className="text-[24px] font-semibold leading-tight text-navy">
-              Business automation services, not just tools
-            </h2>
-            <p className="mt-4 text-[16px] leading-relaxed text-slate">
-              Anyone can sell you a tool subscription. We take responsibility for the outcome: the
-              process mapped, the system built, your team trained and the whole thing maintained.
-            </p>
-          </div>
+      {/* Engagement and pricing block, behind SHOW_PRICING (default false) */}
+      {SHOW_PRICING ? <PricingBlock /> : null}
 
-          <div className="rounded-xl border border-sand bg-ivory p-6 md:p-8">
-            <h2 className="text-[24px] font-semibold leading-tight text-navy">
-              Need dashboards and reporting?
+      {/* "Not a fit" note */}
+      <section className="border-t border-sand bg-cream py-12 md:py-16">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <div className="rounded-xl border border-sand bg-white p-6 md:p-8">
+            <div className="mb-2.5 h-0.5 w-10 bg-mint" aria-hidden />
+            <h2 className="text-[19px] font-semibold text-navy">
+              Need reporting dashboards or BI instead?
             </h2>
-            <p className="mt-4 text-[16px] leading-relaxed text-slate">
-              Our sister company{" "}
+            <p className="mt-2 text-[16px] leading-relaxed text-slate">
+              If you mainly need dashboards or BI, our sister company{" "}
               <a
-                href="https://scalelens.app"
-                className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                href={SCALELENS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
               >
                 ScaleLens
               </a>{" "}
-              builds custom dashboards on your data.
+              does that.
             </p>
           </div>
         </div>
       </section>
 
-      {/* 5. FAQ */}
-      <section className="border-t border-sand bg-ivory py-20 md:py-24">
+      {/* FAQ */}
+      <section id="faq" className="border-t border-sand bg-white py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
             Frequently asked questions
           </h2>
           <div className="mt-10 space-y-4">
-            {servicesHubFaqs.map((faq) => (
+            {servicesFaqs.map((faq) => (
               <div
                 key={faq.question}
-                className="rounded-xl border border-sand bg-white p-6 md:p-7"
+                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
               >
-                <h3 className="text-[18px] font-semibold text-navy">{faq.question}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">{faq.answer}</p>
+                <h3 className="text-[18px] font-semibold text-navy">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                  {faq.answer}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 6. Final CTA */}
+      {/* Final CTA */}
       <section className="border-t border-sand bg-navy py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-white">
-            Tell us what&apos;s slowing your team down
+            Pick one process that wastes time every week. Let&apos;s fix that first.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[rgba(255,255,255,0.78)]">
-            Book a free 30-minute systems audit. You&apos;ll leave with a clear view of what to
-            automate first.
+            Book a free 30-minute systems audit or take the 3-minute AI Readiness Scorecard.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
             <TalkToUsButton location="services-hub-final-cta" className={primaryCtaClass} />
+            <Link
+              href="/ai-score"
+              className="inline-flex items-center justify-center rounded-lg border border-mint px-6 py-3 text-[15px] font-semibold text-mint transition hover:bg-mint hover:text-navy"
+            >
+              Get your AI score
+            </Link>
           </div>
         </div>
       </section>

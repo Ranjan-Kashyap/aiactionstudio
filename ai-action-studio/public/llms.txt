@@ -1,20 +1,27 @@
 # AI Action Studio
 
-> AI Action Studio is an AI automation agency. We build and maintain AI agents, workflow automations, custom software and integrations that take manual work off growing businesses worldwide. We work remotely. Founder: Ranjan Kashyap.
+> AI Action Studio is an AI automation agency ("AI systems, built and maintained."). We build and maintain the systems that take manual work off growing businesses in the United States, United Kingdom, Canada, Australia and India, from spreadsheets and WhatsApp to one connected, AI-assisted way of working. Founder: Ranjan Kashyap.
 
-Every project starts with a free 30-minute systems audit, then a fixed-price blueprint, a build delivered in weekly stages, and a monthly care plan that keeps the system running. We start with the client's process, not a tool, and use AI only where it is reliable.
+Every project starts with a free 30-minute systems audit, then a fixed-price blueprint (credited to the build), a build delivered in weekly stages with demos, and a monthly care plan that keeps the system running. We start with the client's process, not a tool, and use AI only where it is reliable.
 
-## Services
-- [AI agents for business](https://aiactionstudio.com/services/ai-agents): AI receptionists and voice agents, website and WhatsApp chat agents, lead qualification and booking, connected to the client's CRM.
+## Services (Consult -> Enable -> Build -> Run)
+- [AI consulting and readiness audit](https://aiactionstudio.com/services/ai-consulting): free 30-minute systems audit, full AI Readiness Audit across processes/tools/data/risk, and fixed-price Blueprint credited to the build.
+- [AI training and Claude for Business](https://aiactionstudio.com/services/ai-training): Claude for Business workspace setup, reusable company skills and SOP library, role-based team training on real tasks, and an AI usage and data policy.
 - [Business process automation](https://aiactionstudio.com/services/workflow-automation): replacing spreadsheets, manual data entry and email approvals with automated workflows.
-- [Custom software development](https://aiactionstudio.com/services/custom-software): custom CRMs, order, inventory and HR apps and internal tools.
+- [AI agents for business](https://aiactionstudio.com/services/ai-agents): AI receptionists and voice agents, website and WhatsApp chat agents, lead qualification and booking, connected to the client's CRM.
+- [Custom software development](https://aiactionstudio.com/services/custom-software): custom CRMs, order, inventory and HR apps and internal tools built around how your team works.
 - [Accounts payable and HR automation](https://aiactionstudio.com/services/finance-hr-automation): invoice capture, payables approvals, receivables reminders, payroll inputs and onboarding, connected to QuickBooks, Xero, Zoho Books or Tally.
 - [API integration services](https://aiactionstudio.com/services/integrations): connecting CRM, ERP, accounting and HR tools; Zapier, Make and n8n builds; custom API integrations.
 - [WhatsApp automation](https://aiactionstudio.com/services/whatsapp-automation): WhatsApp Business API replies, follow-ups, and CRM and accounting integration.
+- [AI care plans](https://aiactionstudio.com/services/care-plans): ongoing monitoring, alerts, fixes, monthly small changes, access reviews, updated documentation, and transparent at-cost AI/API billing.
 - [All services](https://aiactionstudio.com/services)
 
+## Self-serve assessment & work
+- [Free AI Readiness Scorecard](https://aiactionstudio.com/ai-score): 10-question, 3-minute self-serve quiz scoring Systems & data, Processes, People & AI use, and Risk & security out of 100.
+- [Our work](https://aiactionstudio.com/work): systems we've built and walkthroughs.
+
 ## Company
-- [About AI Action Studio and the founder](https://aiactionstudio.com/about)
+- [About Ranjan Kashyap and AI Action Studio](https://aiactionstudio.com/about)
 - [Contact and free systems audit](https://aiactionstudio.com/contact)
 - Sister company for dashboards and BI: [ScaleLens](https://scalelens.app)
 

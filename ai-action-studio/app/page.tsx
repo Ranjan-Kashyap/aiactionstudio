@@ -2,17 +2,21 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import HeroAiBackdrop from "./components/HeroAiBackdrop";
-import LeadForm from "./components/LeadForm";
-import ServiceCard from "./components/ServiceCard";
 import TalkToUsButton from "./components/TalkToUsButton";
-import CaseStudies from "./components/CaseStudies";
 import { JsonLd, buildFaqSchema } from "./components/Breadcrumbs";
-import { HOW_WE_WORK_STEPS, SERVICES } from "@/src/data/services";
-import { SITE_URL, YOUTUBE_URL } from "@/lib/site";
+import { HOW_WE_WORK_STEPS, SERVICE_PHASES } from "@/src/data/services";
+import { getDisplayClientLabel, getPublishedCaseStudies } from "@/src/data/work";
+import {
+  ONE_LINE_POSITIONING,
+  SCALELENS_URL,
+  SITE_TAGLINE,
+  SITE_URL,
+  YOUTUBE_URL,
+} from "@/lib/site";
 
 const homeTitle = "AI Automation Agency for Business | AI Action Studio";
 const homeDescription =
-  "AI automation agency that builds AI agents, workflow automations and custom tools for growing businesses. Built, connected and maintained for you.";
+  "AI automation agency that builds and maintains AI agents, workflow automations, custom software and integrations for growing businesses. Start with a free audit.";
 
 export const metadata: Metadata = {
   title: {
@@ -44,45 +48,102 @@ export const metadata: Metadata = {
   },
 };
 
-const problemCards = [
+const problemStrip = [
   {
-    title: "Work typed in twice",
-    body: "The same data goes into the CRM, the accounts and three spreadsheets, by hand.",
+    title: "Your business outgrew Excel.",
+    body: "Spreadsheets break when five people edit them at once and approvals happen in chat.",
+    href: "/services/workflow-automation",
+    cta: "Workflow automation",
   },
   {
-    title: "Leads and requests slip through",
-    body: "Enquiries wait for replies, follow-ups depend on memory, and nobody owns the inbox.",
+    title: "Data typed into five tools by hand.",
+    body: "The same customer and order details get copied between your CRM, sheets and accounting.",
+    href: "/services/integrations",
+    cta: "API integrations",
   },
   {
-    title: "Everything depends on one person",
-    body: "Reports, approvals and onboarding stop when one key person is away.",
-  },
-];
-
-// TODO: owner to confirm the 6,000+ hours figure before launch.
-const whyBullets = [
-  "We start with your process, not a tool. Sometimes the answer is a simple automation, and we'll say so.",
-  "Built in your accounts, documented, and yours to keep.",
-  "Least-privilege access and NDAs as standard.",
-  "Founder-led: you work directly with Ranjan, who has 6,000+ hours of data, tracking and automation work behind him.",
-];
-
-const whoColumns = [
-  {
-    title: "Owner-led businesses",
-    body: "that run on spreadsheets, WhatsApp and accounting tools like Tally, QuickBooks or Xero.",
+    title: "Leads waiting hours for a reply.",
+    body: "Enquiries sit in WhatsApp, email or voicemails while your team is busy with delivery.",
+    href: "/services/ai-agents",
+    cta: "AI agents & chatbots",
   },
   {
-    title: "Operations teams",
-    body: "juggling CRMs, accounting and HR tools.",
-  },
-  {
-    title: "Agencies",
-    body: "buried in onboarding, proposals and follow-ups.",
+    title: "Invoices, approvals and onboarding by email.",
+    body: "Finance and HR admin runs on memory, inbox threads and manual chasing.",
+    href: "/services/finance-hr-automation",
+    cta: "Finance & HR automation",
   },
 ];
 
-const freeResourceCards = [
+const namedSystems = [
+  {
+    title: "Sales & lead follow-up system",
+    href: "/services/whatsapp-automation",
+    description:
+      "Capture every enquiry, qualify leads automatically, log chats in your CRM and trigger timely follow-ups.",
+    tools: ["CRM", "WhatsApp / Email", "AI agent"],
+  },
+  {
+    title: "Operations & order system",
+    href: "/services/custom-software",
+    description:
+      "Track orders, stock, dispatch and approvals in one custom app built around your team's real workflow.",
+    tools: ["Custom web app", "Database", "Integrations"],
+  },
+  {
+    title: "HR & team system",
+    href: "/services/workflow-automation",
+    description:
+      "Keep hiring pipelines, onboarding checklists, leave requests and daily team reports moving without chasing.",
+    tools: ["Hiring", "Onboarding", "Leave", "Daily reports"],
+  },
+  {
+    title: "Finance automation",
+    href: "/services/finance-hr-automation",
+    description:
+      "Extract invoice data, route payables for human approval, send receivables reminders and sync with accounting.",
+    tools: ["QuickBooks", "Xero", "Tally", "Zoho Books", "Document AI"],
+  },
+  {
+    title: "AI agents",
+    href: "/services/ai-agents",
+    description:
+      "Receptionist, support and lead-qualifying agents that answer questions and book appointments 24/7.",
+    tools: ["Phone", "Website chat", "WhatsApp"],
+  },
+  {
+    title: "Integrations",
+    href: "/services/integrations",
+    description:
+      "Connect the software you already pay for so data is entered once and synced reliably everywhere.",
+    tools: ["APIs", "Zapier", "Make", "n8n"],
+  },
+];
+
+const whyUsObjections = [
+  {
+    question: "Paid a vendor before and it failed?",
+    answer:
+      "Small fixed-price start, weekly demos, maintained after launch.",
+  },
+  {
+    question: "Worried about your data?",
+    answer:
+      "Built in your own accounts, least-privilege access, NDA, documentation you keep.",
+  },
+  {
+    question: "Staff won't use new software?",
+    answer:
+      "We build around how they already work, often with WhatsApp as the front end.",
+  },
+  {
+    question: "Could we just use Zapier?",
+    answer:
+      "For simple steps, yes, and we'll say so.",
+  },
+];
+
+const learnAiCards = [
   {
     href: "/tutorials",
     title: "Tutorials",
@@ -94,18 +155,18 @@ const freeResourceCards = [
     body: "Tested tool picks and the free Automation ROI Calculator.",
   },
   {
-    href: "/workflows",
-    title: "Workflows",
-    body: "Practical no-code automations you can set up yourself.",
-  },
-  {
     href: "/prompts",
     title: "Prompts",
     body: "Prompts built for real business and research tasks.",
   },
+  {
+    href: "/blog",
+    title: "Blog & Comparisons",
+    body: "Practical articles, workflows and side-by-side AI tool comparisons.",
+  },
 ];
 
-// TODO(owner): confirm the two-to-four-week timeframe in "How long does it take to build an AI agent or automation?" before publishing.
+// TODO(Ranjan): confirm the two-to-four-week timeframe in "How long does it take to build an AI agent or automation?" before publishing.
 const homeFaqs = [
   {
     question: "What does an AI automation agency do?",
@@ -130,7 +191,7 @@ const homeFaqs = [
   {
     question: "Where are your clients based?",
     answer:
-      "We work remotely with growing businesses worldwide, across time zones.",
+      "We work remotely with growing businesses in the US, UK, Canada, Australia and India, across time zones.",
   },
   {
     question: "How do I choose an AI automation agency?",
@@ -157,15 +218,17 @@ const homeFaqs = [
 const primaryCtaClass =
   "inline-flex items-center justify-center rounded-lg bg-mint px-6 py-3 text-[15px] font-semibold text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
 const secondaryCtaClass =
-  "inline-flex items-center justify-center rounded-lg border border-navy px-6 py-3 text-[15px] font-medium text-navy transition hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
+  "inline-flex items-center justify-center rounded-lg border border-navy px-6 py-3 text-[15px] font-semibold text-navy transition hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
 
 export default function HomePage() {
+  const caseStudies = getPublishedCaseStudies();
+
   return (
     <>
       <JsonLd data={buildFaqSchema(homeFaqs, `${SITE_URL}/#faq`)} />
 
-      {/* 3.1 Hero */}
-      <section className="relative overflow-hidden min-h-[calc(100vh-72px)] flex items-center bg-ivory">
+      {/* 1. Hero */}
+      <section className="relative flex min-h-[calc(100vh-76px)] items-center overflow-hidden bg-ivory">
         <HeroAiBackdrop />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
@@ -176,80 +239,363 @@ export default function HomePage() {
             The AI automation agency that builds AI agents for your business
           </h1>
           <p className="animate-fade-up-delay-2 mt-6 max-w-2xl text-[18px] leading-relaxed text-slate">
-            We replace spreadsheets, copy-paste and chasing with AI agents, automations and custom
-            tools that fit how your team already works. Then we keep them running.
+            {ONE_LINE_POSITIONING}
           </p>
           <div className="animate-fade-up-delay-3 mt-10 flex flex-wrap items-center gap-4">
             <TalkToUsButton location="home-hero" className={primaryCtaClass} />
-            <Link href="/services" className={secondaryCtaClass}>
-              See what we build
+            <Link href="/ai-score" className={secondaryCtaClass}>
+              Get your AI score
             </Link>
           </div>
           <p className="animate-fade-up-delay-3 mt-6 text-[13px] font-medium text-slate">
-            Free 30-minute systems audit · Fixed-price start · Maintained after launch
+            Serving growing businesses in the US, UK, Canada, Australia and India.
           </p>
         </div>
       </section>
 
-      {/* 3.2 Problem */}
+      {/* 2. Problem strip */}
       <section id="problem" className="border-t border-sand bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Your business outgrew spreadsheets and WhatsApp
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            Sound familiar?
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Where manual work slows growing teams down
           </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {problemCards.map((item) => (
-              <article
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {problemStrip.map((item) => (
+              <Link
                 key={item.title}
-                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
+                href={item.href}
+                className="group flex flex-col justify-between rounded-xl border border-sand bg-ivory p-6 transition hover:border-mint hover:bg-white"
               >
-                <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
-                <h3 className="text-[20px] font-semibold text-navy">{item.title}</h3>
-                <p className="mt-3 text-[15px] leading-relaxed text-slate">{item.body}</p>
-              </article>
+                <div>
+                  <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                  <h3 className="text-[19px] font-semibold leading-snug text-navy">
+                    {item.title}
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-slate">
+                    {item.body}
+                  </p>
+                </div>
+                <span className="mt-5 inline-flex items-center text-[14px] font-semibold text-navy underline decoration-mint underline-offset-4 group-hover:decoration-navy">
+                  {item.cta} &rarr;
+                </span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3.3 What we build */}
-      <section id="what-we-build" className="border-t border-sand bg-cream py-20 md:py-24">
+      {/* 3. What we do, in four phases */}
+      <section id="phases" className="border-t border-sand bg-cream py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            What we build
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+                What we do
+              </p>
+              <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+                From first audit to daily operations, in four phases
+              </h2>
+            </div>
+            <Link
+              href="/services"
+              className="text-[15px] font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+            >
+              Explore all services &rarr;
+            </Link>
+          </div>
+
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {SERVICE_PHASES.map((item, idx) => (
+              <Link
+                key={item.phase}
+                href={item.defaultHref}
+                className="group flex flex-col justify-between rounded-xl border border-sand bg-white p-6 md:p-7 transition hover:border-mint"
+              >
+                <div>
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-navy text-[13px] font-bold text-mint">
+                    0{idx + 1}
+                  </span>
+                  <h3 className="mt-4 text-[22px] font-semibold text-navy">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2.5 text-[15px] leading-relaxed text-slate">
+                    {item.summary}
+                  </p>
+                </div>
+                <span className="mt-6 inline-flex items-center text-[14px] font-semibold text-navy underline decoration-mint underline-offset-4 group-hover:decoration-navy">
+                  Learn about {item.title} &rarr;
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Named systems grid (six Build cards) */}
+      <section id="what-we-build" className="border-t border-sand bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            Systems we build
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Connected systems built around how your team works
           </h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICES.map((service) => (
-              <ServiceCard key={service.slug} service={service} />
+            {namedSystems.map((sys) => (
+              <Link
+                key={sys.title}
+                href={sys.href}
+                className="group flex flex-col justify-between rounded-xl border border-sand bg-ivory p-6 md:p-7 transition hover:border-mint hover:bg-white"
+              >
+                <div>
+                  <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                  <h3 className="text-[20px] font-semibold text-navy">
+                    {sys.title}
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-slate">
+                    {sys.description}
+                  </p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {sys.tools.map((tool) => (
+                      <span
+                        key={tool}
+                        className="rounded-md border border-sand bg-white px-2.5 py-1 text-[12px] font-medium text-slate"
+                      >
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <span className="mt-6 inline-flex items-center text-[14px] font-semibold text-navy underline decoration-mint underline-offset-4 group-hover:decoration-navy">
+                  See service details &rarr;
+                </span>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3.4 How we work */}
-      <section id="how-we-work" className="border-t border-sand bg-white py-20 md:py-24">
+      {/* 5. How we work */}
+      <section id="how-we-work" className="border-t border-sand bg-cream py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            Process
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
             How we work
           </h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {HOW_WE_WORK_STEPS.map((item) => (
               <article
                 key={item.step}
-                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
+                className="rounded-xl border border-sand bg-white p-6 md:p-7"
               >
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-mint text-[13px] font-bold text-navy">
                   {item.step}
                 </span>
-                <h3 className="mt-4 text-[18px] font-semibold text-navy">{item.title}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">{item.body}</p>
+                <h3 className="mt-4 text-[18px] font-semibold text-navy">
+                  {item.title}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                  {item.body}
+                </p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 5.2 AI Action Studio at a glance */}
+      {/* 6. Why us (objection handling) */}
+      <section id="why-us" className="border-t border-sand bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            Why AI Action Studio
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Built for teams that want working systems, not AI theatre
+          </h2>
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {whyUsObjections.map((item) => (
+              <article
+                key={item.question}
+                className="rounded-xl border border-sand bg-ivory p-6 md:p-8"
+              >
+                <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                <h3 className="text-[20px] font-semibold text-navy">
+                  {item.question}
+                </h3>
+                <p className="mt-3 text-[16px] leading-relaxed text-slate">
+                  {item.answer}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 7. AI Score banner */}
+      <section id="ai-score-banner" className="border-t border-sand bg-navy py-16 md:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-8 px-4 sm:px-6 lg:flex-row lg:items-center lg:px-8">
+          <div className="max-w-2xl">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-mint">
+              Free 3-minute assessment
+            </p>
+            <h2 className="mt-2 text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-white">
+              How ready is your business for AI? Answer 10 questions and get your score.
+            </h2>
+            <p className="mt-3 text-[16px] leading-relaxed text-[rgba(255,255,255,0.78)]">
+              See your score across Systems &amp; Data, Processes, People &amp; AI Use, and Risk &amp;
+              Security, plus your top three recommendations.
+            </p>
+          </div>
+          <Link href="/ai-score" className={primaryCtaClass}>
+            Get your AI score &rarr;
+          </Link>
+        </div>
+      </section>
+
+      {/* 8. Proof section */}
+      <section id="proof" className="border-t border-sand bg-ivory py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+                Track record
+              </p>
+              <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+                {caseStudies.length > 0 ? "Systems we've built" : "Founder track record"}
+              </h2>
+            </div>
+            <Link
+              href="/work"
+              className="text-[15px] font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+            >
+              See our work &rarr;
+            </Link>
+          </div>
+
+          {caseStudies.length > 0 ? (
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+              {caseStudies.map((study) => (
+                <Link
+                  key={study.slug}
+                  href={`/work/${study.slug}`}
+                  className="group rounded-xl border border-sand bg-white p-6 md:p-7 transition hover:border-mint"
+                >
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate">
+                    {getDisplayClientLabel(study)}
+                  </p>
+                  <h3 className="mt-2 text-[20px] font-semibold text-navy">
+                    {study.title}
+                  </h3>
+                  <p className="mt-3 text-[15px] leading-relaxed text-slate">
+                    {study.problem}
+                  </p>
+                  <span className="mt-5 inline-block text-[14px] font-semibold text-navy underline decoration-mint underline-offset-4 group-hover:decoration-navy">
+                    Read case study &rarr;
+                  </span>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            /* TODO(Ranjan): add verified metrics for ScaleRise agency, ScaleLens, Upwork rating/earnings and systems built when ready. */
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              <article className="rounded-xl border border-sand bg-white p-6 md:p-7">
+                <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                <h3 className="text-[20px] font-semibold text-navy">
+                  ScaleRise agency experience
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-slate">
+                  Years of hands-on data engineering, tracking and workflow automation for agencies
+                  and growing businesses across the US, UK, Canada, Australia and India.
+                </p>
+              </article>
+              <article className="rounded-xl border border-sand bg-white p-6 md:p-7">
+                <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                <h3 className="text-[20px] font-semibold text-navy">
+                  Built ScaleLens
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-slate">
+                  Built and run{" "}
+                  <a
+                    href={SCALELENS_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-medium text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                  >
+                    ScaleLens
+                  </a>
+                  , our sister product focused on custom reporting dashboards and BI for growing
+                  teams.
+                </p>
+              </article>
+              <article className="rounded-xl border border-sand bg-white p-6 md:p-7">
+                <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                <h3 className="text-[20px] font-semibold text-navy">
+                  Live walkthroughs available
+                </h3>
+                <p className="mt-3 text-[15px] leading-relaxed text-slate">
+                  We&apos;re publishing our first written case studies now. Want to see a live demo
+                  of a system like yours? Ask us on your audit call.
+                </p>
+              </article>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* 9. Founder block */}
+      <section id="founder" className="border-t border-sand bg-white py-20 md:py-24">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+          <div className="grid items-center gap-10 rounded-xl border border-sand bg-ivory p-8 md:grid-cols-12 md:p-10">
+            <div className="flex justify-center md:col-span-4">
+              {/* TODO(Ranjan): update founder photo if a new headshot is preferred */}
+              <div className="relative h-44 w-44 overflow-hidden rounded-2xl border border-sand bg-white shadow-[0_8px_24px_rgba(10,15,29,0.06)] sm:h-52 sm:w-52">
+                <Image
+                  src="/images/ranjan-kashyap.png"
+                  alt="Ranjan Kashyap — Founder of AI Action Studio"
+                  width={260}
+                  height={310}
+                  className="h-full w-full object-cover object-top"
+                />
+              </div>
+            </div>
+            <div className="md:col-span-8">
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+                Founder-led
+              </p>
+              <h2 className="mt-2 text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+                Ranjan Kashyap
+              </h2>
+              {/* TODO(Ranjan): review and finalise two-line bio details */}
+              <p className="mt-4 text-[17px] leading-relaxed text-slate">
+                I run AI Action Studio, ScaleRise and ScaleLens. My background is data engineering,
+                tracking and workflow automation for growing businesses — building practical systems
+                that are documented, owned by the client, and maintained after launch.
+              </p>
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <TalkToUsButton
+                  location="home-founder"
+                  className={primaryCtaClass}
+                >
+                  Talk to Ranjan
+                </TalkToUsButton>
+                <Link
+                  href="/about"
+                  className="text-[15px] font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                >
+                  More about us &rarr;
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* AI Action Studio at a glance (AEO/GEO entity block) */}
       <section id="at-a-glance" className="border-t border-sand bg-cream py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.25rem)] font-bold leading-tight text-navy">
@@ -278,7 +624,7 @@ export default function HomePage() {
                 Where
               </dt>
               <dd className="mt-1 text-[15px] leading-relaxed text-navy">
-                Remote, for clients worldwide.
+                Remote, for clients in the US, UK, Canada, Australia and India.
               </dd>
             </div>
             <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
@@ -286,8 +632,8 @@ export default function HomePage() {
                 How projects work
               </dt>
               <dd className="mt-1 text-[15px] leading-relaxed text-navy">
-                Free 30-minute audit → fixed-price blueprint → build in weekly stages → monthly care
-                plan.
+                Free 30-minute audit &rarr; fixed-price blueprint &rarr; build in weekly stages
+                &rarr; monthly care plan.
               </dd>
             </div>
             <div className="border-b border-sand pb-4 md:border-b-0 md:pb-0">
@@ -308,133 +654,74 @@ export default function HomePage() {
                 Contact
               </dt>
               <dd className="mt-1 text-[15px] leading-relaxed text-navy">
-                hello@aiactionstudio.com ·{" "}
                 <Link
                   href="/contact"
                   className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
                 >
-                  Talk to us
-                </Link>
+                  aiactionstudio.com/contact
+                </Link>{" "}
+                &middot; hello@aiactionstudio.com
               </dd>
             </div>
           </dl>
         </div>
       </section>
 
-      {/* 3.5 Why AI Action Studio */}
-      <section id="why-us" className="border-t border-sand bg-ivory py-20 md:py-24">
+      {/* 10. Existing content ("Learn AI": tutorials, tools, prompts, blog) */}
+      <section id="learn-ai" className="border-t border-sand bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Why businesses work with us
-          </h2>
-          <ul className="mt-10 grid max-w-4xl gap-4">
-            {whyBullets.map((bullet) => (
-              <li
-                key={bullet}
-                className="rounded-xl border border-sand bg-white p-5 border-l-4 border-l-mint text-[16px] leading-relaxed text-slate"
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+                {SITE_TAGLINE}
+              </p>
+              <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+                Learn AI: free tutorials, tools, prompts and blog
+              </h2>
+              <p className="mt-3 max-w-2xl text-[17px] leading-relaxed text-slate">
+                Prefer to learn and experiment yourself? Our tutorials, tool comparisons, prompts
+                and workflows are free.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-5">
+              <Link
+                href="/resources"
+                className="text-[15px] font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
               >
-                {bullet}
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* 3.6 Who we work with */}
-      <section id="who-we-work-with" className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Built for growing teams
-          </h2>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {whoColumns.map((col) => (
-              <div
-                key={col.title}
-                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
-              >
-                <p className="text-[16px] leading-relaxed text-slate">
-                  <strong className="font-semibold text-navy">{col.title}</strong> {col.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Hidden CaseStudies component (renders nothing while empty) */}
-      <CaseStudies />
-
-      {/* 3.7 Founder */}
-      <section id="creator" className="border-t border-sand bg-cream py-20 md:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[auto_1fr] lg:px-8">
-          <div className="relative h-32 w-32 sm:h-40 sm:w-40 shrink-0 overflow-hidden rounded-2xl border border-sand bg-white shadow-[0_8px_24px_rgba(10,15,29,0.06)]">
-            <Image
-              src="/images/ranjan-kashyap.png"
-              alt="Ranjan Kashyap — Founder of AI Action Studio"
-              width={320}
-              height={384}
-              className="h-full w-full object-cover object-top"
-            />
-          </div>
-          <div>
-            <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-              Hi, I&apos;m Ranjan
-            </h2>
-            <p className="mt-5 max-w-3xl text-[17px] leading-relaxed text-slate">
-              I run AI Action Studio. My background is data engineering, tracking and automation for
-              agencies and growing businesses. We build the systems I wish every team had:
-              practical, documented, and maintained. I also share what I learn on YouTube.
-            </p>
-            <div className="mt-8">
-              <Link href="/about" className={secondaryCtaClass}>
-                More about us
+                All free resources &rarr;
               </Link>
+              <a
+                href={YOUTUBE_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={secondaryCtaClass}
+              >
+                Watch on YouTube
+              </a>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* 3.8 Free resources */}
-      <section id="free-resources" className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Prefer to learn it yourself?
-          </h2>
-          <p className="mt-4 max-w-2xl text-[17px] leading-relaxed text-slate">
-            Our tutorials, tool comparisons, prompts and workflows are free.
-          </p>
-          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {freeResourceCards.map((card) => (
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {learnAiCards.map((card) => (
               <Link
                 key={card.href}
                 href={card.href}
-                className="rounded-xl border border-sand bg-ivory p-6 transition hover:border-mint"
+                className="group rounded-xl border border-sand bg-ivory p-6 transition hover:border-mint hover:bg-white"
               >
-                <h3 className="text-[18px] font-semibold text-navy">{card.title}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-slate">{card.body}</p>
+                <div className="mb-3 h-0.5 w-8 bg-mint" aria-hidden />
+                <h3 className="text-[18px] font-semibold text-navy group-hover:underline decoration-mint underline-offset-4">
+                  {card.title}
+                </h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-slate">
+                  {card.body}
+                </p>
               </Link>
             ))}
-          </div>
-          <div className="mt-8 flex flex-wrap items-center gap-4">
-            <Link
-              href="/resources"
-              className="text-[15px] font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
-            >
-              All free resources &rarr;
-            </Link>
-            <a
-              href={YOUTUBE_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={secondaryCtaClass}
-            >
-              Watch on YouTube
-            </a>
           </div>
         </div>
       </section>
 
-      {/* 3.9 FAQ */}
+      {/* FAQ */}
       <section id="faq" className="border-t border-sand bg-ivory py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
           <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
@@ -446,48 +733,35 @@ export default function HomePage() {
                 key={faq.question}
                 className="rounded-xl border border-sand bg-white p-6 md:p-7"
               >
-                <h3 className="text-[18px] font-semibold text-navy">{faq.question}</h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">{faq.answer}</p>
+                <h3 className="text-[18px] font-semibold text-navy">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                  {faq.answer}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3.10 Final CTA */}
+      {/* 11. Final CTA band */}
       <section id="final-cta" className="border-t border-sand bg-navy py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-white">
-            Tell us what&apos;s slowing your team down
+          <h2 className="text-[clamp(1.75rem,3.2vw,2.5rem)] font-bold leading-tight text-white">
+            Pick one process that wastes time every week. Let&apos;s fix that first.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[rgba(255,255,255,0.78)]">
-            Book a free 30-minute systems audit. You&apos;ll leave with a clear view of what to
-            automate first.
+            Book a free 30-minute systems audit, or take our 3-minute AI Readiness Scorecard first.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
             <TalkToUsButton location="home-final-cta" className={primaryCtaClass} />
-          </div>
-        </div>
-      </section>
-
-      {/* 3.11 Newsletter */}
-      <section id="newsletter" className="border-t border-sand bg-cream py-20 md:py-24">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
-          <div>
-            <h2 className="text-[clamp(1.75rem,3vw,2.35rem)] font-bold leading-tight text-navy">
-              Get practical AI notes by email
-            </h2>
-            <p className="mt-5 text-[17px] leading-relaxed text-slate">
-              Get practical AI ideas, useful tools, workflows and resources delivered without the
-              noise.
-            </p>
-          </div>
-          <div className="rounded-xl border border-sand bg-white p-6 md:p-8">
-            <LeadForm
-              source="home-newsletter"
-              submitLabel="Join the AI Action Studio List"
-              successMessage="You're in. Watch your inbox for practical AI ideas."
-            />
+            <Link
+              href="/ai-score"
+              className="inline-flex items-center justify-center rounded-lg border border-mint px-6 py-3 text-[15px] font-semibold text-mint transition hover:bg-mint hover:text-navy"
+            >
+              Get your AI score
+            </Link>
           </div>
         </div>
       </section>

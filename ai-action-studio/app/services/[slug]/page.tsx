@@ -10,12 +10,11 @@ import {
 import ServiceCard from "../../components/ServiceCard";
 import TalkToUsButton from "../../components/TalkToUsButton";
 import {
-  HOW_WE_WORK_STEPS,
   SERVICES,
   getRelatedServices,
   getServiceBySlug,
 } from "@/src/data/services";
-import { SITE_URL } from "@/lib/site";
+import { CARE_PLAN_TIERS, SHOW_PRICING, SITE_URL } from "@/lib/site";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -60,7 +59,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const primaryCtaClass =
   "inline-flex items-center justify-center rounded-lg bg-mint px-6 py-3 text-[15px] font-semibold text-navy transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
 const secondaryCtaClass =
-  "inline-flex items-center justify-center rounded-lg border border-navy px-6 py-3 text-[15px] font-medium text-navy transition hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
+  "inline-flex items-center justify-center rounded-lg border border-navy px-6 py-3 text-[15px] font-semibold text-navy transition hover:bg-navy hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-mint";
 
 export default async function ServiceDetailPage({ params }: Props) {
   const { slug } = await params;
@@ -81,7 +80,7 @@ export default async function ServiceDetailPage({ params }: Props) {
       />
       <JsonLd data={buildFaqSchema(service.faqs, `${SITE_URL}${service.href}#faq`)} />
 
-      {/* Hero */}
+      {/* 1. Hero */}
       <section className="bg-ivory py-16 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <Breadcrumbs
@@ -101,7 +100,13 @@ export default async function ServiceDetailPage({ params }: Props) {
             {service.intro}
           </p>
 
-          {/* 5.1 Quick answer block */}
+          {service.note ? (
+            <p className="mt-4 inline-flex items-center rounded-md border border-sand bg-white px-3.5 py-1.5 text-[14px] font-semibold text-navy">
+              {service.note}
+            </p>
+          ) : null}
+
+          {/* Quick answer block (AEO/GEO) */}
           <div className="mt-8 max-w-3xl rounded-xl border border-sand bg-white p-6 md:p-7">
             <div className="mb-2.5 h-0.5 w-10 bg-mint" aria-hidden />
             <h2 className="text-[18px] font-semibold text-navy">In short</h2>
@@ -115,49 +120,150 @@ export default async function ServiceDetailPage({ params }: Props) {
               location={`service-hero-${service.slug}`}
               className={primaryCtaClass}
             />
-            <a href="#how-we-build-it" className={secondaryCtaClass}>
-              See how we work
-            </a>
+            <Link href="/ai-score" className={secondaryCtaClass}>
+              Get your AI score
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* Content sections */}
-      <section className="border-t border-sand bg-white py-20 md:py-24">
+      {/* 2. "Sound familiar?" pains */}
+      <section id="pains" className="border-t border-sand bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-2">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            The problem
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Sound familiar?
+          </h2>
+          <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {service.pains.map((pain) => (
+              <div
+                key={pain}
+                className="rounded-xl border border-sand bg-ivory p-6"
+              >
+                <div className="mb-3 h-0.5 w-8 bg-mint" aria-hidden />
+                <p className="text-[16px] font-medium leading-relaxed text-navy">
+                  &ldquo;{pain}&rdquo;
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 3. "What we build" deliverables */}
+      <section id="deliverables" className="border-t border-sand bg-cream py-20 md:py-24">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            Deliverables
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            {service.slug === "care-plans"
+              ? "What our Care Plans cover"
+              : service.slug === "ai-consulting" || service.slug === "ai-training"
+                ? "What you get"
+                : "What we build"}
+          </h2>
+
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
             {service.sections.map((sec) => (
               <article
                 key={sec.heading}
-                className="rounded-xl border border-sand bg-ivory p-6 md:p-8"
+                className="rounded-xl border border-sand bg-white p-6 md:p-8"
               >
                 <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
-                <h2 className="text-[22px] font-semibold leading-snug text-navy">
+                <h3 className="text-[22px] font-semibold leading-snug text-navy">
                   {sec.heading}
-                </h2>
+                </h3>
                 <p className="mt-3 text-[16px] leading-relaxed text-slate">
                   {sec.body}
                 </p>
               </article>
             ))}
           </div>
+
+          {service.slug === "ai-consulting" ? (
+            <div className="mt-8 rounded-xl border border-sand bg-white p-6 md:p-7">
+              <p className="text-[16px] leading-relaxed text-slate">
+                Want a self-serve starting point first?{" "}
+                <Link
+                  href="/ai-score"
+                  className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                >
+                  Take the 3-minute AI Readiness Scorecard &rarr;
+                </Link>
+              </p>
+            </div>
+          ) : null}
+
+          {/* Care Plans 3 tiers */}
+          {service.slug === "care-plans" ? (
+            <div className="mt-14">
+              <h3 className="text-[24px] font-bold text-navy">
+                Care Plan tiers
+              </h3>
+              <p className="mt-2 max-w-2xl text-[16px] text-slate">
+                Sized to the complexity of your system and how fast your processes change.
+              </p>
+              <div className="mt-8 grid gap-6 md:grid-cols-3">
+                {CARE_PLAN_TIERS.map((tier) => (
+                  <article
+                    key={tier.name}
+                    className="flex flex-col justify-between rounded-xl border border-sand bg-white p-6 md:p-7"
+                  >
+                    <div>
+                      <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+                      <h4 className="text-[20px] font-semibold text-navy">
+                        {tier.name}
+                      </h4>
+                      <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                        {tier.summary}
+                      </p>
+                      <dl className="mt-5 space-y-2.5 border-t border-sand pt-4 text-[14px]">
+                        <div>
+                          <dt className="font-semibold text-navy">Response target</dt>
+                          <dd className="text-slate">{tier.responseTime}</dd>
+                        </div>
+                        <div>
+                          <dt className="font-semibold text-navy">Monthly changes</dt>
+                          <dd className="text-slate">{tier.includedHours}</dd>
+                        </div>
+                        {SHOW_PRICING && tier.priceUsd ? (
+                          <div>
+                            <dt className="font-semibold text-navy">Starting price</dt>
+                            <dd className="text-slate">
+                              {tier.priceUsd} ({tier.priceInr})
+                            </dd>
+                          </div>
+                        ) : null}
+                      </dl>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </div>
       </section>
 
-      {/* How we build it */}
+      {/* 4. "How it works" */}
       <section
-        id="how-we-build-it"
-        className="border-t border-sand bg-cream py-20 md:py-24"
+        id="how-it-works"
+        className="border-t border-sand bg-white py-20 md:py-24"
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            How we build it
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+            Process
+          </p>
+          <h2 className="mt-2 max-w-3xl text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            How it works
           </h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {HOW_WE_WORK_STEPS.map((item) => (
+            {service.howItWorks.map((item) => (
               <article
                 key={item.step}
-                className="rounded-xl border border-sand bg-white p-6 md:p-7"
+                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
               >
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-mint text-[13px] font-bold text-navy">
                   {item.step}
@@ -174,36 +280,60 @@ export default async function ServiceDetailPage({ params }: Props) {
         </div>
       </section>
 
-      {/* FAQ */}
-      <section className="border-t border-sand bg-white py-20 md:py-24">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-            Frequently asked questions
-          </h2>
-          <div className="mt-10 space-y-4">
-            {service.faqs.map((faq) => (
-              <div
-                key={faq.question}
-                className="rounded-xl border border-sand bg-ivory p-6 md:p-7"
-              >
-                <h3 className="text-[18px] font-semibold text-navy">
-                  {faq.question}
-                </h3>
-                <p className="mt-2 text-[15px] leading-relaxed text-slate">
-                  {faq.answer}
-                </p>
-              </div>
-            ))}
+      {/* 5. "Typical tools" + 6. "After launch" */}
+      <section className="border-t border-sand bg-ivory py-20 md:py-24">
+        <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+          <div className="lg:col-span-7">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+              Stack
+            </p>
+            <h2 className="mt-2 text-[clamp(1.5rem,2.5vw,2rem)] font-bold leading-tight text-navy">
+              Typical tools
+            </h2>
+            <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-slate">
+              We work with the tools you already use and pick the simplest stack that will stay
+              reliable.
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {service.typicalTools.map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded-lg border border-sand bg-white px-3.5 py-2 text-[14px] font-medium text-navy"
+                >
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="rounded-xl border border-sand bg-white p-6 md:p-8">
+              <div className="mb-3 h-0.5 w-10 bg-mint" aria-hidden />
+              <h2 className="text-[22px] font-semibold text-navy">
+                After launch
+              </h2>
+              <p className="mt-3 text-[15px] leading-relaxed text-slate">
+                {service.afterLaunch}
+              </p>
+              {service.slug !== "care-plans" ? (
+                <Link
+                  href="/services/care-plans"
+                  className="mt-5 inline-flex items-center text-[14px] font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
+                >
+                  See AI Care Plans &rarr;
+                </Link>
+              ) : null}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Related services & 5.5 Visible trust signals */}
-      <section className="border-t border-sand bg-ivory py-20 md:py-24">
+      {/* 7. Related systems & visible trust signals */}
+      <section className="border-t border-sand bg-white py-20 md:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
-              Related services
+              Related systems
             </h2>
             <Link
               href="/services"
@@ -226,26 +356,72 @@ export default async function ServiceDetailPage({ params }: Props) {
             >
               Ranjan Kashyap
             </Link>
-            . · Last updated {service.lastUpdated}
+            . &middot; Last updated {service.lastUpdated}
           </p>
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* 8. FAQ */}
+      <section className="border-t border-sand bg-cream py-20 md:py-24">
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+          <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-navy">
+            Frequently asked questions
+          </h2>
+          <div className="mt-10 space-y-4">
+            {service.faqs.map((faq) => (
+              <div
+                key={faq.question}
+                className="rounded-xl border border-sand bg-white p-6 md:p-7"
+              >
+                <h3 className="text-[18px] font-semibold text-navy">
+                  {faq.question}
+                </h3>
+                <p className="mt-2 text-[15px] leading-relaxed text-slate">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 9. AI Score banner + final CTA */}
+      <section className="border-t border-sand bg-ivory py-16 md:py-20">
+        <div className="mx-auto flex max-w-7xl flex-col items-start justify-between gap-6 rounded-2xl border border-sand bg-white p-8 sm:px-10 lg:flex-row lg:items-center">
+          <div className="max-w-2xl">
+            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-slate">
+              Self-serve assessment
+            </p>
+            <h2 className="mt-2 text-[24px] font-bold leading-snug text-navy">
+              How ready is your business for AI? Answer 10 questions and get your score.
+            </h2>
+          </div>
+          <Link href="/ai-score" className={secondaryCtaClass}>
+            Get your AI score &rarr;
+          </Link>
+        </div>
+      </section>
+
       <section className="border-t border-sand bg-navy py-20 md:py-24">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
           <h2 className="text-[clamp(1.75rem,3vw,2.5rem)] font-bold leading-tight text-white">
-            Tell us what&apos;s slowing your team down
+            Pick one process that wastes time every week. Let&apos;s fix that first.
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[17px] leading-relaxed text-[rgba(255,255,255,0.78)]">
             Book a free 30-minute systems audit. You&apos;ll leave with a clear view of what to
             automate first.
           </p>
-          <div className="mt-8 flex justify-center">
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
             <TalkToUsButton
               location={`service-final-cta-${service.slug}`}
               className={primaryCtaClass}
             />
+            <Link
+              href="/ai-score"
+              className="inline-flex items-center justify-center rounded-lg border border-mint px-6 py-3 text-[15px] font-semibold text-mint transition hover:bg-mint hover:text-navy"
+            >
+              Get your AI score
+            </Link>
           </div>
         </div>
       </section>
