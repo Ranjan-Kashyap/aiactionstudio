@@ -308,7 +308,7 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-[rgba(255,255,255,0.08)] bg-slate">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-[76px] sm:px-6 lg:px-8">
-        <Logo variant="onDark" showDescriptor />
+        <Logo variant="onDark" />
 
         <nav
           ref={navRef}

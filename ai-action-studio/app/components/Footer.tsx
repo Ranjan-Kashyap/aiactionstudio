@@ -8,7 +8,6 @@ import Logo from "./Logo";
 import LeadForm from "./LeadForm";
 import {
   ONE_LINE_POSITIONING,
-  SCALELENS_URL,
   SITE_TAGLINE,
   SOCIAL_LINKS,
 } from "@/lib/site";
@@ -68,27 +67,13 @@ export default function Footer() {
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid gap-10 lg:grid-cols-12">
           <div className="lg:col-span-4">
-            <Logo variant="onDark" showDescriptor />
+            <Logo variant="onDark" />
             <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-[rgba(255,255,255,0.68)]">
               {ONE_LINE_POSITIONING}
             </p>
             <p className="mt-2 text-[13px] font-medium text-mint">
               {SITE_TAGLINE}
             </p>
-            {SCALELENS_URL ? (
-              <p className="mt-4 text-[14px] leading-relaxed text-[rgba(255,255,255,0.68)]">
-                Sister company:{" "}
-                <a
-                  href={SCALELENS_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="font-medium text-white underline decoration-mint underline-offset-4 transition hover:text-mint"
-                >
-                  ScaleLens
-                </a>{" "}
-                (dashboards &amp; BI).
-              </p>
-            ) : null}
 
             {SOCIAL_LINKS.length > 0 ? (
               <div className="mt-6">

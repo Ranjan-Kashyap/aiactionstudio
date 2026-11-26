@@ -6,8 +6,6 @@ export const ONE_LINE_POSITIONING =
   "AI Action Studio builds and maintains the systems that take manual work off your team, from spreadsheets and WhatsApp to one connected, AI-assisted way of working.";
 
 export const YOUTUBE_URL = "https://www.youtube.com/@ai.actionstudio";
-// TODO(Ranjan): confirm the final ScaleLens URL if different from https://scalelens.app
-export const SCALELENS_URL = "https://scalelens.app";
 
 export const BOOKING_URL = process.env.NEXT_PUBLIC_BOOKING_URL ?? "";
 export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "";

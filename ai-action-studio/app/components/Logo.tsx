@@ -1,17 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
-import { SITE_DESCRIPTOR } from "@/lib/site";
 
 type LogoProps = {
   className?: string;
   variant?: "color" | "white" | "onDark";
-  showDescriptor?: boolean;
 };
 
 export default function Logo({
   className = "",
   variant = "color",
-  showDescriptor = false,
 }: LogoProps) {
   const src =
     variant === "white"
@@ -27,7 +24,7 @@ export default function Logo({
   return (
     <Link
       href="/"
-      className={`inline-flex shrink-0 flex-col items-start ${className}`}
+      className={`inline-flex shrink-0 items-center ${className}`}
       aria-label="AI Action Studio home"
     >
       <Image
@@ -39,17 +36,6 @@ export default function Logo({
         style={{ width: "auto" }}
         priority
       />
-      {showDescriptor ? (
-        <span
-          className={`mt-0.5 text-[11px] font-medium tracking-[0.02em] ${
-            variant === "onDark" || variant === "white"
-              ? "text-[rgba(255,255,255,0.68)]"
-              : "text-slate"
-          }`}
-        >
-          {SITE_DESCRIPTOR}
-        </span>
-      ) : null}
     </Link>
   );
 }

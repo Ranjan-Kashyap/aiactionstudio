@@ -7,11 +7,11 @@ import {
   buildAboutPageSchema,
 } from "../components/Breadcrumbs";
 import TalkToUsButton from "../components/TalkToUsButton";
-import { SCALELENS_URL, SITE_URL } from "@/lib/site";
+import { SITE_URL } from "@/lib/site";
 
 const fullTitle = "About Ranjan Kashyap & AI Action Studio";
 const description =
-  "Meet Ranjan Kashyap, founder of AI Action Studio, ScaleRise and ScaleLens. We build, connect and maintain practical AI systems and automations for growing businesses.";
+  "Meet Ranjan Kashyap, founder of AI Action Studio and ScaleRise. We build, connect and maintain practical AI systems and automations for growing businesses.";
 
 export const metadata: Metadata = {
   title: {
@@ -108,16 +108,7 @@ export default function AboutPage() {
           <p>
             Before starting AI Action Studio, I ran <strong>ScaleRise</strong>, an agency focused
             on data engineering, analytics tracking and workflow automation for agencies and
-            growing businesses across the US, UK, Canada, Australia and India, and built{" "}
-            <a
-              href={SCALELENS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
-            >
-              ScaleLens
-            </a>
-            , our sister product for custom reporting dashboards and BI.
+            growing businesses across the US, UK, Canada, Australia and India.
           </p>
           <p>
             Most teams don&apos;t need another AI subscription or a 50-page consulting deck. They

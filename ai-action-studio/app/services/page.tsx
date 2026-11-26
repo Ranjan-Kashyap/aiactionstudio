@@ -14,7 +14,7 @@ import {
   SERVICE_PHASES,
   getServicesByPhase,
 } from "@/src/data/services";
-import { SCALELENS_URL, SHOW_PRICING, SITE_URL } from "@/lib/site";
+import { SHOW_PRICING, SITE_URL } from "@/lib/site";
 
 const fullTitle = "AI Automation Services for Businesses | AI Action Studio";
 const description =
@@ -73,11 +73,6 @@ const servicesFaqs = [
     question: "What happens after the system goes live?",
     answer:
       "With an AI Care Plan, we monitor your workflows and agents, fix breakages when APIs change, handle a set number of small improvements each month, and review everything with you monthly.",
-  },
-  {
-    question: "Do you build BI or reporting dashboards?",
-    answer:
-      "If you mainly need reporting dashboards or business intelligence, our sister company ScaleLens handles that.",
   },
 ];
 
@@ -189,30 +184,6 @@ export default function ServicesHubPage() {
 
       {/* Engagement and pricing block, behind SHOW_PRICING (default false) */}
       {SHOW_PRICING ? <PricingBlock /> : null}
-
-      {/* "Not a fit" note */}
-      <section className="border-t border-sand bg-cream py-12 md:py-16">
-        <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-          <div className="rounded-xl border border-sand bg-white p-6 md:p-8">
-            <div className="mb-2.5 h-0.5 w-10 bg-mint" aria-hidden />
-            <h2 className="text-[19px] font-semibold text-navy">
-              Need reporting dashboards or BI instead?
-            </h2>
-            <p className="mt-2 text-[16px] leading-relaxed text-slate">
-              If you mainly need dashboards or BI, our sister company{" "}
-              <a
-                href={SCALELENS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-semibold text-navy underline decoration-mint underline-offset-4 hover:decoration-navy"
-              >
-                ScaleLens
-              </a>{" "}
-              does that.
-            </p>
-          </div>
-        </div>
-      </section>
 
       {/* FAQ */}
       <section id="faq" className="border-t border-sand bg-white py-20 md:py-24">

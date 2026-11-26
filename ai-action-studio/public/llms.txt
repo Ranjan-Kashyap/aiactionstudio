@@ -23,7 +23,7 @@ Every project starts with a free 30-minute systems audit, then a fixed-price blu
 ## Company
 - [About Ranjan Kashyap and AI Action Studio](https://aiactionstudio.com/about)
 - [Contact and free systems audit](https://aiactionstudio.com/contact)
-- Sister company for dashboards and BI: [ScaleLens](https://scalelens.app)
+- Founder previously ran ScaleRise, a data analytics and performance marketing agency.
 
 ## Free resources
 - [Free AI resources](https://aiactionstudio.com/resources)
