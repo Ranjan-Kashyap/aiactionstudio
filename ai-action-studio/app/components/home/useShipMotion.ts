@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import type { ShipState } from "./home-copy";
 
@@ -8,6 +8,8 @@ const ROTATORS =
   "#gear-large, #gear-small, #flywheel, #propeller, #gauge-needle, #wheel-spin, #oar-1, #oar-2, #oar-3, #oar-4, #oar-5, #oar-6";
 
 const OAR_PORTS = [274, 334, 394, 454, 514, 574] as const;
+const CRAFT = "#helicopter, #rotor";
+const HOVER = "#helicopter, #rotor, #ladder";
 
 function strokeLength(el: Element): number {
   const geo = el as SVGGeometryElement;
@@ -35,7 +37,137 @@ function drawIn(root: Element | null, duration = 0.5) {
   return tl;
 }
 
-function playState(svg: SVGSVGElement, state: ShipState) {
+function isMobile() {
+  return window.matchMedia("(max-width: 899px)").matches;
+}
+
+function startRotorLoops() {
+  gsap.fromTo(
+    "#rotor path",
+    { scaleX: 1, svgOrigin: "190 47" },
+    {
+      scaleX: 0.15,
+      svgOrigin: "190 47",
+      duration: 0.14,
+      ease: "none",
+      yoyo: true,
+      repeat: -1,
+    },
+  );
+  gsap.to("#tail-rotor", {
+    rotation: 360,
+    svgOrigin: "102 64",
+    duration: 0.4,
+    ease: "none",
+    repeat: -1,
+  });
+}
+
+function startHoverLoop() {
+  gsap.set("#ladder", { scaleY: 1, svgOrigin: "191 92" });
+  gsap.fromTo(
+    HOVER,
+    { y: -3 },
+    {
+      y: 3,
+      duration: 1.6,
+      ease: "sine.inOut",
+      yoyo: true,
+      repeat: -1,
+      overwrite: false,
+    },
+  );
+}
+
+function playScene2(fromState: ShipState | null) {
+  const mobile = isMobile();
+  const arrive = mobile ? 0.7 : 1.2;
+  const ladderDur = mobile ? 0.5 : 0.8;
+  const teamDur = mobile ? 0.4 : 0.5;
+  const fromRight = fromState === 3;
+
+  gsap.set("#team-1, #team-2", { opacity: 0, y: -6 });
+  gsap.set("#ladder", { scaleY: 0, svgOrigin: "191 92", y: 0 });
+  gsap.set(
+    "#problem-sales, #problem-operations, #problem-finance, #problem-people, #problem-rowing",
+    { opacity: 0 },
+  );
+  gsap.set(CRAFT, {
+    x: fromRight ? 300 : -260,
+    y: fromRight ? -120 : -80,
+    opacity: 0,
+  });
+
+  const tl = gsap.timeline();
+  startRotorLoops();
+
+  tl.to(CRAFT, {
+    x: 0,
+    y: 0,
+    opacity: 1,
+    duration: arrive,
+    ease: "power2.out",
+  });
+  tl.to("#ladder", {
+    scaleY: 1,
+    svgOrigin: "191 92",
+    duration: ladderDur,
+    ease: "power1.out",
+  });
+  tl.add(() => {
+    startHoverLoop();
+  });
+  tl.to("#team-1, #team-2", {
+    opacity: 1,
+    y: 0,
+    duration: teamDur,
+    stagger: 0.3,
+    ease: "power1.out",
+  });
+  tl.to(
+    "#problem-sales, #problem-operations, #problem-finance, #problem-people, #problem-rowing",
+    {
+      opacity: 1,
+      duration: 0.35,
+      stagger: 0.12,
+      ease: "power1.out",
+    },
+  );
+}
+
+function leaveScene2(toState: ShipState) {
+  gsap.set(CRAFT, { x: 0, y: 0, opacity: 1 });
+  gsap.set("#ladder", { scaleY: 1, svgOrigin: "191 92", opacity: 1 });
+  gsap.set("#team-1, #team-2", { opacity: 1, y: 0 });
+
+  const tl = gsap.timeline();
+  tl.to("#team-1, #team-2", { opacity: 0, duration: 0.25, ease: "power1.in" });
+  tl.to(
+    "#ladder",
+    { scaleY: 0, svgOrigin: "191 92", duration: 0.4, ease: "power1.in" },
+    0,
+  );
+  if (toState === 3) {
+    tl.to(
+      CRAFT,
+      { x: 300, y: -120, opacity: 0, duration: 1, ease: "power2.in" },
+      0.2,
+    );
+  } else {
+    tl.to(
+      CRAFT,
+      { x: -260, y: -80, opacity: 0, duration: 0.8, ease: "power2.in" },
+      0.15,
+    );
+  }
+  return tl;
+}
+
+function playState(
+  svg: SVGSVGElement,
+  state: ShipState,
+  prev: ShipState | null,
+) {
   gsap.set(ROTATORS, { clearProps: "transform" });
   gsap.set(
     "#gear-large, #gear-small, #flywheel, #propeller, #gauge-needle, #wheel-spin",
@@ -66,16 +198,23 @@ function playState(svg: SVGSVGElement, state: ShipState) {
     });
   }
 
+  if (state !== 2 && !(state === 1 && prev === 2) && !(state === 3 && prev === 2)) {
+    gsap.set(HOVER + ", #team-1, #team-2", { opacity: 0, x: 0, y: 0, scaleY: 1 });
+  }
+
+  if (state === 1 && prev === 2) {
+    leaveScene2(1);
+  }
+
   if (state === 2) {
-    gsap.fromTo(
-      "#boat, #team-1, #team-2, #team-3",
-      { opacity: 0 },
-      { opacity: 1, duration: 0.5, stagger: 0.12, ease: "power1.out" },
-    );
+    playScene2(prev);
   }
 
   if (state === 3) {
-    const enter = gsap.timeline();
+    if (prev === 2) {
+      leaveScene2(3);
+    }
+    const enter = gsap.timeline({ delay: prev === 2 ? 0.35 : 0 });
     enter.to(
       "#crew-rooms-manual, #worker-sales, #worker-operations, #worker-finance, #worker-people",
       { opacity: 0, duration: 0.4, ease: "power1.out" },
@@ -126,7 +265,9 @@ function playState(svg: SVGSVGElement, state: ShipState) {
       ease: "none",
       repeat: -1,
     });
-    const rod = svg.querySelector("#piston-rod") ?? svg.querySelector("#piston path:last-of-type");
+    const rod =
+      svg.querySelector("#piston-rod") ??
+      svg.querySelector("#piston path:last-of-type");
     if (rod) {
       gsap.to(rod, { x: 4, duration: 0.55, ease: "sine.inOut", yoyo: true, repeat: -1 });
     }
@@ -166,12 +307,16 @@ function playState(svg: SVGSVGElement, state: ShipState) {
 }
 
 export function useShipMotion(svg: SVGSVGElement | null, state: ShipState) {
+  const prevRef = useRef<ShipState | null>(null);
+
   useEffect(() => {
     if (!svg) return;
+    const prev = prevRef.current;
+    prevRef.current = state;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     const ctx = gsap.context(() => {
-      playState(svg, state);
+      playState(svg, state, prev);
     }, svg);
 
     return () => ctx.revert();

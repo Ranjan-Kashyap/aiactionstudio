@@ -124,6 +124,16 @@
   opacity: 1;
 }
 
+.ship-svg-host #helicopter,
+.ship-svg-host #rotor,
+.ship-svg-host #ladder,
+.ship-svg-host #team,
+.ship-svg-host #team-1,
+.ship-svg-host #team-2,
+.ship-svg-host #problems {
+  transition: none;
+}
+
 .story-progress {
   display: flex;
   flex-wrap: wrap;

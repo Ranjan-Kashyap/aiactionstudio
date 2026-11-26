@@ -1,6 +1,6 @@
 export const SHIP_STATE_LABELS = {
   1: "An old sailing ship at night: rowers below deck, crew pulling ropes, the captain running between departments instead of steering.",
-  2: "Our team comes aboard and marks the problems in each department.",
+  2: "A helicopter hovers over the deck, a ladder drops between the wheel and the mast, and two of our team stand on board marking problems in each department.",
   3: "Each department gets a system and an engine is installed.",
   4: "Engine on at sunrise: sails furled, propeller turning, the captain steering.",
   5: "Calm morning sea: the ship runs itself while the captain steers and a care-plan crew checks the engine.",
